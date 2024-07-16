@@ -23,9 +23,9 @@ export default function RootLayout({
       <body className={`${poppins.className} text-slate-700`}>
         <CartProvider>
           <Toaster />
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col">
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="min-h-screen">{children}</main>
             <Footer />
           </div>
         </CartProvider>
@@ -33,3 +33,5 @@ export default function RootLayout({
     </html>
   );
 }
+//TODO:
+//Full height screen drawbacks

@@ -11,7 +11,7 @@ const ProductReviews: React.FC<IProductReviews> = ({ product }) => {
     <>
       {product.reviews.length > 0 && (
         <>
-          <h2 className="mt-5 mb-2 text-2xl font-semibold">Product Review</h2>
+          <h2 className="mt-5 mb-2 text-2xl font-semibold">Product Reviews</h2>
           {product.reviews.map((review: any) => (
             <div key={review.id}>
               <div className="flex gap-2 items-center">

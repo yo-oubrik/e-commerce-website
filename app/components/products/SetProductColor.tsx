@@ -4,12 +4,12 @@ import { CartProduct, ProductImage } from "@/app/product/utils/types";
 
 interface ISetProductColor {
   images: ProductImage[];
-  CartProduct: CartProduct;
+  cartProduct: CartProduct;
   handleColorSelect: (image: ProductImage) => void;
 }
 const SetProductColor: React.FC<ISetProductColor> = ({
   images,
-  CartProduct,
+  cartProduct,
   handleColorSelect,
 }) => {
   return (
@@ -20,9 +20,9 @@ const SetProductColor: React.FC<ISetProductColor> = ({
           <div
             key={image.color}
             className={`flex items-center justify-center size-7 rounded-full border-2 ${
-              image.colorCode === CartProduct.selectedImage.colorCode
+              image.colorCode === cartProduct.selectedImage.colorCode
                 ? " border-teal-300"
-                : "border-transparent"
+                : "border-slate-500"
             }`}
           >
             <div

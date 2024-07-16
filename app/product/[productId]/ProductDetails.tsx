@@ -1,8 +1,7 @@
 "use client";
 import { formatPrice } from "@/app/utils/formatPrice";
 import { Rating } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import { CartProduct, ProductImage } from "../utils/types";
 import Button from "@/app/components/Button";
 import ProductImgsCarousel from "@/app/product/[productId]/ProductImgsCarousel";
@@ -12,6 +11,7 @@ import { MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import SetProductQuantity from "@/app/components/products/SetProductQuantity";
 import SetProductColor from "@/app/components/products/SetProductColor";
+import toast from "react-hot-toast";
 interface IProductDetails {
   product: any;
 }
@@ -25,7 +25,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
         ) / numberOfReviews
       : 0;
 
-  const [CartProduct, setCartProduct] = React.useState<CartProduct>({
+  const [cartProduct, setCartProduct] = React.useState<CartProduct>({
     id: product.id,
     name: product.name,
     description: product.description,
@@ -44,26 +44,28 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
       selectedImage: image,
     }));
   };
-  const handleDecrementQuantity = () => {
+  const handleQuantityDecrease = () => {
+    if (cartProduct.selectedQuantity == cartProduct.minQuantity) {
+      toast.error("Ooops! Minimum quantity reached");
+      return;
+    }
     setCartProduct((prev) => {
-      if (prev.selectedQuantity > prev.minQuantity) {
-        return {
-          ...prev,
-          selectedQuantity: prev.selectedQuantity - 1,
-        };
-      }
-      return prev;
+      return {
+        ...prev,
+        selectedQuantity: prev.selectedQuantity - 1,
+      };
     });
   };
-  const handleIncrementQuantity = () => {
+  const handleQuantityIncrease = () => {
+    if (cartProduct.selectedQuantity == cartProduct.maxQuantity) {
+      toast.error("Ooops! Maximum quantity reached");
+      return;
+    }
     setCartProduct((prev) => {
-      if (prev.selectedQuantity < prev.maxQuantity) {
-        return {
-          ...prev,
-          selectedQuantity: prev.selectedQuantity + 1,
-        };
-      }
-      return prev;
+      return {
+        ...prev,
+        selectedQuantity: prev.selectedQuantity + 1,
+      };
     });
   };
   const { cartProducts, addProductToCart } = useCart();
@@ -71,7 +73,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   const [isProductInCart, setIsProductInCart] = useState(false);
   useEffect(() => {
     setIsProductInCart(
-      cartProducts?.some((prod) => prod.id === CartProduct.id) ?? false
+      cartProducts?.some((prod) => prod.id === cartProduct.id) ?? false
     );
   }, [cartProducts]);
   const router = useRouter();
@@ -80,7 +82,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
       <div className="image-container">
         <ProductImgsCarousel
           product={product}
-          CartProduct={CartProduct}
+          cartProduct={cartProduct}
           handleColorSelect={handleColorSelect}
         />
       </div>
@@ -132,22 +134,22 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
         {product.availableQuantity > 0 && !isProductInCart && (
           <>
             <SetProductColor
-              CartProduct={CartProduct}
+              cartProduct={cartProduct}
               images={product.images}
               handleColorSelect={handleColorSelect}
             />
             <Separator />
             <SetProductQuantity
-              CartProduct={CartProduct}
-              handleQuantityIncrease={handleIncrementQuantity}
-              handleQuantityDecrease={handleDecrementQuantity}
+              cartProduct={cartProduct}
+              handleQuantityIncrease={handleQuantityIncrease}
+              handleQuantityDecrease={handleQuantityDecrease}
             />
             <Separator />
             <div className="max-w-[250px]">
               <Button
                 label="Add To Cart"
                 onClick={() => {
-                  addProductToCart(CartProduct);
+                  addProductToCart(cartProduct);
                   setIsProductInCart(true);
                 }}
               />

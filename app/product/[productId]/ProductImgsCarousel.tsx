@@ -5,23 +5,23 @@ import React from "react";
 
 interface IProductCarousel {
   product: any;
-  CartProduct: CartProduct;
+  cartProduct: CartProduct;
   handleColorSelect: (image: ProductImage) => void;
 }
 const ProductImgsCarousel: React.FC<IProductCarousel> = ({
   product,
-  CartProduct,
+  cartProduct,
   handleColorSelect,
 }) => {
-  const selectedImageUrl = CartProduct.selectedImage.imageUrl;
+  const selectedImageUrl = cartProduct.selectedImage.imageUrl;
   return (
     <div className="h-full flex  max-lg:gap-4 max-lg:justify-center">
-      <div className="h-fit my-auto py-8 basis-20 flex justify-center items-center flex-col gap-5 p-2 rounded-md border-2 border-slate-100">
+      <div className="h-fit my-auto py-8 basis-30 flex justify-center items-center flex-col gap-5 p-2 rounded-md border-2 border-slate-100">
         {product.images.map((image: ProductImage, index: number) => (
           <Image
-            width={63}
-            height={53}
-            alt={CartProduct.name}
+            width={73}
+            height={73}
+            alt={cartProduct.name}
             src={image.imageUrl}
             key={index}
             className={`cursor-pointer ${
@@ -35,7 +35,7 @@ const ProductImgsCarousel: React.FC<IProductCarousel> = ({
       </div>
       <div className="flex lg:flex-1 h-full items-center justify-center">
         <Image
-          alt={CartProduct.name}
+          alt={cartProduct.name}
           src={selectedImageUrl}
           width={300}
           height={380}

@@ -2,13 +2,13 @@
 import { CartProduct } from "@/app/product/utils/types";
 import React, { useState } from "react";
 interface ISetProductQuantity {
-  CartProduct: CartProduct;
+  cartProduct: CartProduct;
   handleQuantityIncrease: () => void;
   handleQuantityDecrease: () => void;
 }
 
 const SetProductQuantity: React.FC<ISetProductQuantity> = ({
-  CartProduct,
+  cartProduct,
   handleQuantityIncrease,
   handleQuantityDecrease,
 }) => {
@@ -21,7 +21,7 @@ const SetProductQuantity: React.FC<ISetProductQuantity> = ({
       >
         -
       </div>
-      <div>{CartProduct.selectedQuantity}</div>
+      <div>{cartProduct.selectedQuantity}</div>
       <div
         className="flex items-center justify-center size-7 rounded-md border-[1.5px] border-slate-400 duration-300 hover:border-slate-500 cursor-pointer"
         onClick={handleQuantityIncrease}
