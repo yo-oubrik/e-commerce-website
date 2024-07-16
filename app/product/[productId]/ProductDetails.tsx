@@ -112,7 +112,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           {product.availableQuantity > 0 ? "In Stock" : "Out of Stock"}
         </span>
         <Separator />
-        {isProductInCart ? (
+        {isProductInCart && (
           <>
             <div className="flex items-center gap-[6px] mt-4 font-semibold text-slate-500">
               <MdCheckCircle size={20} className="text-teal-500" />
@@ -128,7 +128,8 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
               />
             </div>
           </>
-        ) : (
+        )}
+        {product.availableQuantity > 0 && !isProductInCart && (
           <>
             <SetProductColor
               CartProduct={CartProduct}

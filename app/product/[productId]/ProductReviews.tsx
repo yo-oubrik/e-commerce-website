@@ -9,10 +9,10 @@ interface IProductReviews {
 const ProductReviews: React.FC<IProductReviews> = ({ product }) => {
   return (
     <>
-      {product.reviews &&
-        product.reviews.map((review: any) => (
-          <>
-            <h2 className="mt-5 mb-2 text-2xl font-semibold">Product Review</h2>
+      {product.reviews.length > 0 && (
+        <>
+          <h2 className="mt-5 mb-2 text-2xl font-semibold">Product Review</h2>
+          {product.reviews.map((review: any) => (
             <div key={review.id}>
               <div className="flex gap-2 items-center">
                 <Avatar
@@ -29,9 +29,10 @@ const ProductReviews: React.FC<IProductReviews> = ({ product }) => {
                 {review.comment}
               </p>
             </div>
-            <Separator />
-          </>
-        ))}
+          ))}
+          <Separator />
+        </>
+      )}
     </>
   );
 };

@@ -5,6 +5,7 @@ import { formatPrice } from "../utils/formatPrice";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
+import { truncTitle } from "../utils/truncTitle";
 interface IProductCartRow {
   product: CartProduct;
 }
@@ -31,7 +32,9 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
         </Link>
         <div>
           <Link href={`/product/${product.id}`}>
-            <h3 className="text-sm">{product.name}</h3>
+            <h3 className="text-sm" title={`${product.name}`}>
+              {truncTitle(product.name)}
+            </h3>
           </Link>
           <button
             className="text-slate-500 underline underline-offset-[3px] mt-1"
@@ -47,7 +50,7 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
       <div className="my-auto">
         <SetProductQuantity
           CartProduct={product}
-          handleInantityIncrease={() => {
+          handleQuantityIncrease={() => {
             handleQuantityIncrease(product);
           }}
           handleQuantityDecrease={() => {

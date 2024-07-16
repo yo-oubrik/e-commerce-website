@@ -11,7 +11,6 @@ const Product: React.FC<IProductParams> = ({ params }) => {
   return (
     <Container customClass="py-8">
       <ProductDetails product={product} />
-      <h2 className="mt-5 mb-2 text-2xl font-semibold">Product Review</h2>
       <ProductReviews product={product} />
     </Container>
   );

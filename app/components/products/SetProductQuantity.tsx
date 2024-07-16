@@ -13,7 +13,8 @@ const SetProductQuantity: React.FC<ISetProductQuantity> = ({
   handleQuantityDecrease,
 }) => {
   return (
-    <div className="flex items-center gap-4 justify-center">
+    <div className="flex items-center gap-4">
+      <span className="font-bold">QUANTITY:</span>
       <div
         className="flex items-center justify-center size-7 rounded-md border-[1.5px] border-slate-400 duration-300 hover:border-slate-500 cursor-pointer"
         onClick={handleQuantityDecrease}
