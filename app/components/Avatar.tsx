@@ -1,0 +1,21 @@
+import Image from "next/image";
+import { FaUserCircle } from "react-icons/fa";
+interface IAvatar {
+  src: string | null | undefined;
+  alt: string;
+}
+const Avatar: React.FC<IAvatar> = ({ src, alt }) => {
+  return src ? (
+    <Image
+      src={src}
+      alt={alt}
+      width={32}
+      height={32}
+      className="rounded-full"
+    />
+  ) : (
+    <FaUserCircle size={28} />
+  );
+};
+
+export default Avatar;
