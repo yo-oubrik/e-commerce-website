@@ -21,15 +21,15 @@ const Button: React.FC<IButton> = ({
 }) => {
   return (
     <button
-      className={`flex items-center justify-center gap-2 w-full rounded-md py-3  ${
+      className={`flex items-center justify-center gap-2 w-full rounded-md  ${
         outline ? "bg-white" : "bg-slate-700"
       } transition hover:opacity-80
         ${outline && "border-slate-700 border-2"} ${
         outline ? "text-slate-700" : "text-white"
       }
-        ${disabled && "disabled:opacity-70 disabled:cursor-not-allowed"} ${
-        small ? "text-sm font-light py-1 border" : "text-md font-semibold"
-      } ${custom && custom}`}
+        ${disabled ? "disabled:opacity-70 disabled:cursor-not-allowed" : ""} ${
+        small ? "text-sm font-light p-1" : "text-md font-semibold py-3"
+      } ${custom ? custom : ""}`}
       onClick={onClick}
     >
       {Icon && <Icon size={28} />}

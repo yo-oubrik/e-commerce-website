@@ -34,8 +34,8 @@ const Input: React.FC<IInput> = ({
         className={`
           peer
           w-full
+          pt-5
           p-4
-          pt-6 
           outline-none
           bg-white 
           font-light 
@@ -44,7 +44,6 @@ const Input: React.FC<IInput> = ({
           transition
           disabled:opacity-70
           disabled:cursor-not-allowed
-          pl-4
           ${errors[id] ? "border-rose-400" : "border-gray-300"}
           ${errors[id] ? "focus:border-rose-400" : "focus:border-slate-500"}
         `}

@@ -47,7 +47,7 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
         </div>
       </div>
       <div className="my-auto text-center">{formatPrice(product.price)}</div>
-      <div className="my-auto">
+      <div className="my-auto flex justify-center">
         <SetProductQuantity
           cartProduct={product}
           handleQuantityIncrease={() => {

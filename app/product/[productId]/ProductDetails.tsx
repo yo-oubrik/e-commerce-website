@@ -139,11 +139,14 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
               handleColorSelect={handleColorSelect}
             />
             <Separator />
-            <SetProductQuantity
-              cartProduct={cartProduct}
-              handleQuantityIncrease={handleQuantityIncrease}
-              handleQuantityDecrease={handleQuantityDecrease}
-            />
+            <div className="flex items-center gap-4">
+              <span className="font-bold">QUANTITY:</span>
+              <SetProductQuantity
+                cartProduct={cartProduct}
+                handleQuantityIncrease={handleQuantityIncrease}
+                handleQuantityDecrease={handleQuantityDecrease}
+              />
+            </div>
             <Separator />
             <div className="max-w-[250px]">
               <Button
