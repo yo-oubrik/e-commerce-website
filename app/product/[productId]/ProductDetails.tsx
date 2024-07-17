@@ -12,19 +12,13 @@ import { useRouter } from "next/navigation";
 import SetProductQuantity from "@/app/components/products/SetProductQuantity";
 import SetProductColor from "@/app/components/products/SetProductColor";
 import toast from "react-hot-toast";
+import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
 interface IProductDetails {
   product: any;
 }
 const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   const numberOfReviews = product.reviews.length;
-  const productRating =
-    numberOfReviews > 0
-      ? product.reviews.reduce(
-          (acc: number, review: any) => acc + review.rating,
-          0
-        ) / numberOfReviews
-      : 0;
-
+  const productRating = calculateAverageRating(product.reviews);
   const [cartProduct, setCartProduct] = React.useState<CartProduct>({
     id: product.id,
     name: product.name,

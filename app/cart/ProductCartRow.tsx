@@ -5,7 +5,7 @@ import { formatPrice } from "../utils/formatPrice";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
-import { truncTitle } from "../utils/truncTitle";
+import { truncTitle } from "../utils/helperFunctions/truncTitle";
 interface IProductCartRow {
   product: CartProduct;
 }
