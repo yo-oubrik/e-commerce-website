@@ -23,9 +23,9 @@ const Button: React.FC<IButton> = ({
     <button
       className={`flex items-center justify-center gap-2 w-full rounded-md py-3  ${
         outline ? "bg-white" : "bg-slate-700"
-      } transition hover:bg-opacity-85
+      } transition hover:opacity-80
         ${outline && "border-slate-700 border-2"} ${
-        outline ? "text-slate-700 hover:text-opacity-85" : "text-white"
+        outline ? "text-slate-700" : "text-white"
       }
         ${disabled && "disabled:opacity-70 disabled:cursor-not-allowed"} ${
         small ? "text-sm font-light py-1 border" : "text-md font-semibold"

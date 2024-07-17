@@ -35,3 +35,9 @@ export default function RootLayout({
 }
 //TODO:
 //Full height screen drawbacks
+//Fix available quantity
+//Decouple cart from product
+//Decouple product details
+//Use local storage to store nbr of products and total price
+//Fix border
+//Table responsive

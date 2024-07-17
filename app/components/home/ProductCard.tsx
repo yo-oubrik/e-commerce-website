@@ -36,7 +36,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="mx-auto object-contain"
         />
       </div>
-      <h2 title={`${product.name}`}>{truncTitle(product.name)}</h2>
+      <h2 title={`${product.name}`} className="mt-2">
+        {truncTitle(product.name)}
+      </h2>
       <Rating value={productRating} readOnly />
       <p className="text-sm">{numberOfReviews} reviews</p>
       <p className="font-bold">{formatPrice(product.price)}</p>
