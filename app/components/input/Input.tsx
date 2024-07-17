@@ -9,8 +9,10 @@ interface IInput {
   register: UseFormRegister<FieldValues>;
   disabled?: boolean;
   required?: boolean;
+  requiredMessage?: string;
   type?: string;
   errors: FieldErrors;
+  validation?: Record<string, any>;
 }
 
 const Input: React.FC<IInput> = ({
@@ -20,7 +22,9 @@ const Input: React.FC<IInput> = ({
   errors,
   disabled,
   required,
+  requiredMessage = "This field is required",
   type = "text",
+  validation = {},
 }) => {
   return (
     <div className="w-full relative">
@@ -28,7 +32,10 @@ const Input: React.FC<IInput> = ({
         autoComplete="off"
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
+        {...register(id, {
+          required: required ? requiredMessage : false,
+          ...validation,
+        })}
         placeholder=""
         type={type}
         className={`
@@ -69,6 +76,11 @@ const Input: React.FC<IInput> = ({
       >
         {label}
       </label>
+      {errors[id] && (
+        <span className="text-rose-400 text-sm">
+          {errors[id].message?.toString()}
+        </span>
+      )}
     </div>
   );
 };

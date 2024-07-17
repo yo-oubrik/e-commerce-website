@@ -49,7 +49,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
       setTotalPrice((prev) => prev + product.price * product.selectedQuantity);
       setCartProducts(updatedCartProducts);
       localStorage.setItem("cartProducts", JSON.stringify(updatedCartProducts));
-      setCartNumberOfProducts((prev) => prev + 1);
+      setCartNumberOfProducts((prev) => prev + product.selectedQuantity);
       toast.success("Product added to cart", {
         id: product.id,
       });
@@ -64,7 +64,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
       localStorage.setItem("cartProducts", JSON.stringify(updatedCartProducts));
       setCartProducts(updatedCartProducts);
       setTotalPrice((prev) => prev - product.price * product.selectedQuantity);
-      setCartNumberOfProducts((prev) => prev - 1);
+      setCartNumberOfProducts((prev) => prev - product.selectedQuantity);
       toast.success("Product removed from cart", {
         id: product.id,
       });

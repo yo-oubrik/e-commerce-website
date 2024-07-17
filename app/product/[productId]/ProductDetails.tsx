@@ -1,75 +1,30 @@
 "use client";
 import { formatPrice } from "@/app/utils/formatPrice";
 import { Rating } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { CartProduct, ProductImage } from "../utils/types";
 import Button from "@/app/components/Button";
 import ProductImgsCarousel from "@/app/product/[productId]/ProductImgsCarousel";
 import { Separator } from "@/app/components/Separator";
-import { useCart } from "@/hooks/useCart";
 import { MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import SetProductQuantity from "@/app/components/products/SetProductQuantity";
 import SetProductColor from "@/app/components/products/SetProductColor";
-import toast from "react-hot-toast";
-import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
+import IsProductInStock from "./IsProductInStock";
+import { useProductDetails } from "@/hooks/useProductDetails";
 interface IProductDetails {
   product: any;
 }
 const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
-  const numberOfReviews = product.reviews.length;
-  const productRating = calculateAverageRating(product.reviews);
-  const [cartProduct, setCartProduct] = React.useState<CartProduct>({
-    id: product.id,
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    brand: product.brand,
-    category: product.category,
-    availableQuantity: product.availableQuantity,
-    minQuantity: 1,
-    maxQuantity: product.availableQuantity,
-    selectedImage: product.images[0],
-    selectedQuantity: 1,
-  });
-  const handleColorSelect = (image: ProductImage) => {
-    setCartProduct((prev) => ({
-      ...prev,
-      selectedImage: image,
-    }));
-  };
-  const handleQuantityDecrease = () => {
-    if (cartProduct.selectedQuantity == cartProduct.minQuantity) {
-      toast.error("Ooops! Minimum quantity reached");
-      return;
-    }
-    setCartProduct((prev) => {
-      return {
-        ...prev,
-        selectedQuantity: prev.selectedQuantity - 1,
-      };
-    });
-  };
-  const handleQuantityIncrease = () => {
-    if (cartProduct.selectedQuantity == cartProduct.maxQuantity) {
-      toast.error("Ooops! Maximum quantity reached");
-      return;
-    }
-    setCartProduct((prev) => {
-      return {
-        ...prev,
-        selectedQuantity: prev.selectedQuantity + 1,
-      };
-    });
-  };
-  const { cartProducts, addProductToCart } = useCart();
-
-  const [isProductInCart, setIsProductInCart] = useState(false);
-  useEffect(() => {
-    setIsProductInCart(
-      cartProducts?.some((prod) => prod.id === cartProduct.id) ?? false
-    );
-  }, [cartProducts]);
+  const {
+    cartProduct,
+    handleColorSelect,
+    productRating,
+    numberOfReviews,
+    isProductInCart,
+    handleQuantityDecrease,
+    handleQuantityIncrease,
+    addProductToCart,
+    setIsProductInCart,
+  } = useProductDetails(product);
   const router = useRouter();
   return (
     <div className="grid lg:grid-cols-2 gap-8">
@@ -100,13 +55,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           <span className="font-bold">BRAND:</span>
           <span className="text-slate-500">{product.brand}</span>
         </div>
-        <span
-          className={
-            product.availableQuantity > 0 ? "text-teal-400" : "text-rose-400"
-          }
-        >
-          {product.availableQuantity > 0 ? "In Stock" : "Out of Stock"}
-        </span>
+        <IsProductInStock product={product} />
         <Separator />
         {isProductInCart && (
           <>

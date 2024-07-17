@@ -4,7 +4,7 @@ import RegisterForm from "./RegisterForm";
 
 const Register = () => {
   return (
-    <Container customClass="flex items-center justify-center min-h-screen">
+    <Container customClass="flex justify-center py-8">
       <FormWrapper>
         <RegisterForm></RegisterForm>
       </FormWrapper>

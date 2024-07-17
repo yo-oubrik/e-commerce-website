@@ -19,9 +19,9 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
   return (
     <div
       key={product.id}
-      className="grid grid-cols-1 sm:grid-cols-5 border-b border-slate-200 py-2 text-sm"
+      className="max-sm:flex max-sm:flex-col max-sm:gap-2 sm:grid sm:grid-cols-5 border-b border-slate-200 py-2 text-sm"
     >
-      <div className="max-sm:justify-center col-span-2 flex items-center gap-4">
+      <div className="sm:col-span-2 flex items-center max-sm:justify-center gap-4">
         <Link href={`/product/${product.id}`}>
           <Image
             src={product.selectedImage.imageUrl}
@@ -37,7 +37,7 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
             </h3>
           </Link>
           <button
-            className="text-slate-500 underline underline-offset-[3px] mt-1"
+            className="mt-1 text-slate-500 underline underline-offset-[3px]"
             onClick={() => {
               removeProductFromCart(product);
             }}
