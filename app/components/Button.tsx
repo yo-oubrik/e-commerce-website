@@ -32,7 +32,7 @@ const Button: React.FC<IButton> = ({
       } ${custom ? custom : ""}`}
       onClick={onClick}
     >
-      {Icon && <Icon size={28} />}
+      {Icon && <Icon size={26} />}
       {label}
     </button>
   );

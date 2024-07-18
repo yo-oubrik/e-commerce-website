@@ -1,14 +1,14 @@
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 interface IAvatar {
-  src: string | null | undefined;
-  alt: string;
+  src?: string;
+  alt?: string;
 }
 const Avatar: React.FC<IAvatar> = ({ src, alt }) => {
   return src ? (
     <Image
       src={src}
-      alt={alt}
+      alt={alt ? alt : ""}
       width={32}
       height={32}
       className="rounded-full"

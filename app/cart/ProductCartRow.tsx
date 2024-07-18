@@ -46,10 +46,17 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
           </button>
         </div>
       </div>
-      <div className="my-auto text-center">{formatPrice(product.price)}</div>
+      <div
+        className="my-auto text-center max-sm:data-small-devices"
+        data-custom-attribute="Price:"
+      >
+        {formatPrice(product.price)}
+      </div>
       <div className="my-auto flex justify-center">
         <SetProductQuantity
           cartProduct={product}
+          customClass="max-sm:data-small-devices"
+          dataCustomAttribute="Quantity:"
           handleQuantityIncrease={() => {
             handleQuantityIncrease(product);
           }}
@@ -58,7 +65,10 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
           }}
         />
       </div>
-      <div className="my-auto sm:text-end font-bold max-sm:text-center">
+      <div
+        className="my-auto sm:text-end font-bold max-sm:text-center max-sm:data-small-devices"
+        data-custom-attribute="Total Price:"
+      >
         {formatPrice(product.selectedQuantity * product.price)}
       </div>
     </div>

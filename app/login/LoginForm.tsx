@@ -4,14 +4,10 @@ import Button from "../components/Button";
 import Input from "../components/input/Input";
 import { Separator } from "../components/Separator";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Link from "next/link";
 import { AiOutlineGoogle } from "react-icons/ai";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { error } from "console";
-const RegisterForm = () => {
+import Link from "next/link";
+
+const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -25,34 +21,10 @@ const RegisterForm = () => {
     },
   });
 
-  const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        toast.success("Account created");
-        signIn("credentials", {
-          redirect: false,
-          email: data.email,
-          password: data.password,
-        }).then((res) => {
-          if (res?.error) {
-            toast.error(res.error);
-          } else {
-            router.push("/cart");
-            router.refresh();
-            toast.success("Logged in");
-          }
-        });
-      })
-      .catch((err) => {
-        toast.error("Ooops! internal error occured try again later");
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    console.log(data);
+    setIsLoading(false);
   };
 
   const validateUsername = (value: string) => {
@@ -67,30 +39,16 @@ const RegisterForm = () => {
   return (
     <>
       <h2 className="text-2xl font-bold">
-        Sign Up for E<span className="text-base align-middle">-</span>Shop
+        Sign in to E<span className="text-base align-middle">-</span>Shop
       </h2>
       <Button
         outline
         onClick={() => {}}
-        label="Sign up with Google"
+        label="Continue with Google"
         Icon={AiOutlineGoogle}
       />
       <Separator width={100} />
-      <Input
-        id="name"
-        label="Name"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-        validation={{
-          minLength: {
-            value: 6,
-            message: "Username length must be at least 8 characters long",
-          },
-          validate: validateUsername,
-        }}
-      />
+
       <Input
         id="email"
         label="Email"
@@ -116,22 +74,22 @@ const RegisterForm = () => {
         validation={{
           minLength: {
             value: 6,
-            message: "Password must be at least 6 characters long",
+            message: "Password are at least 6 characters long",
           },
         }}
       />
       <Button
-        label={isLoading ? "Loading..." : "Sign Up"}
+        label={isLoading ? "Loading..." : "Login"}
         onClick={handleSubmit(onSubmit)}
       />
       <p className="text-sm">
-        Already have an account?{" "}
+        D'ont have an account?{" "}
         <Link href="/login" className="underline">
-          Log in
+          Sign Up
         </Link>
       </p>
     </>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

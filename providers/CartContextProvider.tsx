@@ -75,6 +75,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
     localStorage.removeItem("cartProducts");
     setCartProducts(null);
     setTotalPrice(0);
+    setCartNumberOfProducts(0);
   }, []);
   const handleQuantityDecrease = useCallback(
     (product: CartProduct) => {
