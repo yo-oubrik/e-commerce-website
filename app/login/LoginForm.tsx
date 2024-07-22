@@ -1,14 +1,24 @@
 "use client";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import Button from "../components/Button";
 import Input from "../components/input/Input";
 import { Separator } from "../components/Separator";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineGoogle } from "react-icons/ai";
 import Link from "next/link";
-
-const LoginForm = () => {
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { safeUser } from "../product/utils/types";
+const LoginForm = ({ currentUser }: { currentUser: safeUser | null }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+      router.refresh();
+    }
+  });
   const {
     register,
     handleSubmit,
@@ -23,19 +33,28 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log(data);
-    setIsLoading(false);
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    })
+      .then((callback) => {
+        if (callback?.ok) {
+          router.push("/");
+          router.refresh();
+          toast.success("Logged in successfully");
+        } else {
+          toast.error(callback?.error || "Ooops! an internal error occured");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Ooops! an internal error occured");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
-
-  const validateUsername = (value: string) => {
-    // Regex pattern to check for special characters
-    const regex = /^[a-zA-Z0-9]*$/;
-    if (!regex.test(value)) {
-      return "Username should not contain special characters";
-    }
-    return true;
-  };
-
+  if (currentUser) return <p>Logged in. Redirecting...</p>;
   return (
     <>
       <h2 className="text-2xl font-bold">
@@ -84,7 +103,7 @@ const LoginForm = () => {
       />
       <p className="text-sm">
         D'ont have an account?{" "}
-        <Link href="/login" className="underline">
+        <Link href="/register" className="underline">
           Sign Up
         </Link>
       </p>

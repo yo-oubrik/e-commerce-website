@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Input from "../components/input/Input";
 import { Separator } from "../components/Separator";
@@ -11,7 +11,8 @@ import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { error } from "console";
-const RegisterForm = () => {
+import { safeUser } from "../product/utils/types";
+const RegisterForm = ({ currentUser }: { currentUser: safeUser | null }) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -26,6 +27,12 @@ const RegisterForm = () => {
   });
 
   const router = useRouter();
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+      router.refresh();
+    }
+  });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     axios
@@ -36,19 +43,23 @@ const RegisterForm = () => {
           redirect: false,
           email: data.email,
           password: data.password,
-        }).then((res) => {
-          if (res?.error) {
-            toast.error(res.error);
-          } else {
-            router.push("/cart");
-            router.refresh();
-            toast.success("Logged in");
-          }
-        });
+        })
+          .then((res) => {
+            if (res?.error) {
+              toast.error(res.error);
+            } else {
+              router.push("/cart");
+              router.refresh();
+              toast.success("Logged in");
+            }
+          })
+          .catch((error) => {
+            toast.error("An internal error occured");
+            console.log(error);
+          });
       })
       .catch((err) => {
-        toast.error("Ooops! internal error occured try again later");
-        console.log(err);
+        toast.error(err.response?.data?.error || "An internal error occured");
       })
       .finally(() => {
         setIsLoading(false);
@@ -63,6 +74,8 @@ const RegisterForm = () => {
     }
     return true;
   };
+
+  if (currentUser) return <p>Logged in. Redirecting...</p>;
 
   return (
     <>
