@@ -6,7 +6,7 @@ interface IButton {
   disabled?: boolean;
   small?: boolean;
   Icon?: IconType;
-  custom?: string;
+  customClass?: string;
   outline?: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -15,7 +15,7 @@ const Button: React.FC<IButton> = ({
   disabled,
   small,
   Icon,
-  custom,
+  customClass,
   outline,
   onClick,
 }) => {
@@ -27,9 +27,9 @@ const Button: React.FC<IButton> = ({
         ${outline && "border-slate-700 border-2"} ${
         outline ? "text-slate-700" : "text-white"
       }
-        ${disabled ? "disabled:opacity-70 disabled:cursor-not-allowed" : ""} ${
+        ${disabled ? "opacity-80 cursor-not-allowed" : ""} ${
         small ? "text-sm font-light p-1" : "text-md font-semibold py-3"
-      } ${custom ? custom : ""}`}
+      } ${customClass ? customClass : ""}`}
       onClick={onClick}
     >
       {Icon && <Icon size={26} />}

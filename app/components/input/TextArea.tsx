@@ -3,7 +3,7 @@
 import React from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
-interface IInput {
+interface ITextArea {
   id: string;
   label: string;
   register: UseFormRegister<FieldValues>;
@@ -15,7 +15,7 @@ interface IInput {
   validation?: Record<string, any>;
 }
 
-const Input: React.FC<IInput> = ({
+const TextArea: React.FC<ITextArea> = ({
   id,
   label,
   register,
@@ -28,7 +28,7 @@ const Input: React.FC<IInput> = ({
 }) => {
   return (
     <div className="w-full relative">
-      <input
+      <textarea
         autoComplete="off"
         id={id}
         disabled={disabled}
@@ -37,11 +37,12 @@ const Input: React.FC<IInput> = ({
           ...validation,
         })}
         placeholder=""
-        type={type}
         className={`
+          min-h-[140px]
+          resize-none
           peer
           w-full
-          pt-6
+          pt-5
           p-4
           outline-none
           bg-white 
@@ -85,4 +86,4 @@ const Input: React.FC<IInput> = ({
   );
 };
 
-export default Input;
+export default TextArea;

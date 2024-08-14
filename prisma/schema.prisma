@@ -21,6 +21,8 @@ model Account {
     id_token          String? @db.String
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
 }
 
 model User {
@@ -34,9 +36,79 @@ model User {
     updatedAt      DateTime  @updatedAt
     role           Role      @default(USER)
     Account        Account[]
+    Order          Order[]
+    reviews        Review[]
+}
+
+model Order {
+    id              String        @id @default(auto()) @map("_id") @db.ObjectId
+    userId          String        @db.ObjectId
+    amount          Float
+    currency        String
+    status          String
+    deliveryStatus  String?
+    createDate      DateTime      @default(now())
+    paymentIntentId String        @unique
+    products        CartProduct[]
+    address         Address?
+    user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+type CartProduct {
+    id                String
+    name              String
+    description       String
+    price             Float
+    availableQuantity Int
+    minQuantity       Int
+    maxQuantity       Int
+    selectedQuantity  Int
+    brand             String
+    category          String
+    selectedImage     ProductImage
+}
+
+type ProductImage {
+    color     String
+    colorCode String
+    imageUrl  String
+}
+
+type Address {
+    city        String
+    country     String
+    line1       String
+    line2       String?
+    postal_code String
+    state       String
 }
 
 enum Role {
     USER
     ADMIN
+}
+
+model Product {
+    id          String         @id @default(auto()) @map("_id") @db.ObjectId
+    name        String
+    description String
+    price       Float
+    brand       String
+    category    String
+    quantity    Int
+    maxQuantity Int
+    minQuantity Int
+    images      ProductImage[]
+    reviews     Review[]
+}
+
+model Review {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    userId    String   @db.ObjectId
+    productId String?  @db.ObjectId
+    rating    Int
+    comment   String
+    createdAt DateTime @default(now())
+    Product   Product? @relation(fields: [productId], references: [id])
+    user      User     @relation(fields: [userId], references: [id])
 }

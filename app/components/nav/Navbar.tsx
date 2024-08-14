@@ -11,7 +11,7 @@ const redressed = Redressed({
 const Navbar = async () => {
   const currentUser = await getCurrentUser();
   return (
-    <header className="sticky top-0 z-10 py-4 bg-slate-200 shadow-sm border-b">
+    <header className="sticky top-0 z-30 py-4 bg-slate-200 shadow-sm border-b">
       <Container>
         <div className="flex justify-between items-center">
           <Link href="/" className={`${redressed.className} text-2xl`}>

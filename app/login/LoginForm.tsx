@@ -62,7 +62,9 @@ const LoginForm = ({ currentUser }: { currentUser: safeUser | null }) => {
       </h2>
       <Button
         outline
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
         label="Continue with Google"
         Icon={AiOutlineGoogle}
       />

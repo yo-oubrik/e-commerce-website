@@ -8,7 +8,7 @@ const MenuItem: React.FC<IMenuItem> = ({ customClass, onClick, children }) => {
   return (
     <li
       onClick={onClick}
-      className={`p-3 transition hover:bg-slate-50 ${
+      className={`p-3 transition hover:bg-slate-50 text-[17px] sm:text-base ${
         customClass ? customClass : ""
       }`}
     >

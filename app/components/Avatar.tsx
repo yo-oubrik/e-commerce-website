@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 interface IAvatar {
-  src?: string;
+  src?: string | undefined | null;
   alt?: string;
 }
 const Avatar: React.FC<IAvatar> = ({ src, alt }) => {

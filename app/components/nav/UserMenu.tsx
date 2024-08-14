@@ -7,6 +7,9 @@ import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 import BackDrop from "./BackDrop";
 import { safeUser } from "@/app/product/utils/types";
+import toast from "react-hot-toast";
+import { log } from "console";
+import { useRouter } from "next/navigation";
 
 const UserMenu = ({
   currentUser,
@@ -15,16 +18,17 @@ const UserMenu = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen((prev) => !prev);
+  const router = useRouter();
   return (
     <>
-      <div className="relative z-30">
+      <div className="relative z-50">
         <div
           className={` flex gap-1 p-[5px] rounded-3xl items-center border border-slate-400 cursor-pointer transition  ${
             isOpen ? "shadow-md" : ""
           }`}
           onClick={toggleMenu}
         >
-          <Avatar />
+          <Avatar src={currentUser?.image ? currentUser.image : ""} />
           <AiFillCaretDown />
         </div>
         {isOpen && (
@@ -42,7 +46,17 @@ const UserMenu = ({
                 <MenuItem
                   onClick={() => {
                     toggleMenu();
-                    signOut();
+                    try {
+                      signOut({
+                        redirect: false,
+                      });
+                      router.push("/");
+                      router.refresh();
+                      toast.success("Signed out");
+                    } catch (e) {
+                      toast.error("Failed to sign-out");
+                      console.log(e);
+                    }
                   }}
                   customClass="cursor-pointer"
                 >

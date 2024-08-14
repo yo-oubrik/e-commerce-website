@@ -12,10 +12,10 @@ const ProductCartTable: React.FC<IProductCartTable> = ({ cartProducts }) => {
         <div className="col-span-2">PRODUCT</div>
         <div className="text-center">PRICE</div>
         <div className="text-center">QUANTITY</div>
-        <div className="text-end">TOTAL</div>
+        <div className="text-end">SUBTOTAL</div>
       </div>
       {cartProducts.map((product) => (
-        <ProductCartRow product={product} />
+        <ProductCartRow product={product} key={product.id} />
       ))}
     </div>
   );

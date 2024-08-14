@@ -14,6 +14,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
   const [cartProducts, setCartProducts] = useState<
     CartProduct[] | null | undefined | undefined
   >(null);
+  const [paymentIntent, setPaymentIntent] = useState<String | null>(null);
 
   //Setting the cart products from local storage
   useEffect(() => {
@@ -38,6 +39,10 @@ export const CartContextProvider = (props: ICartContextProvider) => {
       setTotalPrice(totalPrice);
       setCartNumberOfProducts(nbrOfProducts);
       setCartProducts(parsedCartProducts);
+      const paymentIntentJSON = localStorage.getItem("paymentIntent");
+      const paymentIntentObj =
+        paymentIntentJSON && JSON.parse(paymentIntentJSON);
+      setPaymentIntent(paymentIntentObj);
     }
   }, []);
 
@@ -94,7 +99,10 @@ export const CartContextProvider = (props: ICartContextProvider) => {
       setCartNumberOfProducts((prev) => prev - 1);
       setTotalPrice((prev) => prev - product.price);
       setCartProducts(updatedCartProducts);
-      localStorage.setItem("cartProducts", JSON.stringify(updatedCartProducts));
+      localStorage.setItem(
+        "paymentIntent",
+        JSON.stringify(updatedCartProducts)
+      );
     },
     [cartProducts]
   );
@@ -120,6 +128,13 @@ export const CartContextProvider = (props: ICartContextProvider) => {
     [cartProducts]
   );
 
+  const handleSetPaymentIntent = useCallback(
+    (value: String | null) => {
+      setPaymentIntent(value);
+      localStorage.setItem("paymentIntent", JSON.stringify(value));
+    },
+    [paymentIntent]
+  );
   const value = {
     cartNumberOfProducts,
     cartProducts,
@@ -128,6 +143,8 @@ export const CartContextProvider = (props: ICartContextProvider) => {
     clearCart,
     handleQuantityIncrease,
     handleQuantityDecrease,
+    paymentIntent,
+    handleSetPaymentIntent,
     totalPrice,
   };
   return <CartContext.Provider value={value} {...props} />;

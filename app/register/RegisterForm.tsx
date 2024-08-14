@@ -48,7 +48,7 @@ const RegisterForm = ({ currentUser }: { currentUser: safeUser | null }) => {
             if (res?.error) {
               toast.error(res.error);
             } else {
-              router.push("/cart");
+              router.push("/");
               router.refresh();
               toast.success("Logged in");
             }
@@ -84,7 +84,9 @@ const RegisterForm = ({ currentUser }: { currentUser: safeUser | null }) => {
       </h2>
       <Button
         outline
-        onClick={() => {}}
+        onClick={() => {
+          signIn("google");
+        }}
         label="Sign up with Google"
         Icon={AiOutlineGoogle}
       />
