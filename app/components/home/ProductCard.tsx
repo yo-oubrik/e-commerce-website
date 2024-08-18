@@ -13,15 +13,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const productRating = calculateAverageRating(product.reviews);
 
   const router = useRouter();
-  const handleCardClick = () => {
-    router.push(`/product/${product.id}`);
-  };
 
   return (
     <div
       key={product.id}
       className="flex flex-col items-center justify-between cursor-pointer border-[1.2px] border-slate-200 bg-slate-50 py-3 px-4 rounded-md transition hover:scale-105 hover:shadow-sm"
-      onClick={handleCardClick}
+      onClick={() => {
+        router.push(`/product/${product.id}`);
+      }}
     >
       <div className="w-[min(100%,180px)] aspect-square relative">
         <Image

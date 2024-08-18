@@ -39,3 +39,25 @@ export default async function getProducts(params?: IProduct) {
     throw error;
   }
 }
+export async function getProductById(id: string) {
+  try {
+    return await prisma.product.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        reviews: {
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching product by id:", error);
+    throw error;
+  }
+}

@@ -4,8 +4,13 @@ import { Product, ProductImage } from "@prisma/client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { formatPrice } from "@/app/utils/formatPrice";
 import { truncTitle } from "@/app/utils/helperFunctions/truncTitle";
-import { max, min } from "moment";
-
+import { ActionBtn } from "@/app/components/ActionBtn";
+import { MdCached, MdDelete, MdRemoveRedEye } from "react-icons/md";
+import prisma from "@/libs/prismadb";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 interface IManageProductsClient {
   products: Product[];
 }
@@ -21,15 +26,36 @@ interface IRows {
   inStock: boolean;
   images: ProductImage[];
 }
+
 export const ManageProductsClient: React.FC<IManageProductsClient> = ({
   products,
 }) => {
+  const router = useRouter();
+  const handleProductDelete = useCallback(async (id: string) => {
+    try {
+      toast("Deleting product...", {
+        id,
+      });
+      await axios.delete("/api/product", {
+        data: {
+          id,
+        },
+      });
+      toast.success("Product deleted successfully", {
+        id,
+      });
+      router.refresh();
+    } catch (error) {
+      console.log("Error trying to delete product with id : " + id, error);
+      toast.error("Ooops! something went wrong");
+    }
+  }, []);
   let rows: IRows[] = [];
   if (products) {
     rows = products.map((product) => {
       return {
         id: product.id,
-        name: truncTitle(product.name),
+        name: product.name,
         quantity: product.quantity,
         minQuantity: product.minQuantity,
         maxQuantity: product.maxQuantity,
@@ -45,32 +71,32 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
     {
       field: "id",
       headerName: "ID",
-      width: 220,
+      width: 110,
     },
     {
       field: "name",
       headerName: "Name",
-      width: 105,
+      width: 180,
     },
     {
       field: "quantity",
       headerName: "Quantity",
-      width: 105,
+      width: 109,
     },
     {
       field: "minQuantity",
       headerName: "Min Quantity",
-      width: 105,
+      width: 109,
     },
     {
       field: "maxQuantity",
       headerName: "Max Quantity",
-      width: 105,
+      width: 109,
     },
     {
       field: "price",
       headerName: "Price(USD)",
-      width: 105,
+      width: 109,
       renderCell: (params) => {
         return <div className="font-bold text-slate-800">{params.value}</div>;
       },
@@ -78,17 +104,17 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
     {
       field: "category",
       headerName: "Category",
-      width: 105,
+      width: 109,
     },
     {
       field: "brand",
       headerName: "Brand",
-      width: 105,
+      width: 109,
     },
     {
       field: "inStock",
       headerName: "Stock State",
-      width: 105,
+      width: 109,
       renderCell: (params) => {
         return (
           <span
@@ -103,12 +129,29 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
     {
       field: "actions",
       headerName: "Actions",
-      width: 105,
+      width: 140,
       renderCell: (params) => {
-        return <div></div>;
+        return (
+          <div className="flex items-center gap-4 justify-center  h-full">
+            <ActionBtn
+              onClick={() => {
+                const id = params.row.id;
+                handleProductDelete(id);
+              }}
+              icon={MdDelete}
+            />
+            <ActionBtn
+              onClick={() => {
+                router.push("/product/" + params.row.id);
+              }}
+              icon={MdRemoveRedEye}
+            />
+          </div>
+        );
       },
     },
   ];
+
   return (
     <div>
       <h2 className="text-center text-2xl mb-7">Manage Products</h2>

@@ -1,8 +1,5 @@
 import FormWrapper from "@/app/components/FormWrapper";
-import Input from "@/app/components/input/Input";
 import { AddProductForm } from "./AddProductForm";
-import { RedirectionPage } from "@/app/components/RedirectionPage";
-import { getCurrentUser } from "@/actions/user/userActions";
 export const addProduct = () => {
   return (
     <div>

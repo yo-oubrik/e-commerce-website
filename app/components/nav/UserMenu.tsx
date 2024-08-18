@@ -36,7 +36,7 @@ const UserMenu = ({
             {currentUser ? (
               <>
                 <Link href="/orders">
-                  <MenuItem onClick={toggleMenu}>Orders</MenuItem>
+                  <MenuItem onClick={toggleMenu}>Your Orders</MenuItem>
                 </Link>
                 {currentUser.role === "ADMIN" && (
                   <Link href="/dashboard">

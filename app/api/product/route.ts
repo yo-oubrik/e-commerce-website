@@ -1,14 +1,27 @@
 import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/actions/user/userActions";
+import { deleteObject, getStorage, ref } from "firebase/storage";
+import { log } from "console";
+import { ProductImage } from "@prisma/client";
+import firebaseApp from "@/libs/firebase";
+
+export async function isUserAdmin() {
+  const currentUser = await getCurrentUser();
+
+  // Authorization check
+  if (!currentUser || currentUser.role !== "ADMIN") {
+    return false;
+  }
+  return true;
+}
 
 export async function POST(request: Request) {
   try {
-    const currentUser = await getCurrentUser();
-
-    // Authorization check
-    if (!currentUser || currentUser.role !== "ADMIN") {
-      return NextResponse.error();
+    console.log("POST request to /api/product");
+    if (!(await isUserAdmin())) {
+      console.error("error creating product: Unauthorized");
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Parse and validate the request body
@@ -72,5 +85,52 @@ export async function POST(request: Request) {
       { error: "Internal server error" },
       { status: 500 }
     );
+  }
+}
+
+export async function DELETE(request: Request) {
+  console.log("DELETE request to /api/product");
+  if (!(await isUserAdmin())) {
+    console.error("error creating product: Unauthorized");
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const { id } = await request.json();
+  if (!id) {
+    console.log("Error trying to delete products: Invalid id :" + id);
+
+    return NextResponse.json(
+      { error: "Invalid or missing data" },
+      { status: 400 }
+    );
+  }
+  try {
+    //deleting product
+    const deletedProduct = await prisma.product.delete({ where: { id: id } });
+    try {
+      await deleteProductImages(deletedProduct.images);
+    } catch (error) {
+      console.error("Error deleting images", error);
+    }
+    return NextResponse.json({
+      deletedProduct,
+    });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+async function deleteProductImages(images: ProductImage[]) {
+  //deleting images
+  const storage = getStorage(firebaseApp);
+  for (const item of images) {
+    {
+      if (item.imageUrl) {
+        const imageRef = ref(storage, item.imageUrl);
+        await deleteObject(imageRef);
+      }
+    }
   }
 }

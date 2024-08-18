@@ -17,6 +17,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 //Client side
 export type ImageType = {
   color: string;
@@ -98,7 +99,7 @@ export const AddProductForm = () => {
     setIsLoading(true);
     let uploadedImages: UploadedImageType[] = [];
     const handleImageUploads = async () => {
-      toast("Uploading images, please wait...");
+      toast("Uploading product, please wait...");
       try {
         //loop through client uploaded images
         for (const item of data.images) {
