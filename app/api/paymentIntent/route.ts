@@ -3,6 +3,7 @@ import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/actions/user/userActions";
 import { calculateProductsAmount } from "@/app/utils/helperFunctions/calculateProductsAmount";
+import { CartProduct } from "@/app/product/utils/types";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 

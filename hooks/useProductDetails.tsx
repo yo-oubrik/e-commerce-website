@@ -3,8 +3,12 @@ import toast from "react-hot-toast";
 import { CartProduct, ProductImage } from "@/app/product/utils/types";
 import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
 import { useCart } from "@/hooks/useCart";
+import { Product, Review } from "@prisma/client";
 
-export const useProductDetails = (product: any) => {
+type useProductDetailsProps = Product & {
+  reviews: Review[];
+};
+export const useProductDetails = (product: useProductDetailsProps) => {
   const [cartProduct, setCartProduct] = useState<CartProduct>({
     id: product.id,
     name: product.name,
@@ -12,17 +16,19 @@ export const useProductDetails = (product: any) => {
     price: product.price,
     brand: product.brand,
     category: product.category,
-    availableQuantity: product.availableQuantity,
-    minQuantity: 1,
-    maxQuantity: product.availableQuantity,
+    availableQuantity: product.quantity,
+    minQuantity: product.minQuantity,
+    maxQuantity: product.maxQuantity,
     selectedImage: product.images[0],
-    selectedQuantity: 1,
+    selectedQuantity: product.minQuantity,
   });
 
   const [isProductInCart, setIsProductInCart] = useState(false);
   const { cartProducts, addProductToCart } = useCart();
   const numberOfReviews = product.reviews.length;
-  const productRating = calculateAverageRating(product.reviews);
+  const productRating = product.reviews
+    ? calculateAverageRating(product.reviews)
+    : 0;
 
   useEffect(() => {
     setIsProductInCart(

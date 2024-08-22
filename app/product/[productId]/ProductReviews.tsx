@@ -3,20 +3,24 @@ import { Rating } from "@mui/material";
 import { Separator } from "@/app/components/Separator";
 import moment from "moment";
 import Avatar from "@/app/components/Avatar";
+import { Product, Review } from "@prisma/client";
+
 interface IProductReviews {
-  product: any;
+  product: Product & {
+    reviews: Review[];
+  };
 }
 const ProductReviews: React.FC<IProductReviews> = ({ product }) => {
   return (
     <>
-      {product.reviews.length > 0 && (
+      {product.reviews.length > 0 ? (
         <>
-          <h2 className="mt-5 mb-2 text-2xl font-semibold">Product Reviews</h2>
+          <h2 className="mt-5 mb-2 text-xl font-semibold">Product Reviews</h2>
           {product.reviews.map((review: any) => (
-            <div key={review.id}>
+            <div key={review.id} className="mb-2">
               <div className="flex gap-2 items-center">
                 <Avatar
-                  src={review.user.imageUrl}
+                  src={review.user.image}
                   alt={`${review.user.name} profile image`}
                 />
                 <h3 className="font-semibold">{review.user.name}</h3>
@@ -32,6 +36,8 @@ const ProductReviews: React.FC<IProductReviews> = ({ product }) => {
           ))}
           <Separator />
         </>
+      ) : (
+        <h2 className="mt-5 mb-2 text-xl font-semibold">No reviews yet</h2>
       )}
     </>
   );

@@ -13,6 +13,14 @@ export async function getCurrentUser() {
       where: {
         email: session.user.email,
       },
+      include: {
+        orders: {
+          include: {
+            products: true,
+          },
+        },
+        reviews: true,
+      },
     });
 
     if (!currentUser) {

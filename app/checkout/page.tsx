@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { CheckoutForm } from "./CheckoutForm";
 import Button from "../components/Button";
 import { RedirectionPage } from "../components/RedirectionPage";
+import { getErrorMessage } from "../utils/helperFunctions/getErrorMessage";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
@@ -54,7 +55,7 @@ const Checkout = () => {
       } catch (error) {
         setIsLoading(false);
         setHasError(true);
-        console.error(error);
+        console.error(getErrorMessage(error));
         toast.error("Oops! Something went wrong. Please try again.");
       }
     };
@@ -83,7 +84,7 @@ const Checkout = () => {
         ) : isLoading ? (
           <p className="text-center">Loading...</p>
         ) : hasError ? (
-          <p className="text-center text-rose-500">Something went wrong...</p>
+          <p className="text-center text-rose-500">Something went wrong</p>
         ) : clientSecret ? (
           <FormWrapper customClass="mx-auto">
             <div className="w-full">

@@ -33,7 +33,7 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
     await axios
       .put("/api/order", {
         id,
-        deliveryStatus: "delivered",
+        deliveryStatus: "delivred",
       })
       .then((res) => {
         toast.success("Order Delivered", { id });

@@ -10,8 +10,12 @@ import SetProductQuantity from "@/app/components/products/SetProductQuantity";
 import SetProductColor from "@/app/components/products/SetProductColor";
 import IsProductInStock from "./IsProductInStock";
 import { useProductDetails } from "@/hooks/useProductDetails";
+import { Product, Review } from "@prisma/client";
+type productType = Product & {
+  reviews: Review[];
+};
 interface IProductDetails {
-  product: any;
+  product: productType;
 }
 const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   const {
@@ -55,7 +59,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           <span className="font-bold">BRAND:</span>
           <span className="text-slate-500">{product.brand}</span>
         </div>
-        <IsProductInStock product={product} />
+        <IsProductInStock product={cartProduct} />
         <Separator />
         {isProductInCart && (
           <>
@@ -74,7 +78,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
             </div>
           </>
         )}
-        {product.availableQuantity > 0 && !isProductInCart && (
+        {product.quantity > 0 && !isProductInCart && (
           <>
             <SetProductColor
               cartProduct={cartProduct}

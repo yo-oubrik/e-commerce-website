@@ -36,22 +36,28 @@ model User {
     updatedAt      DateTime  @updatedAt
     role           Role      @default(USER)
     Account        Account[]
-    Order          Order[]
+    orders         Order[]
     reviews        Review[]
 }
 
 model Order {
-    id              String        @id @default(auto()) @map("_id") @db.ObjectId
-    userId          String        @db.ObjectId
+    id              String         @id @default(auto()) @map("_id") @db.ObjectId
+    userId          String         @db.ObjectId
     amount          Float
     currency        String
     status          String
-    deliveryStatus  String?
-    createDate      DateTime      @default(now())
-    paymentIntentId String        @unique
+    deliveryStatus  DeliveryStatus
+    createDate      DateTime       @default(now())
+    paymentIntentId String         @unique
     products        CartProduct[]
     address         Address?
-    user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+    Product         Product[]
+}
+
+enum DeliveryStatus {
+    delivred
+    dispatched
 }
 
 type CartProduct {
@@ -59,13 +65,13 @@ type CartProduct {
     name              String
     description       String
     price             Float
+    brand             String
+    category          String
     availableQuantity Int
     minQuantity       Int
     maxQuantity       Int
-    selectedQuantity  Int
-    brand             String
-    category          String
     selectedImage     ProductImage
+    selectedQuantity  Int
 }
 
 type ProductImage {
@@ -100,12 +106,14 @@ model Product {
     minQuantity Int
     images      ProductImage[]
     reviews     Review[]
+    Order       Order?         @relation(fields: [orderId], references: [id])
+    orderId     String?        @db.ObjectId
 }
 
 model Review {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     userId    String   @db.ObjectId
-    productId String?  @db.ObjectId
+    productId String   @db.ObjectId
     rating    Int
     comment   String
     createdAt DateTime @default(now())

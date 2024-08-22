@@ -1,27 +1,21 @@
 import prisma from "@/libs/prismadb";
 export interface IProduct {
-  category?: string;
-  searchTerm?: string;
+  category: string;
+  search: string;
 }
-export default async function getProducts(params?: IProduct) {
+export default async function getProducts(params: IProduct) {
+  const { category, search } = params;
+
   try {
-    const { category, searchTerm } = params || {};
-    let searchString = searchTerm || "";
     return await prisma.product.findMany({
       where: {
-        category: category || undefined,
-        OR: [
-          {
-            name: {
-              contains: searchString,
-              mode: "insensitive",
-            },
-            description: {
-              contains: searchString,
-              mode: "insensitive",
-            },
-          },
-        ],
+        ...(category && { category }),
+        ...(search && {
+          OR: [
+            { name: { contains: search, mode: "insensitive" } },
+            { description: { contains: search, mode: "insensitive" } },
+          ],
+        }),
       },
       include: {
         reviews: {
@@ -39,6 +33,7 @@ export default async function getProducts(params?: IProduct) {
     throw error;
   }
 }
+
 export async function getProductById(id: string) {
   try {
     return await prisma.product.findUnique({

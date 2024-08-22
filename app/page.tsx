@@ -1,22 +1,22 @@
 import HomeBanner from "./components/home/HomeBanner";
 import Container from "./components/Container";
-import ProductCard from "./components/home/ProductCard";
-import getProducts from "@/actions/products/productActions";
-export default async function Home() {
-  console.debug("Trying to get all products");
-  const products = await getProducts();
-  console.debug("Fetched products ", products);
+import getProducts, { IProduct } from "@/actions/products/productActions";
+import { ProductsSection } from "./ProductsSection";
+interface IHome {
+  searchParams: IProduct;
+}
+const Home: React.FC<IHome> = async ({ searchParams }) => {
+  let { category = "", search = "" } = searchParams;
+  category = category !== "All" ? category : "";
+  const products = await getProducts({ search, category });
 
   return (
     <div className="py-8">
       <Container>
         <HomeBanner />
-        <section className="grid xs:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-          {products.map((product) => (
-            <ProductCard product={product} />
-          ))}
-        </section>
+        <ProductsSection products={products} />
       </Container>
     </div>
   );
-}
+};
+export default Home;
