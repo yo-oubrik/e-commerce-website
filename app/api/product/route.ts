@@ -18,7 +18,6 @@ export async function isUserAdmin() {
 
 export async function POST(request: Request) {
   try {
-    console.log("POST request to /api/product");
     if (!(await isUserAdmin())) {
       console.error("error creating product: Unauthorized");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -89,14 +88,13 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  console.log("DELETE request to /api/product");
   if (!(await isUserAdmin())) {
     console.error("error creating product: Unauthorized");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { id } = await request.json();
   if (!id) {
-    console.log("Error trying to delete products: Invalid id :" + id);
+    console.error("Error trying to delete products: Invalid id :" + id);
 
     return NextResponse.json(
       { error: "Invalid or missing data" },

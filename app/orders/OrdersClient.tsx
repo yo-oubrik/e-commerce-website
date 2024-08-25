@@ -1,12 +1,13 @@
 "use client";
 
-import { Order, User } from "@prisma/client";
+import { DeliveryStatus, Order, PaymentStatus, User } from "@prisma/client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { formatPrice } from "@/app/utils/formatPrice";
 import { ActionBtn } from "@/app/components/ActionBtn";
 import { MdRemoveRedEye } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import { Heading } from "../components/Heading";
 interface IManageOrdersClient {
   orders: Order[];
 }
@@ -14,7 +15,7 @@ interface IRows {
   id: string;
   amount: string;
   status: string;
-  deliveryStatus: string | null;
+  deliveryStatus: DeliveryStatus;
   createDate: string;
 }
 
@@ -51,9 +52,9 @@ export const OrdersClient: React.FC<IManageOrdersClient> = ({ orders }) => {
         return (
           <span
             className={`${
-              params.value === "complete"
+              params.value === PaymentStatus.complete
                 ? "text-teal-400"
-                : "pending"
+                : PaymentStatus.pending
                 ? "text-rose-400"
                 : ""
             }
@@ -72,11 +73,11 @@ export const OrdersClient: React.FC<IManageOrdersClient> = ({ orders }) => {
         return (
           <span
             className={`${
-              params.value === "delivered"
+              params.value === DeliveryStatus.delivered
                 ? "text-teal-400"
-                : "pending"
+                : DeliveryStatus.pending
                 ? "text-rose-400"
-                : "dispatched"
+                : DeliveryStatus.dispatched
                 ? "text-orange-400"
                 : ""
             }
@@ -113,7 +114,7 @@ export const OrdersClient: React.FC<IManageOrdersClient> = ({ orders }) => {
 
   return (
     <div>
-      <h2 className="text-center text-2xl mb-7">Manage orders</h2>
+      <Heading title={"Manage orders"} />
       <DataGrid
         columns={columns}
         rows={rows}

@@ -3,9 +3,7 @@ import { OrdersClient } from "./OrdersClient";
 import { getClientOrders } from "@/actions/orders/ordersActions";
 import Container from "../components/Container";
 export const ManageOrders = async () => {
-  console.log("Calling getClientOrders");
   const orders = await getClientOrders();
-  console.log("Fetched orders", orders);
 
   return (
     <div className="py-8">

@@ -47,7 +47,7 @@ const LoginForm = ({ currentUser }: { currentUser: safeUser | null }) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error trying to login", error);
         toast.error("Ooops! an internal error occured");
       })
       .finally(() => {

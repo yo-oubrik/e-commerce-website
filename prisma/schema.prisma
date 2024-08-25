@@ -45,19 +45,24 @@ model Order {
     userId          String         @db.ObjectId
     amount          Float
     currency        String
-    status          String
+    status          PaymentStatus
     deliveryStatus  DeliveryStatus
     createDate      DateTime       @default(now())
     paymentIntentId String         @unique
-    products        CartProduct[]
+    products        Product[]
     address         Address?
     user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-    Product         Product[]
 }
 
 enum DeliveryStatus {
-    delivred
+    delivered
     dispatched
+    pending
+}
+
+enum PaymentStatus {
+    complete
+    pending
 }
 
 type CartProduct {

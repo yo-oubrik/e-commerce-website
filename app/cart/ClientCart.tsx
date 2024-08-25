@@ -6,6 +6,7 @@ import { RedirectionPage } from "../components/RedirectionPage";
 import { useCart } from "@/hooks/useCart";
 import { useState } from "react";
 import { safeUser } from "../product/utils/types";
+import { Heading } from "../components/Heading";
 interface IClientCart {
   currentUser: safeUser | null;
 }
@@ -15,7 +16,7 @@ export const ClientCart: React.FC<IClientCart> = ({ currentUser }) => {
     <>
       {cartProducts && cartProducts.length != 0 ? (
         <>
-          <h2 className="text-center text-2xl mb-7">Shopping Cart</h2>
+          <Heading title={"Shopping Cart"} />
           <ProductCartTable cartProducts={cartProducts} />
           <div>
             <div className="flex flex-col sm:flex-row sm:justify-between mt-2">

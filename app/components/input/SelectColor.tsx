@@ -2,10 +2,8 @@
 
 import { ImageType } from "@/app/admin/add-products/AddProductForm";
 import { use, useCallback, useEffect, useState } from "react";
-import { set } from "react-hook-form";
 import { SelectImage } from "./SelectImage";
 import Button from "../Button";
-import { log } from "console";
 
 interface ISetColor {
   item: ImageType;

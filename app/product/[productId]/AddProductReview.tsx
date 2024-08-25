@@ -1,5 +1,5 @@
 "use client";
-import { Order, Product, Review } from "@prisma/client";
+import { DeliveryStatus, Order, Product, Review } from "@prisma/client";
 import { safeUser } from "../utils/types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -42,7 +42,7 @@ export const AddProductReview: React.FC<IAddProductReview> = ({
 
   const isProductDelivered = user.orders.some(
     (order) =>
-      order.deliveryStatus === "delivred" &&
+      order.deliveryStatus === DeliveryStatus.delivered &&
       order.products.some((prod) => prod.id === product.id)
   );
   if (!isProductDelivered) return null;

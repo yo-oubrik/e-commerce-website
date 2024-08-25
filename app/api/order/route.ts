@@ -3,7 +3,6 @@ import { isUserAdmin } from "../product/route";
 import prisma from "@/libs/prismadb";
 export async function PUT(request: Request) {
   try {
-    console.log("PUT request to /api/order");
     if (!(await isUserAdmin())) {
       console.error("error updating product: Unauthorized");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

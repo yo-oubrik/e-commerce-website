@@ -8,7 +8,6 @@ import { signOut } from "next-auth/react";
 import BackDrop from "./BackDrop";
 import { safeUser } from "@/app/product/utils/types";
 import toast from "react-hot-toast";
-import { log } from "console";
 import { useRouter } from "next/navigation";
 
 const UserMenu = ({
@@ -39,7 +38,7 @@ const UserMenu = ({
                   <MenuItem onClick={toggleMenu}>Your Orders</MenuItem>
                 </Link>
                 {currentUser.role === "ADMIN" && (
-                  <Link href="/dashboard">
+                  <Link href="/admin">
                     <MenuItem onClick={toggleMenu}>Dashboard</MenuItem>
                   </Link>
                 )}
@@ -53,9 +52,9 @@ const UserMenu = ({
                       router.push("/");
                       router.refresh();
                       toast.success("Signed out");
-                    } catch (e) {
+                    } catch (error) {
                       toast.error("Failed to sign-out");
-                      console.log(e);
+                      console.error("Error trying to sign-out", error);
                     }
                   }}
                   customClass="cursor-pointer"

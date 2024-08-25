@@ -2,6 +2,7 @@ import { getCurrentUser } from "@/actions/user/userActions";
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
 import { data } from "autoprefixer";
+import { DeliveryStatus } from "@prisma/client";
 export async function POST(request: Request) {
   try {
     const currentUser = await getCurrentUser();
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     }
     const isProductDelivered = currentUser.orders.some(
       (order) =>
-        order.deliveryStatus === "delivred" &&
+        order.deliveryStatus === DeliveryStatus.delivered &&
         order.products.some((prod) => prod.id === productId)
     );
     if (!isProductDelivered) {

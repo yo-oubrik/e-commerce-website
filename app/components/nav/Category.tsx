@@ -14,7 +14,17 @@ export const Category: React.FC<INavbar> = ({ label, Icon, isActive }) => {
   const handleClick = useCallback(
     () => {
       if (label === "All") return router.push("/");
-      router.push("/?category=" + label);
+      const url = queryString.stringifyUrl(
+        {
+          url: "/",
+          query: { category: label },
+        },
+        {
+          skipEmptyString: true,
+          skipNull: true,
+        }
+      );
+      router.push(url);
       /* let currentQuery = params ? queryString.parse(params.toString()) : {};
     const updatedQuery = { ...currentQuery, category: label };
     const url = queryString.stringifyUrl(

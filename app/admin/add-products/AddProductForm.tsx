@@ -120,7 +120,7 @@ export const AddProductForm = () => {
                   console.log("Upload is " + progress + "% done");
                 },
                 (error) => {
-                  console.log("Error uploading image", error);
+                  console.error("Error uploading image", error);
                   rej(error);
                 },
                 () => {
@@ -135,7 +135,7 @@ export const AddProductForm = () => {
                       res();
                     })
                     .catch((error) => {
-                      console.log("Error getting download url", error);
+                      console.error("Error getting download url", error);
                       rej(error);
                     });
                 }
@@ -145,7 +145,7 @@ export const AddProductForm = () => {
         }
       } catch (error) {
         setIsLoading(false);
-        console.log("Error handling image uploads", error);
+        console.error("Error handling image uploads", error);
         return toast.error("Error handling image uploads");
       }
     };

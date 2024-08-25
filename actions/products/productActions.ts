@@ -3,7 +3,7 @@ export interface IProduct {
   category: string;
   search: string;
 }
-export default async function getProducts(params: IProduct) {
+export async function getProducts(params: IProduct) {
   const { category, search } = params;
 
   try {
@@ -30,7 +30,6 @@ export default async function getProducts(params: IProduct) {
     });
   } catch (error) {
     console.error("Error fetching products:", error);
-    throw error;
   }
 }
 
@@ -53,6 +52,14 @@ export async function getProductById(id: string) {
     });
   } catch (error) {
     console.error("Error fetching product by id:", error);
+  }
+}
+
+export async function getAllProducts() {
+  try {
+    return await prisma.product.findMany();
+  } catch (error) {
+    console.error("Error fetching products:", error);
     throw error;
   }
 }

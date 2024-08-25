@@ -1,6 +1,7 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import prisma from "@/libs/prismadb";
+import { convertToSafeUser } from "@/app/utils/helperFunctions/convertToSafeUser";
 
 export async function getCurrentUser() {
   try {
@@ -27,13 +28,18 @@ export async function getCurrentUser() {
       return null;
     }
 
-    return {
-      ...currentUser,
-      createdAt: currentUser.createdAt.toISOString(),
-      updatedAt: currentUser.updatedAt.toISOString(),
-    };
+    return convertToSafeUser(currentUser);
   } catch (err) {
     console.error(err);
     return null;
+  }
+}
+
+export async function getUsers() {
+  try {
+    return await prisma.user.findMany();
+  } catch (err) {
+    console.error("error trying to fetch users", err);
+    throw err;
   }
 }

@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
+import { Heading } from "@/app/components/Heading";
 interface IManageProductsClient {
   products: Product[];
 }
@@ -46,7 +47,7 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
       });
       router.refresh();
     } catch (error) {
-      console.log("Error trying to delete product with id : " + id, error);
+      console.error("Error trying to delete product with id : " + id, error);
       toast.error("Ooops! something went wrong");
     }
   }, []);
@@ -154,7 +155,7 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
 
   return (
     <div>
-      <h2 className="text-center text-2xl mb-7">Manage Products</h2>
+      <Heading title="Manage Products" />
       <DataGrid columns={columns} rows={rows}></DataGrid>
     </div>
   );

@@ -55,7 +55,7 @@ const RegisterForm = ({ currentUser }: { currentUser: safeUser | null }) => {
           })
           .catch((error) => {
             toast.error("An internal error occured");
-            console.log(error);
+            console.error("Error tring to register", error);
           });
       })
       .catch((err) => {

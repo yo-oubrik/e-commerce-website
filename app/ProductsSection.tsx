@@ -22,7 +22,7 @@ export const ProductsSection: React.FC<ProductSectionProps> = ({
   return (
     <section className="grid xs:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
       {products.map((product) => (
-        <ProductCard product={product} />
+        <ProductCard product={product} key={product.id} />
       ))}
     </section>
   );

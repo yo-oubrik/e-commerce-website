@@ -1,10 +1,12 @@
 import ProductCartRow from "@/app/cart/ProductCartRow";
-import { Order } from "@prisma/client";
+import { DeliveryStatus, Order, PaymentStatus, Product } from "@prisma/client";
 import moment from "moment";
 import ProductOrderRow from "./ProductOrderRow";
 
 interface IOrderDetails {
-  order: Order;
+  order: Order & {
+    products: Product[];
+  };
 }
 export const OrderDetails: React.FC<IOrderDetails> = ({ order }) => {
   return (
@@ -23,9 +25,9 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ order }) => {
           <span className="font-semibold">Payment Status : </span>
           <span
             className={`${
-              order.status === "complete"
+              order.status === PaymentStatus.complete
                 ? "text-teal-400"
-                : "pending"
+                : PaymentStatus.pending
                 ? "text-rose-400"
                 : ""
             }
@@ -38,11 +40,11 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ order }) => {
           <span className="font-semibold">Delivery Status : </span>
           <span
             className={`${
-              order.deliveryStatus === "delivered"
+              order.deliveryStatus === DeliveryStatus.delivered
                 ? "text-teal-400"
-                : "pending"
+                : DeliveryStatus.pending
                 ? "text-rose-400"
-                : "dispatched"
+                : DeliveryStatus.dispatched
                 ? "text-orange-400"
                 : ""
             }

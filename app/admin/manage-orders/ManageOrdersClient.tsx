@@ -1,6 +1,6 @@
 "use client";
 
-import { Order, User } from "@prisma/client";
+import { DeliveryStatus, Order, PaymentStatus, User } from "@prisma/client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { formatPrice } from "@/app/utils/formatPrice";
 import { ActionBtn } from "@/app/components/ActionBtn";
@@ -10,6 +10,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import moment from "moment";
+import { Heading } from "@/app/components/Heading";
 type ExtendedOrder = Order & {
   user: User;
 };
@@ -20,8 +21,8 @@ interface IRows {
   id: string;
   userName: string;
   amount: string;
-  status: string;
-  deliveryStatus: string | null;
+  status: PaymentStatus;
+  deliveryStatus: DeliveryStatus;
   createDate: string;
 }
 
@@ -33,7 +34,7 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
     await axios
       .put("/api/order", {
         id,
-        deliveryStatus: "delivred",
+        deliveryStatus: DeliveryStatus.delivered,
       })
       .then((res) => {
         toast.success("Order Delivered", { id });
@@ -41,8 +42,8 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
       })
       .catch((error) => {
         toast.error("Ooops! something went wrong", { id });
-        console.log(
-          "Error trying to update delivery status to delivred :",
+        console.error(
+          "Error trying to update delivery status to delivered :",
           error
         );
       });
@@ -51,7 +52,7 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
     await axios
       .put("/api/order", {
         id,
-        deliveryStatus: "dispatched",
+        deliveryStatus: DeliveryStatus.dispatched,
       })
       .then((res) => {
         toast.success("Order Dispatched");
@@ -59,7 +60,7 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
       })
       .catch((error) => {
         toast.error("Ooops! something went wrong");
-        console.log(
+        console.error(
           "Error trying to update delivery status to dispatched :",
           error
         );
@@ -123,11 +124,11 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
         return (
           <span
             className={`${
-              params.value === "delivered"
+              params.value === DeliveryStatus.delivered
                 ? "text-teal-400"
-                : "pending"
+                : DeliveryStatus.pending
                 ? "text-rose-400"
-                : "dispatched"
+                : DeliveryStatus.dispatched
                 ? "text-orange-400"
                 : ""
             }
@@ -178,7 +179,7 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
 
   return (
     <div>
-      <h2 className="text-center text-2xl mb-7">Manage orders</h2>
+      <Heading title="Manage orders" />
       <DataGrid
         columns={columns}
         rows={rows}
