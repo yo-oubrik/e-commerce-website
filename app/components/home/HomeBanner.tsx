@@ -1,7 +1,7 @@
 import Image from "next/image";
 const HomeBanner = () => {
   return (
-    <div className="lg:flex items-center px-4 py-11 bg-gradient-to-r from-sky-500 to-sky-700 mb-8 text-white">
+    <div className="lg:flex items-center px-4 py-11 bg-gradient-to-r from-sky-500 to-sky-700  text-white">
       <div className="lg:flex-1 text-center">
         <h1 className="text-4xl sm:text-6xl font-bold">Summer Sale!</h1>
         <p className="mt-2 mb-1 sm:mt-4 sm:mb-3 text-lg sm:text-xl">

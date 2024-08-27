@@ -2,6 +2,7 @@ import HomeBanner from "./components/home/HomeBanner";
 import Container from "./components/Container";
 import { IProduct, getProducts } from "@/actions/products/productActions";
 import { ProductsSection } from "./ProductsSection";
+import { SearchBar } from "./components/nav/SearchBar";
 interface IHome {
   searchParams: IProduct;
 }
@@ -14,7 +15,12 @@ const Home: React.FC<IHome> = async ({ searchParams }) => {
     <div className="py-8">
       <Container>
         <HomeBanner />
-        <ProductsSection products={products} />
+        <div className="flex justify-center sm:hidden mt-8">
+          <SearchBar hasBorder />
+        </div>
+        <div className="mt-8">
+          <ProductsSection products={products} />
+        </div>
       </Container>
     </div>
   );

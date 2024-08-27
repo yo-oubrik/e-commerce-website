@@ -20,8 +20,10 @@ const Navbar = async () => {
             <Link href="/" className={`${redressed.className} text-2xl`}>
               E~Shop
             </Link>
-            <SearchBar />
-            <div className="flex items-center gap-8 md:gap-12">
+            <div className="max-sm:hidden">
+              <SearchBar />
+            </div>
+            <div className="flex items-center gap-6 md:gap-7">
               <CartCount />
               <UserMenu currentUser={currentUser} />
             </div>

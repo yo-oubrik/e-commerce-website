@@ -1,10 +1,11 @@
 "use client";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Input from "../input/Input";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
-export const SearchBar = () => {
+interface ISearchBar {
+  hasBorder?: boolean;
+}
+export const SearchBar: React.FC<ISearchBar> = ({ hasBorder }) => {
   const router = useRouter();
   const {
     register,
@@ -33,12 +34,14 @@ export const SearchBar = () => {
     reset();
   };
   return (
-    <div className="flex max-sm:hidden">
+    <div className="flex">
       <input
         {...register("searchTerm")}
         type="text"
         placeholder="Explore E~Shop"
-        className="py-[6px] px-2 rounded-tl-md outline-none focus:border-[0.5px] focus:border-slate-500 max-md:w-44 "
+        className={`py-[6px] px-2 rounded-tl-md  ${
+          hasBorder ? "border-slate-500" : "border - transparent"
+        } outline-none focus:border-[1px] focus:border-slate-500 border `}
       />
       <button
         onClick={handleSubmit(onSubmit)}
