@@ -1,16 +1,17 @@
-import { time } from "console";
 import { IconType } from "react-icons";
 
 interface IActionBtn {
   icon: IconType;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
+  title?: string;
 }
 
 export const ActionBtn: React.FC<IActionBtn> = ({
   icon: Icon,
   onClick,
   disabled,
+  title,
 }) => {
   return (
     <button
@@ -19,6 +20,7 @@ export const ActionBtn: React.FC<IActionBtn> = ({
       }`}
       onClick={onClick}
       disabled={disabled}
+      title={title}
     >
       <Icon size={20} />
     </button>

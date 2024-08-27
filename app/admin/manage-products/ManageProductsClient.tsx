@@ -140,12 +140,14 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
                 handleProductDelete(id);
               }}
               icon={MdDelete}
+              title="Delete product"
             />
             <ActionBtn
               onClick={() => {
                 router.push("/product/" + params.row.id);
               }}
               icon={MdRemoveRedEye}
+              title="View product"
             />
           </div>
         );

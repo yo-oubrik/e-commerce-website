@@ -1,5 +1,7 @@
 import prisma from "@/libs/prismadb";
 import { getCurrentUser } from "../user/userActions";
+import moment from "moment";
+
 export async function getOrders() {
   try {
     return await prisma.order.findMany({
@@ -47,5 +49,37 @@ export async function getClientOrders() {
   } catch (error) {
     console.error("Error fetching client orders:", error);
     throw new Error("Error fetching client orders: " + error);
+  }
+}
+export type GraphData = {
+  [date: string]: number;
+};
+
+export async function getGraphData(): Promise<GraphData> {
+  try {
+    const startDate = moment().subtract(6, "days").startOf("day");
+    const endDate = moment().endOf("day");
+
+    const dateTimeData = await prisma.order.findMany({
+      where: {
+        createDate: {
+          gte: startDate.toDate(),
+          lte: endDate.toDate(),
+        },
+        status: "complete",
+      },
+    });
+    let result: { [date: string]: number } = {};
+    dateTimeData.forEach((entry) => {
+      const date = moment(entry.createDate).format("YYYY-MM-DD");
+      if (!result[date]) {
+        result[date] = 0;
+      }
+      result[date] += entry.amount;
+    });
+    return result;
+  } catch (error) {
+    console.error("Error trying to get summary graph data", error);
+    throw error;
   }
 }

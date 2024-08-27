@@ -157,6 +157,7 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
                 handleDispatch(id);
               }}
               icon={MdDeliveryDining}
+              title="Mark as dispatched"
             />
             <ActionBtn
               onClick={() => {
@@ -164,12 +165,14 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
                 handleDeliver(id);
               }}
               icon={MdDone}
+              title="mark as delivered"
             />
             <ActionBtn
               onClick={() => {
                 router.push(`/order/${params.row.id}`);
               }}
               icon={MdRemoveRedEye}
+              title="View order"
             />
           </div>
         );
