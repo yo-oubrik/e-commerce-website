@@ -14,18 +14,20 @@ const Navbar = async () => {
   const currentUser = await getCurrentUser();
   return (
     <header className="sticky top-0 z-30">
-      <Container customClass="py-4 bg-slate-200">
-        <div className="flex justify-between items-center">
-          <Link href="/" className={`${redressed.className} text-2xl`}>
-            E~Shop
-          </Link>
-          <SearchBar />
-          <div className="flex items-center gap-8 md:gap-12">
-            <CartCount />
-            <UserMenu currentUser={currentUser} />
+      <div className="py-4 bg-slate-200">
+        <Container>
+          <div className="flex justify-between items-center">
+            <Link href="/" className={`${redressed.className} text-2xl`}>
+              E~Shop
+            </Link>
+            <SearchBar />
+            <div className="flex items-center gap-8 md:gap-12">
+              <CartCount />
+              <UserMenu currentUser={currentUser} />
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
       <Categories />
     </header>
   );
