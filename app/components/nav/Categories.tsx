@@ -3,7 +3,6 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Category } from "./Category";
 import { categories } from "@/app/utils/categories";
 import { useRouter } from "next/navigation";
-import queryString from "query-string";
 import { generateUrl } from "@/app/utils/helperFunctions/generateUrl";
 
 export const Categories = () => {
@@ -29,7 +28,7 @@ export const Categories = () => {
             label={category.label}
             Icon={category.icon}
             isActive={searchCategory === category.label}
-            onClick={() => handleCategoryClick(category.label)} // Pass the handler function
+            onClick={() => handleCategoryClick(category.label)}
           />
         ))}
       </div>
