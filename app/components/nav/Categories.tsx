@@ -4,6 +4,7 @@ import { Category } from "./Category";
 import { categories } from "@/app/utils/categories";
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
+import { generateUrl } from "@/app/utils/helperFunctions/generateUrl";
 
 export const Categories = () => {
   const params = useSearchParams();
@@ -15,16 +16,7 @@ export const Categories = () => {
 
   const handleCategoryClick = (label: string) => {
     if (label === "All") return router.push("/");
-    const url = queryString.stringifyUrl(
-      {
-        url: "/",
-        query: { category: label },
-      },
-      {
-        skipEmptyString: true,
-        skipNull: true,
-      }
-    );
+    const url = generateUrl("/", { category: label });
     router.push(url);
   };
 

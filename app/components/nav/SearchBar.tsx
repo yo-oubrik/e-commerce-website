@@ -2,6 +2,7 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import queryString from "query-string";
+import { generateUrl } from "@/app/utils/helperFunctions/generateUrl";
 interface ISearchBar {
   hasBorder?: boolean;
 }
@@ -19,17 +20,7 @@ export const SearchBar: React.FC<ISearchBar> = ({ hasBorder }) => {
   });
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (!data.searchTerm) return router.push("/");
-    const url = queryString.stringifyUrl(
-      {
-        url: "/",
-        query: {
-          search: data.searchTerm,
-        },
-      },
-      {
-        skipNull: true,
-      }
-    );
+    const url = generateUrl("/", { searchTerm: data.searchTerm });
     router.push(url);
     reset();
   };
