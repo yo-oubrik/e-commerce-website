@@ -1,8 +1,9 @@
-import queryString, { StringifiableRecord } from "query-string";
+import { SearchParams } from "@/app/product/utils/types";
+import queryString from "query-string";
 
 export function generateUrl(
   baseUrl: string,
-  queryParams: StringifiableRecord,
+  queryParams: SearchParams,
   skipNull = true,
   skipEmptyString = true
 ) {

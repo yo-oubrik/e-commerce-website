@@ -1,13 +1,14 @@
 import HomeBanner from "./components/home/HomeBanner";
 import Container from "./components/Container";
-import { IProduct, getProducts } from "@/actions/products/productActions";
+import { getProducts } from "@/actions/products/productActions";
 import { ProductsSection } from "./ProductsSection";
 import { SearchBar } from "./components/nav/SearchBar";
+import { SearchParams } from "./product/utils/types";
 interface IHome {
-  searchParams: IProduct;
+  searchParams: SearchParams;
 }
 const Home: React.FC<IHome> = async ({ searchParams }) => {
-  let { category = "", search = "" } = searchParams;
+  let { category, search } = searchParams;
   category = category !== "All" ? category : "";
   const products = (await getProducts({ search, category })) || [];
 

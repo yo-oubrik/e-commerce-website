@@ -1,6 +1,4 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import { categories } from "./utils/categories";
 import ProductCard from "./components/home/ProductCard";
 import { Product, Review } from "@prisma/client";
 type ProductType = Product & {

@@ -1,9 +1,7 @@
+import { SearchParams } from "@/app/product/utils/types";
 import prisma from "@/libs/prismadb";
-export interface IProduct {
-  category: string;
-  search: string;
-}
-export async function getProducts(params: IProduct) {
+
+export async function getProducts(params: SearchParams) {
   const { category, search } = params;
 
   try {

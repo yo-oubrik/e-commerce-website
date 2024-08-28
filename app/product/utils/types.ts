@@ -32,3 +32,7 @@ export interface safeUser extends Omit<User, "createdAt" | "updatedAt"> {
   createdAt: string;
   updatedAt: string;
 }
+export type SearchParams = {
+  category?: string | null;
+  search?: string | null;
+};
