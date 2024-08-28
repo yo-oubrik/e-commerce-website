@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { CartProduct, ProductImage } from "@/app/product/utils/types";
+import {
+  CartProduct,
+  ProductImage,
+  ProductWithReviews,
+} from "@/app/product/utils/types";
 import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
 import { useCart } from "@/hooks/useCart";
 import { Product, Review } from "@prisma/client";
 
-type useProductDetailsProps = Product & {
-  reviews: Review[];
-};
-export const useProductDetails = (product: useProductDetailsProps) => {
+export const useProductDetails = (product: ProductWithReviews) => {
   const [cartProduct, setCartProduct] = useState<CartProduct>({
     id: product.id,
     name: product.name,

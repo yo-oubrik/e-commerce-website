@@ -3,21 +3,17 @@ import { truncTitle } from "@/app/utils/helperFunctions/truncTitle";
 import Image from "next/image";
 import { formatPrice } from "@/app/utils/formatPrice";
 import { Rating } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
 import { Product, Review } from "@prisma/client";
 import Link from "next/link";
-type ProductType = Product & {
-  reviews: Review[];
-};
+import { ProductWithReviews } from "@/app/product/utils/types";
+
 interface ProductCardProps {
-  product: ProductType;
+  product: ProductWithReviews;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const numberOfReviews = product.reviews.length;
   const productRating = calculateAverageRating(product.reviews);
-
-  const router = useRouter();
 
   return (
     <Link href={`/product/${product.id}`}>

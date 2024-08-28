@@ -10,12 +10,10 @@ import SetProductQuantity from "@/app/components/products/SetProductQuantity";
 import SetProductColor from "@/app/components/products/SetProductColor";
 import IsProductInStock from "./IsProductInStock";
 import { useProductDetails } from "@/hooks/useProductDetails";
-import { Product, Review } from "@prisma/client";
-type productType = Product & {
-  reviews: Review[];
-};
+import { ProductWithReviews } from "../utils/types";
+
 interface IProductDetails {
-  product: productType;
+  product: ProductWithReviews;
 }
 const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
   const {

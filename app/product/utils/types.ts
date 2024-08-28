@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Product, Review, User } from "@prisma/client";
 
 export type CartProduct = {
   id: string;
@@ -20,14 +20,14 @@ export type ProductImage = {
   imageUrl: string;
 };
 
-export type Review = {
-  id: string;
-  userId: string;
-  productId: string;
-  rating: number;
-  comment: string;
-  createdAt: Date;
-};
+// export type Review = {
+//   id: string;
+//   userId: string;
+//   productId: string;
+//   rating: number;
+//   comment: string;
+//   createdAt: Date;
+// };
 export interface safeUser extends Omit<User, "createdAt" | "updatedAt"> {
   createdAt: string;
   updatedAt: string;
@@ -35,4 +35,7 @@ export interface safeUser extends Omit<User, "createdAt" | "updatedAt"> {
 export type SearchParams = {
   category?: string | null;
   search?: string | null;
+};
+export type ProductWithReviews = Product & {
+  reviews: Review[];
 };

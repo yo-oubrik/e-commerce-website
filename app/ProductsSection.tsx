@@ -1,11 +1,9 @@
 "use client";
 import ProductCard from "./components/home/ProductCard";
-import { Product, Review } from "@prisma/client";
-type ProductType = Product & {
-  reviews: Review[];
-};
+import { ProductWithReviews } from "./product/utils/types";
+
 interface ProductSectionProps {
-  products: ProductType[];
+  products: ProductWithReviews[];
 }
 export const ProductsSection: React.FC<ProductSectionProps> = ({
   products,
