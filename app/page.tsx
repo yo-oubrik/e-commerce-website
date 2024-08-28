@@ -10,7 +10,7 @@ interface IHome {
 const Home: React.FC<IHome> = async ({ searchParams }) => {
   let { category, search } = searchParams;
   category = category !== "All" ? category : "";
-  const products = (await getProducts({ search, category })) || [];
+  const products = await getProducts({ search, category });
 
   return (
     <div className="py-8">

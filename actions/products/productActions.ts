@@ -28,6 +28,10 @@ export async function getProducts(params: SearchParams) {
     });
   } catch (error) {
     console.error("Error fetching products:", error);
+
+    throw new Error(
+      "An error occurred while fetching products. Please try again later or contact support."
+    );
   }
 }
 
