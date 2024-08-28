@@ -20,12 +20,12 @@ export const SearchBar: React.FC<ISearchBar> = ({ hasBorder }) => {
   });
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (!data.searchTerm) return router.push("/");
-    const url = generateUrl("/", { searchTerm: data.searchTerm });
+    const url = generateUrl("/", { search: data.searchTerm });
     router.push(url);
     reset();
   };
   return (
-    <div className="flex">
+    <form className="flex">
       <input
         {...register("searchTerm")}
         type="text"
@@ -37,9 +37,10 @@ export const SearchBar: React.FC<ISearchBar> = ({ hasBorder }) => {
       <button
         onClick={handleSubmit(onSubmit)}
         className="bg-slate-700 py-[6px] px-2 text-white rounded-r-md hover:opacity-85"
+        type="submit"
       >
         Search
       </button>
-    </div>
+    </form>
   );
 };
