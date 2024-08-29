@@ -30,7 +30,6 @@ const Navbar = async () => {
           </div>
         </Container>
       </div>
-      <Categories />
     </header>
   );
 };
