@@ -6,11 +6,11 @@ interface IColorSelector {
   addImageToState: (image: ImageType) => void;
   removeImageFromState: (image: ImageType) => void;
   isProductCreated: boolean;
-  isNoColorSelected: boolean;
+  hasError: boolean;
 }
 export const ColorSelector: React.FC<IColorSelector> = ({
   addImageToState,
-  isNoColorSelected,
+  hasError,
   isProductCreated,
   removeImageFromState,
 }) => {
@@ -38,9 +38,7 @@ export const ColorSelector: React.FC<IColorSelector> = ({
           );
         })}
       </div>
-      {isNoColorSelected && (
-        <p className="text-rose-500">Please select a color</p>
-      )}
+      {hasError && <p className="text-rose-500">Please select a color</p>}
     </>
   );
 };

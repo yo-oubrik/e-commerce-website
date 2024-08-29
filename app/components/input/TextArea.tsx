@@ -23,7 +23,6 @@ const TextArea: React.FC<ITextArea> = ({
   disabled,
   required,
   requiredMessage = "This field is required",
-  type = "text",
   validation = {},
 }) => {
   return (

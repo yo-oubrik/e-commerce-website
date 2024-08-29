@@ -93,36 +93,37 @@ export const useProductForm = () => {
       toast("Uploading product, please wait...");
       try {
         for (const item of data.images) {
-          if (item.image) {
-            const fileName = new Date().getTime() + "_" + item.image.name;
-            const storage = getStorage(firebaseApp);
-            const storageRef = ref(storage, `products/${fileName}`);
-            const uploadTask = uploadBytesResumable(storageRef, item.image);
-
-            await new Promise<void>((res, rej) => {
-              uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                  const progress =
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  setLoadingProgress(progress);
-                },
-                (error) => rej(error),
-                () => {
-                  getDownloadURL(uploadTask.snapshot.ref)
-                    .then((downloadUrl) => {
-                      uploadedImages.push({
-                        color: item.color,
-                        colorCode: item.colorCode,
-                        imageUrl: downloadUrl,
-                      });
-                      res();
-                    })
-                    .catch((error) => rej(error));
-                }
-              );
-            });
+          if (!item.image) {
+            continue;
           }
+          const fileName = new Date().getTime() + "_" + item.image.name;
+          const storage = getStorage(firebaseApp);
+          const storageRef = ref(storage, `products/${fileName}`);
+          const uploadTask = uploadBytesResumable(storageRef, item.image);
+
+          await new Promise<void>((res, rej) => {
+            uploadTask.on(
+              "state_changed",
+              (snapshot) => {
+                const progress =
+                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setLoadingProgress(progress);
+              },
+              (error) => rej(error),
+              () => {
+                getDownloadURL(uploadTask.snapshot.ref)
+                  .then((downloadUrl) => {
+                    uploadedImages.push({
+                      color: item.color,
+                      colorCode: item.colorCode,
+                      imageUrl: downloadUrl,
+                    });
+                    res();
+                  })
+                  .catch((error) => rej(error));
+              }
+            );
+          });
         }
       } catch (error) {
         setIsLoading(false);

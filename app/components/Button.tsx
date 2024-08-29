@@ -31,6 +31,7 @@ const Button: React.FC<IButton> = ({
         small ? "text-sm font-light p-1" : "text-md font-semibold py-3"
       } ${customClass ? customClass : ""}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {Icon && <Icon size={26} />}
       {label}

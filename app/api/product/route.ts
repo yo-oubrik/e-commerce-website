@@ -5,16 +5,7 @@ import { deleteObject, getStorage, ref } from "firebase/storage";
 import { log } from "console";
 import { ProductImage } from "@prisma/client";
 import firebaseApp from "@/libs/firebase";
-
-export async function isUserAdmin() {
-  const currentUser = await getCurrentUser();
-
-  // Authorization check
-  if (!currentUser || currentUser.role !== "ADMIN") {
-    return false;
-  }
-  return true;
-}
+import { isUserAdmin } from "@/app/utils/helperFunctions/isUserAdmin";
 
 export async function POST(request: Request) {
   try {

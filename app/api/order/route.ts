@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { isUserAdmin } from "../product/route";
 import prisma from "@/libs/prismadb";
+import { isUserAdmin } from "@/app/utils/helperFunctions/isUserAdmin";
 export async function PUT(request: Request) {
   try {
     if (!(await isUserAdmin())) {

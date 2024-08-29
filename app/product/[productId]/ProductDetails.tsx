@@ -45,7 +45,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           <p className="text-slate-500">{numberOfReviews} Reviews</p>
         </div>
         <Separator />
-        <p className="max-w-[600px] text-justify text-slate-500">
+        <p className="max-w-[600px] text-justify text-slate-500 whitespace-pre-wrap">
           {product.description}
         </p>
         <Separator />

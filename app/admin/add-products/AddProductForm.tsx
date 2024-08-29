@@ -1,19 +1,14 @@
 "use client";
 import TextArea from "@/app/components/input/TextArea";
-import { categories } from "../../utils/categories";
-import { colors } from "@/app/utils/colors";
 import { useProductForm } from "@/hooks/useAddProductForm";
 import Input from "@/app/components/input/Input";
 import Button from "@/app/components/Button";
-import { Category } from "./Category";
-import { SetColor } from "@/app/components/input/SelectColor";
 import { PriceInput } from "./PriceInput";
 import { QuantityInput } from "./QuantityInput";
 import { MaxQuantityInput } from "./MaxQuantityInput";
 import { MinQuantityInput } from "./MinQuantityInput";
 import { CategorySelector } from "./CategorySelector";
 import { ColorSelector } from "./ColorSelector";
-import { ProductCardImageSelector } from "./ProductCardImageSelector";
 
 export type ImageType = {
   color: string;
@@ -43,7 +38,6 @@ export const AddProductForm = () => {
     handleCategorySelect,
     addImageToState,
     removeImageFromState,
-    handleCardImageSelect,
   } = useProductForm();
   return (
     <>
@@ -97,15 +91,13 @@ export const AddProductForm = () => {
         selectedCategory={selectedCategory}
       />
 
+      {/* if images.length === 0 => has not added a color image */}
       <ColorSelector
         addImageToState={addImageToState}
-        isNoColorSelected={hasError && images.length === 0}
+        hasError={hasError && images.length === 0}
         isProductCreated={isProductCreated}
         removeImageFromState={removeImageFromState}
       />
-
-      {images.length > 0 && <ProductCardImageSelector images={images} />}
-
       <Button
         label={isLoading ? `Loading... ${loadingProgress}% ` : "Add Product"}
         onClick={handleSubmit(onSubmit)}
