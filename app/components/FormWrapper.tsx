@@ -1,9 +1,8 @@
 interface IFormWrapper {
   children: React.ReactNode;
-  customClass?: string;
 }
 
-const FormWrapper: React.FC<IFormWrapper> = ({ children, customClass }) => {
+const FormWrapper: React.FC<IFormWrapper> = ({ children }) => {
   return (
     <div
       className={`max-w-[550px]
@@ -19,7 +18,6 @@ const FormWrapper: React.FC<IFormWrapper> = ({ children, customClass }) => {
      shadow-slate-200
      border-2
      border-slate-700
-     ${customClass}
      `}
     >
       {children}

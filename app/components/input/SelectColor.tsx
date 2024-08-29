@@ -46,7 +46,10 @@ export const SetColor: React.FC<ISetColor> = ({
           <label htmlFor={item.color}>{item.color}</label>
         </div>
         {isSelected && !file && (
-          <SelectImage item={item} handleFileChange={handleFileChange} />
+          <SelectImage
+            label={`+ ${item.color} Image`}
+            handleFileChange={handleFileChange}
+          />
         )}
         {file && (
           <div>

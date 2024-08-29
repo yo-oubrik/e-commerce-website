@@ -7,7 +7,6 @@ import {
 } from "@/app/product/utils/types";
 import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
 import { useCart } from "@/hooks/useCart";
-import { Product, Review } from "@prisma/client";
 
 export const useProductDetails = (product: ProductWithReviews) => {
   const [cartProduct, setCartProduct] = useState<CartProduct>({

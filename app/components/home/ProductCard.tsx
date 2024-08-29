@@ -4,7 +4,6 @@ import Image from "next/image";
 import { formatPrice } from "@/app/utils/formatPrice";
 import { Rating } from "@mui/material";
 import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
-import { Product, Review } from "@prisma/client";
 import Link from "next/link";
 import { ProductWithReviews } from "@/app/product/utils/types";
 

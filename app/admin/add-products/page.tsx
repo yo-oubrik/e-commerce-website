@@ -3,9 +3,9 @@ import { AddProductForm } from "./AddProductForm";
 import { Heading } from "@/app/components/Heading";
 export const addProduct = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <Heading title="Add Product" />
-      <FormWrapper customClass="mx-auto">
+      <FormWrapper>
         <AddProductForm />
       </FormWrapper>
     </div>

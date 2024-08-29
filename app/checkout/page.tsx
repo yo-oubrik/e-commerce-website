@@ -86,7 +86,7 @@ const Checkout = () => {
         ) : hasError ? (
           <p className="text-center text-rose-500">Something went wrong</p>
         ) : clientSecret ? (
-          <FormWrapper customClass="mx-auto">
+          <FormWrapper>
             <div className="w-full">
               <Elements stripe={stripePromise} options={options}>
                 <CheckoutForm clientSecret={clientSecret} />
