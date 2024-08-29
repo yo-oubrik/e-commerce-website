@@ -4,23 +4,26 @@ import { isUserAdmin } from "@/app/utils/helperFunctions/isUserAdmin";
 export async function PUT(request: Request) {
   try {
     if (!(await isUserAdmin())) {
-      console.error("error updating product: Unauthorized");
+      console.error("Error updating order: Unauthorized");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
     const { id, deliveryStatus } = await request.json();
-    if (!(id || deliveryStatus)) {
+    if (!id || !deliveryStatus) {
       return NextResponse.json(
-        { error: "Missing required fields: 'id' and 'deliveryStatus'" },
+        { error: "Missing required fields: 'id' or 'deliveryStatus'" },
         { status: 400 }
       );
     }
+
     const order = await prisma.order.update({
       where: { id },
       data: { deliveryStatus },
     });
+
     return NextResponse.json(order);
   } catch (error) {
-    console.error("Error creating product:", error);
+    console.error("Error updating order:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

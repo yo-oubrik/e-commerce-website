@@ -31,22 +31,16 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
 }) => {
   const router = useRouter();
   const handleDeliver = useCallback(async (id: string) => {
-    await axios
-      .put("/api/order", {
+    try {
+      await axios.put("/api/order", {
         id,
         deliveryStatus: DeliveryStatus.delivered,
-      })
-      .then((res) => {
-        toast.success("Order Delivered", { id });
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error("Ooops! something went wrong", { id });
-        console.error(
-          "Error trying to update delivery status to delivered :",
-          error
-        );
       });
+      toast.success("Order Delivered", { id });
+      router.refresh();
+    } catch (error) {
+      toast.error("Oops! Something went wrong", { id });
+    }
   }, []);
   const handleDispatch = useCallback(async (id: string) => {
     await axios
