@@ -13,7 +13,7 @@ import { usePathname } from "next/navigation";
 export const Navbar = () => {
   const pathname = usePathname();
   return (
-    <div className="flex items-center justify-center gap-x-3 md:gap-14 shadow-sm border-b-[1px] px-2 pt-4 flex-wrap">
+    <div className="grid  sm:grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-14 border-b-[1px] px-2 md:px-3">
       <Link href={"/admin"}>
         <NavbarItem
           label={"Summary"}

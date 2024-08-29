@@ -14,7 +14,7 @@ export async function getOrders() {
     });
   } catch (error) {
     console.error("Error fetching orders:", error);
-    throw new Error("Error fetching orders: " + error);
+    throw new Error("Error fetching orders");
   }
 }
 
@@ -30,7 +30,7 @@ export async function getOrderById(id: string) {
     });
   } catch (error) {
     console.error("Error getting order with id = + " + id + " :", error);
-    throw new Error("Error getting order with id = + " + id + " :" + error);
+    throw new Error("Error getting order with id = + " + id + "");
   }
 }
 
@@ -48,7 +48,7 @@ export async function getClientOrders() {
     });
   } catch (error) {
     console.error("Error fetching client orders:", error);
-    throw new Error("Error fetching client orders: " + error);
+    throw new Error("Error fetching client orders");
   }
 }
 export type GraphData = {
@@ -75,11 +75,13 @@ export async function getGraphData(): Promise<GraphData> {
       if (!result[date]) {
         result[date] = 0;
       }
-      result[date] += entry.amount;
+      result[date] += entry.amount / 10; //convert to dollars;
     });
     return result;
   } catch (error) {
     console.error("Error trying to get summary graph data", error);
-    throw error;
+    throw new Error(
+      "Error trying to get summary graph data, please try again or contact support"
+    );
   }
 }

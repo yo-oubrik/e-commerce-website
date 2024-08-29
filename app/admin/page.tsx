@@ -15,30 +15,25 @@ import { convertToSafeUsers } from "../utils/helperFunctions/convertToSafeUsers"
 import { BarGraph } from "./BarGraph";
 
 const AdminPage = async () => {
-  let products: Product[] = [];
-  let users: User[] = [];
-  let safeUsers: safeUser[] = [];
-  let orders: Order[] = [];
-  let graphData: GraphData[] = [];
   try {
-    [orders, products, users, graphData] = await Promise.all([
+    const [orders, products, users, graphData] = await Promise.all([
       getOrders(),
       getAllProducts(),
       getUsers(),
       getGraphData(),
     ]);
-    safeUsers = convertToSafeUsers(...users);
+    const safeUsers = convertToSafeUsers(...users);
+    return (
+      <Container>
+        <Heading title={"Summary"} />
+        <Summary orders={orders} products={products} users={safeUsers} />
+        <div>
+          <BarGraph data={graphData} />
+        </div>
+      </Container>
+    );
   } catch (error) {
     throw error;
   }
-  return (
-    <Container>
-      <Heading title={"Summary"} />
-      <Summary orders={orders} products={products} users={safeUsers} />
-      <div>
-        <BarGraph data={graphData} />
-      </div>
-    </Container>
-  );
 };
 export default AdminPage;

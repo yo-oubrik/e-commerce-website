@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import Container from "../components/Container";
 import { RedirectionPage } from "../components/RedirectionPage";
-import { getCurrentUser } from "@/actions/user/userActions";
 import { isUserAdmin } from "../utils/helperFunctions/isUserAdmin";
 
 export const metadata = {

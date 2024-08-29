@@ -4,7 +4,7 @@ import { RedirectionPage } from "@/app/components/RedirectionPage";
 export const ManageProducts = async () => {
   const products = await getAllProducts();
 
-  if (!products || products.length === 0)
+  if (products.length === 0)
     return (
       <RedirectionPage
         heading={"No products found"}

@@ -1,7 +1,6 @@
 import { RedirectionPage } from "@/app/components/RedirectionPage";
 import { ManageOrdersClient } from "./ManageOrdersClient";
 import { getOrders } from "@/actions/orders/ordersActions";
-import { Order } from "@prisma/client";
 export const ManageOrders = async () => {
   const orders = await getOrders();
 
