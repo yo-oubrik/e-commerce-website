@@ -1,11 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Navbar from "./components/nav/Navbar";
+import { Header } from "./components/nav/Header";
 import Footer from "./components/footer/Footer";
 import { Toaster } from "react-hot-toast";
 import { CartContextProvider } from "@/providers/CartContextProvider";
-import { Categories } from "./components/nav/Categories";
+import { CategoriesNav } from "./components/nav/CategoriesNav";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -25,8 +25,8 @@ export default function RootLayout({
         <CartContextProvider>
           <Toaster />
           <div className="flex flex-col">
-            <Navbar />
-            <Categories />
+            <Header />
+            <CategoriesNav />
             <main className="min-h-screen">{children}</main>
             <Footer />
           </div>

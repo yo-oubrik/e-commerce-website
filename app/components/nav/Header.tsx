@@ -4,13 +4,12 @@ import { Redressed } from "next/font/google";
 import CartCount from "./CartCount";
 import UserMenu from "./UserMenu";
 import { getCurrentUser } from "@/actions/user/userActions";
-import { Categories } from "./Categories";
 import { SearchBar } from "./SearchBar";
 const redressed = Redressed({
   subsets: ["latin"],
   weight: ["400"],
 });
-const Navbar = async () => {
+export const Header = async () => {
   const currentUser = await getCurrentUser();
   return (
     <header className="sticky top-0 z-30">
@@ -33,5 +32,3 @@ const Navbar = async () => {
     </header>
   );
 };
-
-export default Navbar;

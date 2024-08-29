@@ -5,7 +5,7 @@ import { categories } from "@/app/utils/categories";
 import { useRouter } from "next/navigation";
 import { generateUrl } from "@/app/utils/helperFunctions/generateUrl";
 
-export const Categories = () => {
+export const CategoriesNav = () => {
   const params = useSearchParams();
   const searchCategory = params?.get("category") || "All";
   const pathname = usePathname();
