@@ -47,11 +47,12 @@ model Order {
     currency        String
     status          PaymentStatus
     deliveryStatus  DeliveryStatus
-    createDate      DateTime       @default(now())
+    createdAt       DateTime       @default(now()) // Standardized naming
     paymentIntentId String         @unique
-    products        Product[]
     address         Address?
     user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+    cart_products   CartProduct[]
+    products        Product[]
 }
 
 enum DeliveryStatus {
@@ -65,8 +66,8 @@ enum PaymentStatus {
     pending
 }
 
-type CartProduct {
-    id                String
+model CartProduct {
+    id                String       @id @default(auto()) @map("_id") @db.ObjectId
     name              String
     description       String
     price             Float
@@ -77,6 +78,8 @@ type CartProduct {
     maxQuantity       Int
     selectedImage     ProductImage
     selectedQuantity  Int
+    Order             Order?       @relation(fields: [orderId], references: [id])
+    orderId           String?      @db.ObjectId
 }
 
 type ProductImage {
@@ -122,6 +125,6 @@ model Review {
     rating    Int
     comment   String
     createdAt DateTime @default(now())
-    Product   Product? @relation(fields: [productId], references: [id])
+    Product   Product  @relation(fields: [productId], references: [id])
     user      User     @relation(fields: [userId], references: [id])
 }

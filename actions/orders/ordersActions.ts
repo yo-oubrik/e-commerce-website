@@ -1,54 +1,61 @@
 import prisma from "@/libs/prismadb";
 import { getCurrentUser } from "../user/userActions";
 import moment from "moment";
+import { isUserAdmin } from "@/app/utils/helperFunctions/isUserAdmin";
 
 export async function getOrders() {
   try {
+    if (!isUserAdmin()) throw new Error("Access denied, admin only");
     return await prisma.order.findMany({
       include: {
         user: true,
       },
       orderBy: {
-        createDate: "desc",
+        createdAt: "desc",
       },
     });
   } catch (error) {
-    console.error("Error fetching orders:", error);
-    throw new Error("Error fetching orders");
+    console.error("Error while trying to getOrders", error);
+    throw new Error("Error trying to get orders");
   }
 }
 
 export async function getOrderById(id: string) {
   try {
     if (!id) {
-      throw new Error("Invalid id");
+      throw new Error("No id provided");
     }
     return await prisma.order.findUnique({
       where: {
         id,
       },
+      include: {
+        cart_products: true,
+      },
     });
   } catch (error) {
-    console.error("Error getting order with id = + " + id + " :", error);
-    throw new Error("Error getting order with id = + " + id + "");
+    console.error("Error while trying to getOrderById", error);
+    throw new Error("Error trying to get order");
   }
 }
 
 export async function getClientOrders() {
   try {
     const currentUser = await getCurrentUser();
-    if (!currentUser) return null;
+    if (!currentUser) {
+      throw new Error("User not authenticated");
+    }
     return await prisma.order.findMany({
       orderBy: {
-        createDate: "desc",
+        createdAt: "desc",
       },
       where: {
         userId: currentUser.id,
       },
     });
   } catch (error) {
-    console.error("Error fetching client orders:", error);
-    throw new Error("Error fetching client orders");
+    console.error("Error trying to getClientOrders", error);
+    throw new Error("Error trying to get client orders");
   }
 }
 export type GraphData = {
@@ -62,7 +69,7 @@ export async function getGraphData(): Promise<GraphData> {
 
     const dateTimeData = await prisma.order.findMany({
       where: {
-        createDate: {
+        createdAt: {
           gte: startDate.toDate(),
           lte: endDate.toDate(),
         },
@@ -71,7 +78,7 @@ export async function getGraphData(): Promise<GraphData> {
     });
     let result: { [date: string]: number } = {};
     dateTimeData.forEach((entry) => {
-      const date = moment(entry.createDate).format("YYYY-MM-DD");
+      const date = moment(entry.createdAt).format("YYYY-MM-DD");
       if (!result[date]) {
         result[date] = 0;
       }
@@ -79,9 +86,7 @@ export async function getGraphData(): Promise<GraphData> {
     });
     return result;
   } catch (error) {
-    console.error("Error trying to get summary graph data", error);
-    throw new Error(
-      "Error trying to get summary graph data, please try again or contact support"
-    );
+    console.error("Error trying to getGraphData", error);
+    throw new Error("Error trying to get  graph data");
   }
 }

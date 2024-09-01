@@ -7,10 +7,10 @@ import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
 import { truncTitle } from "../utils/helperFunctions/truncTitle";
 interface IProductCartRow {
-  product: CartProduct;
+  cartProduct: CartProduct;
 }
 
-const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
+const ProductCartRow: React.FC<IProductCartRow> = ({ cartProduct }) => {
   const {
     removeProductFromCart,
     handleQuantityDecrease,
@@ -18,28 +18,28 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
   } = useCart();
   return (
     <div
-      key={product.id}
+      key={cartProduct.id}
       className="max-sm:flex max-sm:flex-col max-sm:gap-2 sm:grid sm:grid-cols-5 border-b border-slate-200 py-2 text-sm"
     >
       <div className="sm:col-span-2 flex items-center max-sm:justify-center gap-4">
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/product/${cartProduct.id}`}>
           <Image
-            src={product.selectedImage.imageUrl}
-            alt={product.name}
+            src={cartProduct.selectedImage.imageUrl}
+            alt={cartProduct.name}
             width={48}
             height={48}
           />
         </Link>
         <div>
-          <Link href={`/product/${product.id}`}>
-            <h3 className="text-sm" title={`${product.name}`}>
-              {truncTitle(product.name)}
+          <Link href={`/product/${cartProduct.id}`}>
+            <h3 className="text-sm" title={`${cartProduct.name}`}>
+              {truncTitle(cartProduct.name)}
             </h3>
           </Link>
           <button
             className="mt-1 text-slate-500 underline underline-offset-[3px]"
             onClick={() => {
-              removeProductFromCart(product);
+              removeProductFromCart(cartProduct);
             }}
           >
             Remove
@@ -50,18 +50,18 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
         className="my-auto text-center max-sm:data-small-devices"
         data-custom-attribute="Price:"
       >
-        {formatPrice(product.price)}
+        {formatPrice(cartProduct.price)}
       </div>
       <div className="my-auto flex justify-center">
         <SetProductQuantity
-          cartProduct={product}
+          cartProduct={cartProduct}
           customClass="max-sm:data-small-devices"
           dataCustomAttribute="Quantity:"
           handleQuantityIncrease={() => {
-            handleQuantityIncrease(product);
+            handleQuantityIncrease(cartProduct);
           }}
           handleQuantityDecrease={() => {
-            handleQuantityDecrease(product);
+            handleQuantityDecrease(cartProduct);
           }}
         />
       </div>
@@ -69,7 +69,7 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ product }) => {
         className="my-auto sm:text-end font-bold max-sm:text-center max-sm:data-small-devices"
         data-custom-attribute="Total Price:"
       >
-        {formatPrice(product.selectedQuantity * product.price)}
+        {formatPrice(cartProduct.selectedQuantity * cartProduct.price)}
       </div>
     </div>
   );

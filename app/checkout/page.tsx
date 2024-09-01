@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CheckoutForm } from "./CheckoutForm";
-import Button from "../components/Button";
 import { RedirectionPage } from "../components/RedirectionPage";
 import { getErrorMessage } from "../utils/helperFunctions/getErrorMessage";
 const stripePromise = loadStripe(

@@ -1,18 +1,18 @@
 import { CartProduct } from "../utils/types";
 
 interface IIsProductInStock {
-  product: CartProduct;
+  cartProduct: CartProduct;
 }
 
-const IsProductInStock: React.FC<IIsProductInStock> = ({ product }) => {
+const IsProductInStock: React.FC<IIsProductInStock> = ({ cartProduct }) => {
   return (
     <span
       className={`${
-        product.availableQuantity > 0 ? "text-teal-400" : "text-rose-400"
+        cartProduct.availableQuantity > 0 ? "text-teal-400" : "text-rose-400"
       }
       `}
     >
-      {product.availableQuantity > 0 ? "In Stock" : "Out of Stock"}
+      {cartProduct.availableQuantity > 0 ? "In Stock" : "Out of Stock"}
     </span>
   );
 };

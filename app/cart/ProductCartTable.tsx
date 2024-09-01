@@ -14,8 +14,8 @@ const ProductCartTable: React.FC<IProductCartTable> = ({ cartProducts }) => {
         <div className="text-center">QUANTITY</div>
         <div className="text-end">SUBTOTAL</div>
       </div>
-      {cartProducts.map((product) => (
-        <ProductCartRow product={product} key={product.id} />
+      {cartProducts.map((cartProduct) => (
+        <ProductCartRow cartProduct={cartProduct} key={cartProduct.id} />
       ))}
     </div>
   );

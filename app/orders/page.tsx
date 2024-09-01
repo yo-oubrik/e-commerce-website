@@ -8,7 +8,7 @@ export const ManageOrders = async () => {
   return (
     <div className="py-8">
       <Container>
-        {!orders || orders.length === 0 ? (
+        {orders.length === 0 ? (
           <RedirectionPage
             heading={"No orders found"}
             description="go back to home"

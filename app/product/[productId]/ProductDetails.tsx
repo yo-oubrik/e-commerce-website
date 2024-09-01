@@ -57,7 +57,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
           <span className="font-bold">BRAND:</span>
           <span className="text-slate-500">{product.brand}</span>
         </div>
-        <IsProductInStock product={cartProduct} />
+        <IsProductInStock cartProduct={cartProduct} />
         <Separator />
         {isProductInCart && (
           <>
