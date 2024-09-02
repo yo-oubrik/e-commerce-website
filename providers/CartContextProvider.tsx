@@ -12,7 +12,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
   const [cartNumberOfProducts, setCartNumberOfProducts] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartProducts, setCartProducts] = useState<
-    CartProduct[] | null | undefined | undefined
+    CartProduct[] | null | undefined
   >(null);
   const [paymentIntent, setPaymentIntent] = useState<String | null>(null);
 

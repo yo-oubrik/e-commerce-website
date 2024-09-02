@@ -1,17 +1,10 @@
 import { getCurrentUser } from "@/actions/user/userActions";
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
-import { data } from "autoprefixer";
 import { DeliveryStatus } from "@prisma/client";
 export async function POST(request: Request) {
   try {
     const currentUser = await getCurrentUser();
-    if (!currentUser) {
-      return NextResponse.json(
-        { error: "You must be authenticated before performing these action" },
-        { status: 401 }
-      );
-    }
 
     const body = await request.json();
     const { comment, rating, productId, userId } = body;
@@ -24,7 +17,7 @@ export async function POST(request: Request) {
     const isProductDelivered = currentUser.orders.some(
       (order) =>
         order.deliveryStatus === DeliveryStatus.delivered &&
-        order.products.some((prod) => prod.id === productId)
+        order.cart_products.some((prod) => prod.productId === productId)
     );
     if (!isProductDelivered) {
       return NextResponse.json(

@@ -1,18 +1,4 @@
-import { Product, Review, User } from "@prisma/client";
-
-export type CartProduct = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  availableQuantity: number;
-  minQuantity: number;
-  maxQuantity: number;
-  selectedQuantity: number;
-  brand: string;
-  category: string;
-  selectedImage: ProductImage;
-};
+import { Order, Product, Review, User } from "@prisma/client";
 
 export type ProductImage = {
   color: string;
@@ -20,18 +6,19 @@ export type ProductImage = {
   imageUrl: string;
 };
 
-// export type Review = {
-//   id: string;
-//   userId: string;
-//   productId: string;
-//   rating: number;
-//   comment: string;
-//   createdAt: Date;
-// };
 export interface safeUser extends Omit<User, "createdAt" | "updatedAt"> {
   createdAt: string;
   updatedAt: string;
 }
+
+export type fullSafeUser = Omit<
+  UserWithReviews & UserWithOrders,
+  "createdAt" | "updatedAt"
+> & {
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type SearchParams = {
   category?: string | null;
   search?: string | null;
@@ -39,3 +26,6 @@ export type SearchParams = {
 export type ProductWithReviews = Product & {
   reviews: Review[];
 };
+export type UserWithOrders = User & { orders: Order[] };
+export type UserWithReviews = User & { reviews: Review[] };
+export type S = User | UserWithOrders | UserWithReviews;

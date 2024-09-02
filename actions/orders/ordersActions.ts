@@ -29,9 +29,6 @@ export async function getOrderById(id: string) {
       where: {
         id,
       },
-      include: {
-        cart_products: true,
-      },
     });
   } catch (error) {
     console.error("Error while trying to getOrderById", error);

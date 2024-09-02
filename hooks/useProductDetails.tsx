@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import {
-  CartProduct,
-  ProductImage,
-  ProductWithReviews,
-} from "@/app/product/utils/types";
+import { ProductImage, ProductWithReviews } from "@/app/product/utils/types";
 import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
 import { useCart } from "@/hooks/useCart";
+import { CartProduct } from "@prisma/client";
 
 export const useProductDetails = (product: ProductWithReviews) => {
   const [cartProduct, setCartProduct] = useState<CartProduct>({
-    id: product.id,
+    productId: product.id,
     name: product.name,
     description: product.description,
     price: product.price,
     brand: product.brand,
     category: product.category,
-    availableQuantity: product.quantity,
-    minQuantity: product.minQuantity,
-    maxQuantity: product.maxQuantity,
     selectedImage: product.images[0],
     selectedQuantity: product.minQuantity,
   });
@@ -32,7 +26,9 @@ export const useProductDetails = (product: ProductWithReviews) => {
 
   useEffect(() => {
     setIsProductInCart(
-      cartProducts?.some((prod) => prod.id === cartProduct.id) ?? false
+      cartProducts?.some(
+        (prod: CartProduct) => prod.productId === cartProduct.productId
+      ) ?? false
     );
   }, [cartProducts]);
 
@@ -44,7 +40,7 @@ export const useProductDetails = (product: ProductWithReviews) => {
   };
 
   const handleQuantityDecrease = () => {
-    if (cartProduct.selectedQuantity === cartProduct.minQuantity) {
+    if (cartProduct.selectedQuantity === product.minQuantity) {
       toast.error("Ooops! Minimum quantity reached");
       return;
     }
@@ -55,7 +51,7 @@ export const useProductDetails = (product: ProductWithReviews) => {
   };
 
   const handleQuantityIncrease = () => {
-    if (cartProduct.selectedQuantity === cartProduct.maxQuantity) {
+    if (cartProduct.selectedQuantity === product.maxQuantity) {
       toast.error("Ooops! Maximum quantity reached");
       return;
     }

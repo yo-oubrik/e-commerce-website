@@ -5,62 +5,66 @@ import FormWrapper from "../components/FormWrapper";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 import { CheckoutForm } from "./CheckoutForm";
 import { RedirectionPage } from "../components/RedirectionPage";
-import { getErrorMessage } from "../utils/helperFunctions/getErrorMessage";
+import toast from "react-hot-toast";
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
+
 const Checkout = () => {
   const { paymentIntent, cartProducts, handleSetPaymentIntent } = useCart();
   const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for handling error messages
+  const router = useRouter();
 
   useEffect(() => {
-    const paymentIntentReq = async () => {
-      if (!cartProducts || cartProducts.length == 0) return;
+    if (!cartProducts || cartProducts.length === 0) return;
+
+    const fetchPaymentIntent = async () => {
       setIsLoading(true);
+      setErrorMessage(null);
+
       try {
-        const result = await fetch("/api/paymentIntent", {
+        const response = await fetch("/api/paymentIntent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            items: cartProducts,
+            cartProducts,
             paymentIntentId: paymentIntent,
           }),
         });
 
-        setIsLoading(false);
-
-        if (result.status === 401) {
+        if (response.status === 401) {
           router.push("/login");
           return;
         }
 
-        if (!result.ok) {
-          throw new Error(`
-            Error: ${result.body}
-            status: ${result.status}
-          `);
+        const data = await response.json();
+
+        if (!response.ok) {
+          setErrorMessage(
+            data.error || "Failed to process payment. Please try again."
+          );
+          return;
         }
 
-        const data = await result.json();
         setClientSecret(data.paymentIntent.client_secret);
         handleSetPaymentIntent(data.paymentIntent.id);
       } catch (error) {
+        setErrorMessage(
+          "An unexpected error occurred. Please try again later."
+        );
+      } finally {
         setIsLoading(false);
-        setHasError(true);
-        console.error(getErrorMessage(error));
-        toast.error("Oops! Something went wrong. Please try again.");
       }
     };
-    if (!cartProducts || cartProducts.length === 0) return;
-    paymentIntentReq();
-  }, [cartProducts, paymentIntent, handleSetPaymentIntent, router]);
+
+    fetchPaymentIntent();
+  }, [cartProducts]);
 
   const options: StripeElementsOptions = {
     clientSecret,
@@ -69,21 +73,22 @@ const Checkout = () => {
       labels: "floating",
     },
   };
+
   return (
     <div className="py-8">
       <Container>
-        {!cartProducts || cartProducts.length == 0 ? (
+        {!cartProducts || cartProducts.length === 0 ? (
           <RedirectionPage
-            heading={"Your cart is empty"}
+            heading="Your cart is empty"
             redirectionLinks={[
               { description: "Start Shopping", href: "/" },
               { description: "View your orders", href: "/orders" },
             ]}
           />
         ) : isLoading ? (
-          <p className="text-center">Loading...</p>
-        ) : hasError ? (
-          <p className="text-center text-rose-500">Something went wrong</p>
+          <div className="text-center">
+            <p>Loading ...</p>
+          </div>
         ) : clientSecret ? (
           <FormWrapper>
             <div className="w-full">
@@ -92,6 +97,10 @@ const Checkout = () => {
               </Elements>
             </div>
           </FormWrapper>
+        ) : errorMessage ? (
+          toast.error(errorMessage, {
+            id: "checkout-error",
+          })
         ) : null}
       </Container>
     </div>

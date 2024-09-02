@@ -8,30 +8,26 @@ export async function getCurrentUser() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      return null;
+      throw new Error("No user session found");
     }
     const currentUser = await prisma.user.findUnique({
       where: {
         email: session.user.email,
       },
       include: {
-        orders: {
-          include: {
-            products: true,
-          },
-        },
+        orders: true,
         reviews: true,
       },
     });
 
     if (!currentUser) {
-      return null;
+      throw new Error("User not found");
     }
 
     return convertToSafeUser(currentUser);
   } catch (err) {
     console.error(err);
-    return null;
+    throw new Error("Error trying to get current user");
   }
 }
 

@@ -1,38 +1,23 @@
 "use client";
-import { DeliveryStatus, Order, Product, Review } from "@prisma/client";
-import { safeUser } from "../utils/types";
+import { CartProduct, DeliveryStatus, Product } from "@prisma/client";
+import {
+  fullSafeUser,
+  safeUser,
+  UserWithOrders,
+  UserWithReviews,
+} from "../utils/types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  FieldValues,
-  RegisterOptions,
-  SubmitHandler,
-  useForm,
-  UseFormRegisterReturn,
-} from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Rating } from "@mui/material";
 import TextArea from "@/app/components/input/TextArea";
 import Button from "@/app/components/Button";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { getErrorMessage } from "@/app/utils/helperFunctions/getErrorMessage";
-
-type OrderWithProducts = Order & {
-  products: Product[];
-};
 interface IAddProductReview {
-  product:
-    | (Product & {
-        reviews: Review[];
-      })
-    | null;
-  user:
-    | (safeUser & {
-        orders: OrderWithProducts[];
-      } & {
-        reviews: Review[];
-      })
-    | null;
+  user: fullSafeUser;
+  product: Product | undefined;
 }
 export const AddProductReview: React.FC<IAddProductReview> = ({
   product,
@@ -43,7 +28,7 @@ export const AddProductReview: React.FC<IAddProductReview> = ({
   const isProductDelivered = user.orders.some(
     (order) =>
       order.deliveryStatus === DeliveryStatus.delivered &&
-      order.products.some((prod) => prod.id === product.id)
+      order.cart_products.some((prod) => prod.productId === product.id)
   );
   if (!isProductDelivered) return null;
   const hasAlreadyRated = user.reviews.some(

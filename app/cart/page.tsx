@@ -1,7 +1,5 @@
 import { useCart } from "@/hooks/useCart";
 import Container from "../components/Container";
-import { useState } from "react";
-import { safeUser } from "../product/utils/types";
 import { ClientCart } from "./ClientCart";
 import { getCurrentUser } from "@/actions/user/userActions";
 

@@ -52,7 +52,6 @@ model Order {
     address         Address?
     user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
     cart_products   CartProduct[]
-    products        Product[]
 }
 
 enum DeliveryStatus {
@@ -66,20 +65,15 @@ enum PaymentStatus {
     pending
 }
 
-model CartProduct {
-    id                String       @id @default(auto()) @map("_id") @db.ObjectId
-    name              String
-    description       String
-    price             Float
-    brand             String
-    category          String
-    availableQuantity Int
-    minQuantity       Int
-    maxQuantity       Int
-    selectedImage     ProductImage
-    selectedQuantity  Int
-    Order             Order?       @relation(fields: [orderId], references: [id])
-    orderId           String?      @db.ObjectId
+type CartProduct {
+    name             String
+    description      String
+    price            Float
+    brand            String
+    category         String
+    selectedImage    ProductImage
+    selectedQuantity Int
+    productId        String       @db.ObjectId
 }
 
 type ProductImage {
@@ -114,8 +108,6 @@ model Product {
     minQuantity Int
     images      ProductImage[]
     reviews     Review[]
-    Order       Order?         @relation(fields: [orderId], references: [id])
-    orderId     String?        @db.ObjectId
 }
 
 model Review {

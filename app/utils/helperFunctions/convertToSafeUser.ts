@@ -1,7 +1,11 @@
-import { safeUser } from "@/app/product/utils/types";
-import { User } from "@prisma/client";
+import { S } from "@/app/product/utils/types";
 
-export function convertToSafeUser(user: User): safeUser {
+export function convertToSafeUser<T extends S>(
+  user: T
+): Omit<T, "createdAt" | "updatedAt"> & {
+  createdAt: string;
+  updatedAt: string;
+} {
   return {
     ...user,
     createdAt: user.createdAt.toISOString(),
