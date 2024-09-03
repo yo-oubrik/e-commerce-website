@@ -1,4 +1,4 @@
-import { CartProduct } from "../utils/types";
+import { CartProduct } from "@prisma/client";
 
 interface IIsProductInStock {
   cartProduct: CartProduct;

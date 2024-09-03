@@ -1,4 +1,4 @@
-import { CartProduct } from "../product/utils/types";
+import { CartProduct } from "@prisma/client";
 import ProductCartRow from "./ProductCartRow";
 
 interface IProductCartTable {
@@ -15,7 +15,7 @@ const ProductCartTable: React.FC<IProductCartTable> = ({ cartProducts }) => {
         <div className="text-end">SUBTOTAL</div>
       </div>
       {cartProducts.map((cartProduct) => (
-        <ProductCartRow cartProduct={cartProduct} key={cartProduct.id} />
+        <ProductCartRow cartProduct={cartProduct} key={cartProduct.productId} />
       ))}
     </div>
   );

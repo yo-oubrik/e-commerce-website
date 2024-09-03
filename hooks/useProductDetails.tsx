@@ -15,6 +15,9 @@ export const useProductDetails = (product: ProductWithReviews) => {
     category: product.category,
     selectedImage: product.images[0],
     selectedQuantity: product.minQuantity,
+    maxQuantity: product.maxQuantity,
+    minQuantity: product.minQuantity,
+    availableQuantity: product.availableQuantity,
   });
 
   const [isProductInCart, setIsProductInCart] = useState(false);

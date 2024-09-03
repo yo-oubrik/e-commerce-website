@@ -1,6 +1,5 @@
-import { Order, Product } from "@prisma/client";
+import { CartProduct, Order, Product } from "@prisma/client";
 import ProductOrderRow from "./ProductOrderRow";
-import { CartProduct } from "@/app/product/utils/types";
 interface IOrderDetails {
   order: Order & {
     cart_products: CartProduct[];
@@ -18,7 +17,10 @@ export const OrderProductsTable: React.FC<IOrderDetails> = ({ order }) => {
           <div className="text-end">SUBTOTAL</div>
         </div>
         {order.cart_products.map((cartProduct) => (
-          <ProductOrderRow key={cartProduct.id} cartProduct={cartProduct} />
+          <ProductOrderRow
+            key={cartProduct.productId}
+            cartProduct={cartProduct}
+          />
         ))}
       </div>
     </div>

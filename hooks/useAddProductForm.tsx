@@ -36,7 +36,7 @@ export const useProductForm = () => {
       price: "",
       brand: "",
       category: "",
-      quantity: "",
+      availableQuantity: "",
       maxQuantity: "",
       minQuantity: "1",
       images: [],
@@ -145,10 +145,10 @@ export const useProductForm = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const quantity = watch("quantity");
+  const availableQuantity = watch("availableQuantity");
   useEffect(() => {
-    setValue("maxQuantity", quantity);
-  }, [quantity]);
+    setValue("maxQuantity", availableQuantity);
+  }, [availableQuantity]);
 
   return {
     register,

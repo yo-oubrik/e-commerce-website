@@ -18,7 +18,7 @@ interface IManageProductsClient {
 interface IRows {
   id: string;
   name: string;
-  quantity: number;
+  availableQuantity: number;
   minQuantity: number;
   maxQuantity: number;
   price: string;
@@ -52,7 +52,11 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
     () => [
       { field: "id", headerName: "ID", width: 110 },
       { field: "name", headerName: "Name", width: 180 },
-      { field: "quantity", headerName: "Quantity", width: 109 },
+      {
+        field: "availableQuantity",
+        headerName: "Available Quantity",
+        width: 140,
+      },
       { field: "minQuantity", headerName: "Min Quantity", width: 109 },
       { field: "maxQuantity", headerName: "Max Quantity", width: 109 },
       {
@@ -102,16 +106,16 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
 
   const rows: IRows[] = useMemo(
     () =>
-      products.map((product) => ({
+      products.map((product: Product) => ({
         id: product.id,
         name: product.name,
-        quantity: product.quantity,
+        availableQuantity: product.availableQuantity,
         minQuantity: product.minQuantity,
         maxQuantity: product.maxQuantity,
         price: formatPrice(product.price),
         category: product.category,
         brand: product.brand,
-        inStock: product.quantity !== 0,
+        inStock: product.availableQuantity !== 0,
         images: product.images,
       })),
     [products]

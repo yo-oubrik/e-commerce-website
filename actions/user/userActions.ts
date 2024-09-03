@@ -26,7 +26,7 @@ export async function getCurrentUser() {
 
     return convertToSafeUser(currentUser);
   } catch (err) {
-    console.error(err);
+    console.error("Error trying to getCurrentUser", err);
     throw new Error("Error trying to get current user");
   }
 }

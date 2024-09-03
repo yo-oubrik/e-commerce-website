@@ -18,7 +18,6 @@ const Checkout = () => {
   const { paymentIntent, cartProducts, handleSetPaymentIntent } = useCart();
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for handling error messages
   const router = useRouter();
 
   useEffect(() => {
@@ -26,41 +25,27 @@ const Checkout = () => {
 
     const fetchPaymentIntent = async () => {
       setIsLoading(true);
-      setErrorMessage(null);
 
-      try {
-        const response = await fetch("/api/paymentIntent", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            cartProducts,
-            paymentIntentId: paymentIntent,
-          }),
-        });
+      const response = await fetch("/api/paymentIntent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cartProducts,
+          paymentIntentId: paymentIntent,
+        }),
+      });
 
-        if (response.status === 401) {
-          router.push("/login");
-          return;
-        }
+      setIsLoading(false);
 
-        const data = await response.json();
-
-        if (!response.ok) {
-          setErrorMessage(
-            data.error || "Failed to process payment. Please try again."
-          );
-          return;
-        }
-
-        setClientSecret(data.paymentIntent.client_secret);
-        handleSetPaymentIntent(data.paymentIntent.id);
-      } catch (error) {
-        setErrorMessage(
-          "An unexpected error occurred. Please try again later."
-        );
-      } finally {
-        setIsLoading(false);
+      if (response.status === 401) {
+        router.push("/login");
+        return;
       }
+
+      const data = await response.json();
+
+      setClientSecret(data.paymentIntent.client_secret);
+      handleSetPaymentIntent(data.paymentIntent.id);
     };
 
     fetchPaymentIntent();
@@ -90,17 +75,15 @@ const Checkout = () => {
             <p>Loading ...</p>
           </div>
         ) : clientSecret ? (
-          <FormWrapper>
-            <div className="w-full">
-              <Elements stripe={stripePromise} options={options}>
-                <CheckoutForm clientSecret={clientSecret} />
-              </Elements>
-            </div>
-          </FormWrapper>
-        ) : errorMessage ? (
-          toast.error(errorMessage, {
-            id: "checkout-error",
-          })
+          <div className="mx-auto w-fit">
+            <FormWrapper>
+              <div className="w-full">
+                <Elements stripe={stripePromise} options={options}>
+                  <CheckoutForm clientSecret={clientSecret} />
+                </Elements>
+              </div>
+            </FormWrapper>
+          </div>
         ) : null}
       </Container>
     </div>

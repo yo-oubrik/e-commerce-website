@@ -1,4 +1,4 @@
-import { CartProduct } from "@/app/product/utils/types";
+import { CartProduct } from "@prisma/client";
 import { createContext } from "react";
 
 type CartContextType = {

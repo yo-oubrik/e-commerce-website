@@ -1,11 +1,11 @@
 import React from "react";
-import { CartProduct } from "../product/utils/types";
 import SetProductQuantity from "../components/products/SetProductQuantity";
 import { formatPrice } from "../utils/formatPrice";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
 import { truncTitle } from "../utils/helperFunctions/truncTitle";
+import { CartProduct } from "@prisma/client";
 interface IProductCartRow {
   cartProduct: CartProduct;
 }
@@ -18,11 +18,11 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ cartProduct }) => {
   } = useCart();
   return (
     <div
-      key={cartProduct.id}
+      key={cartProduct.productId}
       className="max-sm:flex max-sm:flex-col max-sm:gap-2 sm:grid sm:grid-cols-5 border-b border-slate-200 py-2 text-sm"
     >
       <div className="sm:col-span-2 flex items-center max-sm:justify-center gap-4">
-        <Link href={`/product/${cartProduct.id}`}>
+        <Link href={`/product/${cartProduct.productId}`}>
           <Image
             src={cartProduct.selectedImage.imageUrl}
             alt={cartProduct.name}
@@ -31,7 +31,7 @@ const ProductCartRow: React.FC<IProductCartRow> = ({ cartProduct }) => {
           />
         </Link>
         <div>
-          <Link href={`/product/${cartProduct.id}`}>
+          <Link href={`/product/${cartProduct.productId}`}>
             <h3 className="text-sm" title={`${cartProduct.name}`}>
               {truncTitle(cartProduct.name)}
             </h3>

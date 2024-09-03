@@ -76,7 +76,7 @@ const ProductDetails: React.FC<IProductDetails> = ({ product }) => {
             </div>
           </>
         )}
-        {product.quantity > 0 && !isProductInCart && (
+        {product.availableQuantity > 0 && !isProductInCart && (
           <>
             <SetProductColor
               cartProduct={cartProduct}

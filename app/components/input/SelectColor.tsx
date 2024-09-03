@@ -42,7 +42,12 @@ export const SetColor: React.FC<ISetColor> = ({
     <>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
-          <input id={item.color} type="checkbox" onChange={handleCheck} />
+          <input
+            checked={isProductCreated ? false : isSelected}
+            id={item.color}
+            type="checkbox"
+            onChange={handleCheck}
+          />
           <label htmlFor={item.color}>{item.color}</label>
         </div>
         {isSelected && !file && (
@@ -54,7 +59,7 @@ export const SetColor: React.FC<ISetColor> = ({
         {file && (
           <div>
             <p>{file.name}</p>
-            <div className="max-w-28 mt-2">
+            <div className="max-w-27 mt-2">
               <Button
                 label="Cancel"
                 onClick={() => {

@@ -50,7 +50,7 @@ export const OrderDetailsSection: React.FC<IOrderDetails> = ({ order }) => {
       </div>
       <div className="flex gap-2">
         <span className="font-semibold">Created At : </span>
-        <span>{moment(order.createDate).fromNow()}</span>
+        <span>{moment(order.createdAt).fromNow()}</span>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { truncTitle } from "@/app/utils/helperFunctions/truncTitle";
 import { formatPrice } from "@/app/utils/formatPrice";
-import { CartProduct } from "@/app/product/utils/types";
+import { CartProduct } from "@prisma/client";
 interface IProductOrderRow {
   cartProduct: CartProduct;
 }
@@ -11,11 +11,11 @@ interface IProductOrderRow {
 const ProductOrderRow: React.FC<IProductOrderRow> = ({ cartProduct }) => {
   return (
     <div
-      key={cartProduct.id}
+      key={cartProduct.productId}
       className="max-sm:flex max-sm:flex-col max-sm:gap-2 sm:grid sm:grid-cols-5 border-b border-slate-200 py-2 text-sm"
     >
       <div className="sm:col-span-2 flex items-center max-sm:justify-center gap-4">
-        <Link href={`/product/${cartProduct.id}`}>
+        <Link href={`/product/${cartProduct.productId}`}>
           <Image
             src={cartProduct.selectedImage.imageUrl}
             alt={cartProduct.name}
@@ -24,7 +24,7 @@ const ProductOrderRow: React.FC<IProductOrderRow> = ({ cartProduct }) => {
           />
         </Link>
         <div>
-          <Link href={`/product/${cartProduct.id}`}>
+          <Link href={`/product/${cartProduct.productId}`}>
             <h3 className="text-sm" title={`${cartProduct.name}`}>
               {truncTitle(cartProduct.name)}
             </h3>

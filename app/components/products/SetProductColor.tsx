@@ -1,6 +1,7 @@
 "use client";
 
-import { CartProduct, ProductImage } from "@/app/product/utils/types";
+import { ProductImage } from "@/app/product/utils/types";
+import { CartProduct } from "@prisma/client";
 
 interface ISetProductColor {
   images: ProductImage[];

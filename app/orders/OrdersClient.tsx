@@ -29,7 +29,7 @@ export const OrdersClient: React.FC<IManageOrdersClient> = ({ orders }) => {
         amount: formatPrice(order.amount),
         status: order.status,
         deliveryStatus: order.deliveryStatus,
-        createDate: moment(order.createDate).fromNow(),
+        createDate: moment(order.createdAt).fromNow(),
       };
     });
   }

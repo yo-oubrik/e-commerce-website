@@ -1,6 +1,6 @@
 "use client";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { generateUrl } from "@/app/utils/helperFunctions/generateUrl";
 
 interface ISearchBar {
@@ -8,6 +8,8 @@ interface ISearchBar {
 }
 
 export const SearchBar: React.FC<ISearchBar> = ({ hasBorder }) => {
+  const pathname = usePathname();
+  if (pathname !== "/") return;
   const category = useSearchParams()?.get("category");
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm<FieldValues>({

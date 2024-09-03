@@ -1,8 +1,8 @@
 "use client";
-import { CartProduct } from "@/app/product/utils/types";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CartContext } from "../hooks/CartContext";
+import { CartProduct } from "@prisma/client";
 interface ICartContextProvider {
   [propName: string]: any;
 }
@@ -56,7 +56,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
       localStorage.setItem("cartProducts", JSON.stringify(updatedCartProducts));
       setCartNumberOfProducts((prev) => prev + product.selectedQuantity);
       toast.success("Product added to cart", {
-        id: product.id,
+        id: product.productId,
       });
     },
     [cartProducts]
@@ -64,14 +64,14 @@ export const CartContextProvider = (props: ICartContextProvider) => {
   const removeProductFromCart = useCallback(
     (product: CartProduct) => {
       const updatedCartProducts = cartProducts?.filter(
-        (p) => p.id !== product.id
+        (p) => p.productId !== product.productId
       );
       localStorage.setItem("cartProducts", JSON.stringify(updatedCartProducts));
       setCartProducts(updatedCartProducts);
       setTotalPrice((prev) => prev - product.price * product.selectedQuantity);
       setCartNumberOfProducts((prev) => prev - product.selectedQuantity);
       toast.success("Product removed from cart", {
-        id: product.id,
+        id: product.productId,
       });
     },
     [cartProducts]
@@ -85,13 +85,12 @@ export const CartContextProvider = (props: ICartContextProvider) => {
   const handleQuantityDecrease = useCallback(
     (product: CartProduct) => {
       if (product.selectedQuantity === product.minQuantity) {
-        toast.error(`Ooops! Minimum quantity reached`, {
-          id: product.id,
+        return toast.error(`Ooops! Minimum quantity reached`, {
+          id: "minQuantity",
         });
-        return;
       }
       const updatedCartProducts = cartProducts?.map((p) => {
-        if (p.id == product.id) {
+        if (p.productId == product.productId) {
           return { ...p, selectedQuantity: p.selectedQuantity - 1 };
         }
         return p;
@@ -109,13 +108,12 @@ export const CartContextProvider = (props: ICartContextProvider) => {
   const handleQuantityIncrease = useCallback(
     (product: CartProduct) => {
       if (product.selectedQuantity === product.maxQuantity) {
-        toast.error(`Ooops! Maximum quantity reached`, {
-          id: product.id,
+        return toast.error(`Ooops! Maximum quantity reached`, {
+          id: "maxQuantity",
         });
-        return;
       }
       const updatedCartProducts = cartProducts?.map((p) => {
-        if (p.id == product.id) {
+        if (p.productId == product.productId) {
           return { ...p, selectedQuantity: p.selectedQuantity + 1 };
         }
         return p;

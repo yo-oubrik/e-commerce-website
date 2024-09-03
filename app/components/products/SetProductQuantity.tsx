@@ -1,5 +1,5 @@
 "use client";
-import { CartProduct } from "@/app/product/utils/types";
+import { CartProduct } from "@prisma/client";
 import React, { useState } from "react";
 interface ISetProductQuantity {
   cartProduct: CartProduct;

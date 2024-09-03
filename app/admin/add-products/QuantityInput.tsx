@@ -12,8 +12,8 @@ export const QuantityInput: React.FC<IQuantityInput> = ({
 }) => {
   return (
     <Input
-      id="quantity"
-      label="Quantity"
+      id="availableQuantity"
+      label="Available Quantity"
       type="text"
       disabled={disabled}
       register={register}

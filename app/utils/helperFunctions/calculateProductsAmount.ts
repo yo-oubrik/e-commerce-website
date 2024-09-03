@@ -5,5 +5,5 @@ export const calculateProductsAmount = (cart_products: CartProduct[]) => {
     (prev, current) => prev + current.price * current.selectedQuantity,
     0
   );
-  return Math.ceil(total * 100);
+  return Math.ceil(total);
 };

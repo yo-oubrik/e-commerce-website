@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       price,
       brand,
       category,
-      quantity,
+      availableQuantity,
       minQuantity,
       maxQuantity,
       images,
@@ -27,14 +27,14 @@ export async function POST(request: Request) {
 
     // Convert and validate numeric values
     const parsedPrice = parseFloat(price);
-    const parsedQuantity = parseInt(quantity);
+    const parsedAvailableQuantity = parseInt(availableQuantity);
     const parsedMinQuantity = parseInt(minQuantity);
     const parsedMaxQuantity = parseInt(maxQuantity);
 
     // Validation: Ensure that required fields are provided and valid
     if (
       isNaN(parsedPrice) ||
-      isNaN(parsedQuantity) ||
+      isNaN(parsedAvailableQuantity) ||
       isNaN(parsedMinQuantity) ||
       isNaN(parsedMaxQuantity) ||
       !name ||
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
         price: parsedPrice,
         brand,
         category,
-        quantity: parsedQuantity,
+        availableQuantity: parsedAvailableQuantity,
         minQuantity: parsedMinQuantity,
         maxQuantity: parsedMaxQuantity,
         images,

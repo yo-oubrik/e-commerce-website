@@ -66,14 +66,17 @@ enum PaymentStatus {
 }
 
 type CartProduct {
-    name             String
-    description      String
-    price            Float
-    brand            String
-    category         String
-    selectedImage    ProductImage
-    selectedQuantity Int
-    productId        String       @db.ObjectId
+    name              String
+    description       String
+    price             Float
+    brand             String
+    category          String
+    selectedImage     ProductImage
+    selectedQuantity  Int
+    productId         String       @db.ObjectId
+    minQuantity       Int
+    maxQuantity       Int
+    availableQuantity Int
 }
 
 type ProductImage {
@@ -97,17 +100,17 @@ enum Role {
 }
 
 model Product {
-    id          String         @id @default(auto()) @map("_id") @db.ObjectId
-    name        String
-    description String
-    price       Float
-    brand       String
-    category    String
-    quantity    Int
-    maxQuantity Int
-    minQuantity Int
-    images      ProductImage[]
-    reviews     Review[]
+    id                String         @id @default(auto()) @map("_id") @db.ObjectId
+    name              String
+    description       String
+    price             Float
+    brand             String
+    category          String
+    maxQuantity       Int
+    minQuantity       Int
+    availableQuantity Int
+    images            ProductImage[]
+    reviews           Review[]
 }
 
 model Review {
