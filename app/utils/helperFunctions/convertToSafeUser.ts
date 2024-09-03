@@ -1,11 +1,11 @@
-import { S } from "@/app/product/utils/types";
+import {
+  UserWithSafeTimestamps,
+  UserWithReviewsAndOrders,
+} from "@/app/product/utils/types";
 
-export function convertToSafeUser<T extends S>(
-  user: T
-): Omit<T, "createdAt" | "updatedAt"> & {
-  createdAt: string;
-  updatedAt: string;
-} {
+export function convertToSafeUser(
+  user: UserWithReviewsAndOrders
+): UserWithSafeTimestamps {
   return {
     ...user,
     createdAt: user.createdAt.toISOString(),

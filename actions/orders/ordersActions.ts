@@ -39,9 +39,6 @@ export async function getOrderById(id: string) {
 export async function getClientOrders() {
   try {
     const currentUser = await getCurrentUser();
-    if (!currentUser) {
-      throw new Error("User not authenticated");
-    }
     return await prisma.order.findMany({
       orderBy: {
         createdAt: "desc",

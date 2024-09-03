@@ -5,15 +5,15 @@ import { MdArrowBack } from "react-icons/md";
 import { useCart } from "@/hooks/useCart";
 import { formatPrice } from "../utils/formatPrice";
 import { useRouter } from "next/navigation";
-import { safeUser } from "../product/utils/types";
 
 interface ICartSummary {
-  currentUser: safeUser | null;
+  isLoggedIn: boolean;
 }
 
-const CartSummary: React.FC<ICartSummary> = ({ currentUser }) => {
+const CartSummary: React.FC<ICartSummary> = ({ isLoggedIn }) => {
   const { totalPrice } = useCart();
   const router = useRouter();
+
   return (
     <div className="max-sm:mt-4">
       <div className="flex justify-between items-center font-bold mb-1">
@@ -25,9 +25,9 @@ const CartSummary: React.FC<ICartSummary> = ({ currentUser }) => {
       </p>
       <div className="my-[6px] max-w-[cart400px]">
         <Button
-          label={currentUser ? "Checkout" : "Login To Checkout"}
+          label={isLoggedIn ? "Checkout" : "Login To Checkout"}
           onClick={() => {
-            currentUser ? router.push("/checkout") : router.push("/login");
+            isLoggedIn ? router.push("/checkout") : router.push("/login");
           }}
         />
       </div>

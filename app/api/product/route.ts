@@ -1,8 +1,6 @@
 import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/actions/user/userActions";
 import { deleteObject, getStorage, ref } from "firebase/storage";
-import { log } from "console";
 import { ProductImage } from "@prisma/client";
 import firebaseApp from "@/libs/firebase";
 import { isUserAdmin } from "@/app/utils/helperFunctions/isUserAdmin";

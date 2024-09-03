@@ -1,11 +1,6 @@
 "use client";
-import { CartProduct, DeliveryStatus, Product } from "@prisma/client";
-import {
-  fullSafeUser,
-  safeUser,
-  UserWithOrders,
-  UserWithReviews,
-} from "../utils/types";
+import { DeliveryStatus, Product } from "@prisma/client";
+import { UserWithSafeTimestamps } from "../utils/types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -16,8 +11,8 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { getErrorMessage } from "@/app/utils/helperFunctions/getErrorMessage";
 interface IAddProductReview {
-  user: fullSafeUser;
-  product: Product | undefined;
+  user: UserWithSafeTimestamps;
+  product: Product;
 }
 export const AddProductReview: React.FC<IAddProductReview> = ({
   product,

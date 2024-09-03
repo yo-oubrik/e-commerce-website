@@ -11,14 +11,6 @@ export interface safeUser extends Omit<User, "createdAt" | "updatedAt"> {
   updatedAt: string;
 }
 
-export type fullSafeUser = Omit<
-  UserWithReviews & UserWithOrders,
-  "createdAt" | "updatedAt"
-> & {
-  createdAt: string;
-  updatedAt: string;
-};
-
 export type SearchParams = {
   category?: string | null;
   search?: string | null;
@@ -26,6 +18,14 @@ export type SearchParams = {
 export type ProductWithReviews = Product & {
   reviews: Review[];
 };
-export type UserWithOrders = User & { orders: Order[] };
-export type UserWithReviews = User & { reviews: Review[] };
-export type S = User | UserWithOrders | UserWithReviews;
+export type UserWithReviewsAndOrders = User & { reviews: Review[] } & {
+  orders: Order[];
+};
+
+export type UserWithSafeTimestamps = Omit<
+  UserWithReviewsAndOrders,
+  "createdAt" | "updatedAt"
+> & {
+  createdAt: string;
+  updatedAt: string;
+};

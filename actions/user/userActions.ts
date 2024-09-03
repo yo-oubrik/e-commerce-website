@@ -39,3 +39,13 @@ export async function getUsers() {
     throw err;
   }
 }
+
+export async function isLoggedIn() {
+  try {
+    const session = await getServerSession(authOptions);
+    return session?.user ? true : false;
+  } catch (err) {
+    console.error("error trying to check if user is logged in", err);
+    throw new Error("Error trying to check if user is logged in");
+  }
+}
