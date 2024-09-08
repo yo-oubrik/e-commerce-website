@@ -1,9 +1,9 @@
 "use client";
-import { truncTitle } from "@/app/utils/helperFunctions/truncTitle";
+import { truncTitle } from "@/app/utils/helperFunctions/textManipulation";
 import Image from "next/image";
-import { formatPrice } from "@/app/utils/formatPrice";
+import { formatPrice } from "@/app/utils/helperFunctions/numbersManipulation";
 import { Rating } from "@mui/material";
-import { calculateAverageRating } from "@/app/utils/helperFunctions/calculateAverageRating";
+import { calculateAverageRating } from "@/app/utils/helperFunctions/helperFunctions";
 import Link from "next/link";
 import { ProductWithReviews } from "@/app/product/utils/types";
 

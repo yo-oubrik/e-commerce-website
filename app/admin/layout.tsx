@@ -1,9 +1,8 @@
-import { title } from "process";
+import { isUserAdmin } from "@/actions/user/userActions";
 import { ReactNode } from "react";
-import { Navbar } from "./Navbar";
 import Container from "../components/Container";
 import { RedirectionPage } from "../components/RedirectionPage";
-import { isUserAdmin } from "../utils/helperFunctions/isUserAdmin";
+import { Navbar } from "./Navbar";
 
 export const metadata = {
   title: "Admin dashboard",

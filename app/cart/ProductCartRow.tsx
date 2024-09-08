@@ -1,10 +1,10 @@
 import React from "react";
 import SetProductQuantity from "../components/products/SetProductQuantity";
-import { formatPrice } from "../utils/formatPrice";
+import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
-import { truncTitle } from "../utils/helperFunctions/truncTitle";
+import { truncTitle } from "../utils/helperFunctions/textManipulation";
 import { CartProduct } from "@prisma/client";
 interface IProductCartRow {
   cartProduct: CartProduct;

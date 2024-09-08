@@ -2,14 +2,18 @@ import { getCurrentUser } from "@/actions/user/userActions";
 import Container from "../components/Container";
 import FormWrapper from "../components/FormWrapper";
 import RegisterForm from "./RegisterForm";
+import { RegisterClient } from "./RegisterClient";
 
 const Register = async () => {
-  const currentUser = await getCurrentUser();
+  let currentUser;
+  try {
+    currentUser = await getCurrentUser();
+  } catch (err) {
+    console.info("User not logged in, rendering as guest");
+  }
   return (
     <Container customClass="flex justify-center py-8">
-      <FormWrapper>
-        <RegisterForm currentUser={currentUser}></RegisterForm>
-      </FormWrapper>
+      <RegisterClient currentUser={currentUser} />;
     </Container>
   );
 };

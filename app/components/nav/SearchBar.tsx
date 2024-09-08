@@ -1,7 +1,7 @@
 "use client";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { generateUrl } from "@/app/utils/helperFunctions/generateUrl";
+import { generateUrl } from "@/app/utils/helperFunctions/helperFunctions";
 
 interface ISearchBar {
   hasBorder?: boolean;

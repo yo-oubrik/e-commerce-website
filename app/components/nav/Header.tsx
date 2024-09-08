@@ -10,7 +10,12 @@ const redressed = Redressed({
   weight: ["400"],
 });
 export const Header = async () => {
-  const currentUser = await getCurrentUser();
+  let currentUser;
+  try {
+    currentUser = await getCurrentUser();
+  } catch (err) {
+    console.info("User not logged in, rendering as guest");
+  }
   return (
     <header className="sticky top-0 z-30">
       <div className="py-4 bg-slate-200">

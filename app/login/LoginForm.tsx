@@ -1,24 +1,18 @@
 "use client";
-import { use, useEffect, useState } from "react";
-import Button from "../components/Button";
-import Input from "../components/input/Input";
-import { Separator } from "../components/Separator";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { AiOutlineGoogle } from "react-icons/ai";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
-import toast from "react-hot-toast";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { safeUser } from "../product/utils/types";
-const LoginForm = ({ currentUser }: { currentUser: safeUser | null }) => {
+import { useEffect, useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AiOutlineGoogle } from "react-icons/ai";
+import Button from "../components/Button";
+import StringInput from "../components/input/StringInput";
+import { Separator } from "../components/Separator";
+const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    if (currentUser) {
-      router.push("/");
-      router.refresh();
-    }
-  });
+  useEffect(() => {});
   const {
     register,
     handleSubmit,
@@ -54,7 +48,6 @@ const LoginForm = ({ currentUser }: { currentUser: safeUser | null }) => {
         setIsLoading(false);
       });
   };
-  if (currentUser) return <p>Logged in. Redirecting...</p>;
   return (
     <>
       <h2 className="text-2xl font-bold">
@@ -70,7 +63,7 @@ const LoginForm = ({ currentUser }: { currentUser: safeUser | null }) => {
       />
       <Separator width={100} />
 
-      <Input
+      <StringInput
         id="email"
         label="Email"
         disabled={isLoading}
@@ -84,7 +77,7 @@ const LoginForm = ({ currentUser }: { currentUser: safeUser | null }) => {
           },
         }}
       />
-      <Input
+      <StringInput
         id="password"
         label="Password"
         disabled={isLoading}

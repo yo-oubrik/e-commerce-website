@@ -6,7 +6,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import { formatPrice } from "../utils/formatPrice";
+import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
 

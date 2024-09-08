@@ -1,14 +1,14 @@
 "use client";
 import TextArea from "@/app/components/input/TextArea";
 import { useProductForm } from "@/hooks/useAddProductForm";
-import Input from "@/app/components/input/Input";
+import StringInput from "@/app/components/input/StringInput";
 import Button from "@/app/components/Button";
-import { PriceInput } from "./PriceInput";
-import { QuantityInput } from "./QuantityInput";
-import { MaxQuantityInput } from "./MaxQuantityInput";
-import { MinQuantityInput } from "./MinQuantityInput";
-import { CategorySelector } from "./CategorySelector";
-import { ColorSelector } from "./ColorSelector";
+import { PriceInput } from "./inputs/PriceInput";
+import { QuantityInput } from "./inputs/QuantityInput";
+import { MaxQuantityInput } from "./inputs/MaxQuantityInput";
+import { MinQuantityInput } from "./inputs/MinQuantityInput";
+import { CategorySelector } from "./selectors/CategorySelector";
+import { ColorSelector } from "./selectors/ColorSelector";
 
 export type ImageType = {
   color: string;
@@ -41,24 +41,30 @@ export const AddProductForm = () => {
   } = useProductForm();
   return (
     <>
-      <Input
+      <StringInput
         id="name"
         label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
+        requiredMessage="Product name is required"
       />
 
-      <PriceInput disabled={isLoading} register={register} errors={errors} />
-
-      <Input
+      <PriceInput
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <StringInput
         id="brand"
         label="Brand"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
+        requiredMessage="Brand name is required"
       />
 
       <TextArea
@@ -68,13 +74,20 @@ export const AddProductForm = () => {
         register={register}
         errors={errors}
         required
+        requiredMessage="Product description is required"
       />
-      <QuantityInput errors={errors} disabled={isLoading} register={register} />
+      <QuantityInput
+        required
+        errors={errors}
+        disabled={isLoading}
+        register={register}
+      />
 
       <MaxQuantityInput
         errors={errors}
         disabled={isLoading}
         register={register}
+        required
         minQuantity={parseInt(getValues("minQuantity"))}
       />
 
@@ -91,13 +104,14 @@ export const AddProductForm = () => {
         selectedCategory={selectedCategory}
       />
 
-      {/* if images.length === 0 => has not added a color image */}
-      <ColorSelector
-        addImageToState={addImageToState}
-        hasError={hasError && images.length === 0}
-        isProductCreated={isProductCreated}
-        removeImageFromState={removeImageFromState}
-      />
+      {images.length === 0 && (
+        <ColorSelector
+          addImageToState={addImageToState}
+          hasError={hasError && images.length === 0}
+          isProductCreated={isProductCreated}
+          removeImageFromState={removeImageFromState}
+        />
+      )}
       <Button
         label={isLoading ? `Loading... ${loadingProgress}% ` : "Add Product"}
         onClick={handleSubmit(onSubmit)}

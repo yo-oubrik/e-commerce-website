@@ -1,5 +1,5 @@
 "use client";
-import { formatPrice } from "@/app/utils/formatPrice";
+import { formatPrice } from "@/app/utils/helperFunctions/numbersManipulation";
 import { Rating } from "@mui/material";
 import Button from "@/app/components/Button";
 import ProductImgsCarousel from "@/app/product/[productId]/ProductImgsCarousel";

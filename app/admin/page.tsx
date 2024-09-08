@@ -1,17 +1,20 @@
-import { getGraphData, getOrders } from "@/actions/orders/ordersActions";
+import {
+  getGraphData,
+  fetchOrdersWithUsers,
+} from "@/actions/orders/ordersActions";
 import { Summary } from "./Summary";
 import { getAllProducts } from "@/actions/products/productActions";
-import { getUsers } from "@/actions/user/userActions";
+import { getAllUsers } from "@/actions/user/userActions";
 import Container from "../components/Container";
 import { Heading } from "../components/Heading";
-import { convertToSafeUsers } from "../utils/helperFunctions/convertToSafeUsers";
+import { convertToSafeUsers } from "../utils/helperFunctions/helperFunctions";
 import { BarGraph } from "./BarGraph";
 
 const AdminPage = async () => {
   const [orders, products, users, graphData] = await Promise.all([
-    getOrders(),
+    fetchOrdersWithUsers(),
     getAllProducts(),
-    getUsers(),
+    getAllUsers(),
     getGraphData(),
   ]);
   const safeUsers = convertToSafeUsers(...users);

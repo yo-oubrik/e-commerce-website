@@ -2,7 +2,7 @@
 
 import { Product, ProductImage } from "@prisma/client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { formatPrice } from "@/app/utils/formatPrice";
+import { formatPrice } from "@/app/utils/helperFunctions/numbersManipulation";
 import { ActionBtn } from "@/app/components/ActionBtn";
 import { MdDelete, MdRemoveRedEye } from "react-icons/md";
 import toast from "react-hot-toast";

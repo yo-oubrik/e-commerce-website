@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-
+type stringInputType = "text" | "password" | "email";
 interface IInput {
   id: string;
   label: string;
@@ -10,26 +10,26 @@ interface IInput {
   disabled?: boolean;
   required?: boolean;
   requiredMessage?: string;
-  type?: string;
   errors: FieldErrors;
+  type?: string;
   validation?: Record<string, any>;
 }
 
-const Input: React.FC<IInput> = ({
+const StringInput: React.FC<IInput> = ({
   id,
   label,
   register,
+  type = "text",
   errors,
   disabled,
   required,
   requiredMessage = "This field is required",
-  type = "text",
   validation = {},
 }) => {
+  const [hasValue, setHasValue] = useState(false);
   return (
     <div className="w-full relative">
       <input
-        autoComplete="off"
         id={id}
         disabled={disabled}
         {...register(id, {
@@ -37,7 +37,6 @@ const Input: React.FC<IInput> = ({
           ...validation,
         })}
         placeholder=""
-        type={type}
         className={`
           peer
           w-full
@@ -53,7 +52,12 @@ const Input: React.FC<IInput> = ({
           disabled:cursor-not-allowed
           ${errors[id] ? "border-rose-400" : "border-gray-300"}
           ${errors[id] ? "focus:border-rose-400" : "focus:border-slate-500"}
-        `}
+          `}
+        onChange={(e) => {
+          setHasValue(e.target.value !== "");
+        }}
+        autoComplete="off"
+        type={type}
       />
       <label
         htmlFor={id}
@@ -71,6 +75,7 @@ const Input: React.FC<IInput> = ({
           peer-placeholder-shown:translate-y-0 
           peer-focus:scale-75
           peer-focus:-translate-y-4
+          ${hasValue && "scale-75 -translate-y-4"}
           ${errors[id] ? "text-rose-400" : "text-slate-400"}
         `}
       >
@@ -85,4 +90,4 @@ const Input: React.FC<IInput> = ({
   );
 };
 
-export default Input;
+export default StringInput;

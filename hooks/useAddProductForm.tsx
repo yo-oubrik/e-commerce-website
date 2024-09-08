@@ -29,6 +29,8 @@ export const useProductForm = () => {
     reset,
     getValues,
     formState: { errors },
+    setError,
+    clearErrors,
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
@@ -38,7 +40,7 @@ export const useProductForm = () => {
       category: "",
       availableQuantity: "",
       maxQuantity: "",
-      minQuantity: "1",
+      minQuantity: "",
       images: [],
       cardImage: "",
     },
@@ -147,7 +149,7 @@ export const useProductForm = () => {
 
   const availableQuantity = watch("availableQuantity");
   useEffect(() => {
-    setValue("maxQuantity", availableQuantity);
+    setCustomValue("maxQuantity", availableQuantity);
   }, [availableQuantity]);
 
   return {
@@ -168,6 +170,8 @@ export const useProductForm = () => {
     addImageToState,
     removeImageFromState,
     selectedCategory,
+    setError,
     handleCardImageSelect,
+    clearErrors,
   };
 };

@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/actions/user/userActions";
-import { calculateProductsAmount } from "@/app/utils/helperFunctions/calculateProductsAmount";
+import { calculateCartTotal } from "@/app/utils/helperFunctions/helperFunctions";
 import { CartProduct, DeliveryStatus, PaymentStatus } from "@prisma/client";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const total = calculateProductsAmount(cartProducts);
+    const total = calculateCartTotal(cartProducts);
 
     const orderData = {
       user: { connect: { id: currentUser.id } },

@@ -1,5 +1,4 @@
 "use client";
-import { IconBaseProps } from "react-icons";
 import { NavbarItem } from "./NavbarItem";
 import Link from "next/link";
 import {
@@ -9,7 +8,6 @@ import {
   MdLibraryAdd,
 } from "react-icons/md";
 import { usePathname } from "next/navigation";
-
 export const Navbar = () => {
   const pathname = usePathname();
   return (

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
-import { isUserAdmin } from "@/app/utils/helperFunctions/isUserAdmin";
+import { isUserAdmin } from "@/actions/user/userActions";
 export async function PUT(request: Request) {
   try {
     if (!(await isUserAdmin())) {

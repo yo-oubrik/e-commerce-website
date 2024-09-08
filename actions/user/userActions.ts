@@ -1,7 +1,8 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import prisma from "@/libs/prismadb";
-import { convertToSafeUser } from "@/app/utils/helperFunctions/convertToSafeUser";
+import { convertToSafeUser } from "@/app/utils/helperFunctions/helperFunctions";
+import { Role } from "@prisma/client";
 
 export async function getCurrentUser() {
   try {
@@ -31,7 +32,7 @@ export async function getCurrentUser() {
   }
 }
 
-export async function getUsers() {
+export async function getAllUsers() {
   try {
     return await prisma.user.findMany();
   } catch (err) {
@@ -48,4 +49,8 @@ export async function isLoggedIn() {
     console.error("error trying to check if user is logged in", err);
     throw new Error("Error trying to check if user is logged in");
   }
+}
+
+export async function isUserAdmin() {
+  return (await getCurrentUser()).role === Role.ADMIN ? true : false;
 }

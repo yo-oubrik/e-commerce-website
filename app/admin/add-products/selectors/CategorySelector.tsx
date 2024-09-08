@@ -1,5 +1,5 @@
 import { categories } from "@/app/utils/categories";
-import { Category } from "./Category";
+import { Category } from "../Category";
 interface ICategorySelector {
   selectedCategory: string;
   handleCategorySelect: (category: string) => void;

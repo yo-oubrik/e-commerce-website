@@ -16,9 +16,10 @@ export const calculateAverageRating = (reviews: Review[]) => {
   );
   return totalRating / reviews.length;
 };
-export const calculateProductsAmount = (cart_products: CartProduct[]) => {
-  const total = cart_products.reduce(
-    (prev, current) => prev + current.price * current.selectedQuantity,
+export const calculateCartTotal = (cart: CartProduct[]) => {
+  const total = cart.reduce(
+    (oldProduct, currentProduct) =>
+      oldProduct + currentProduct.price * currentProduct.selectedQuantity,
     0
   );
   return Math.ceil(total);
@@ -44,11 +45,6 @@ export const convertToSafeUsers = (...users: User[]): safeUser[] => {
     updatedAt: user.updatedAt.toISOString(),
   }));
 };
-export function truncTitle(title: string, nbrOfChars: number = 36): string {
-  return title.length > nbrOfChars
-    ? title.substring(0, nbrOfChars) + "..."
-    : title;
-}
 import { SearchParams } from "@/app/product/utils/types";
 import queryString from "query-string";
 

@@ -3,7 +3,7 @@
 import { Order, PaymentStatus, Product, User } from "@prisma/client";
 import { safeUser } from "../product/utils/types";
 import { useEffect, useMemo, useState } from "react";
-import { formatPrice } from "../utils/formatPrice";
+import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
 
 interface ISummary {
   orders: Order[];

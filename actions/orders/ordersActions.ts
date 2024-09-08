@@ -1,9 +1,8 @@
 import prisma from "@/libs/prismadb";
-import { getCurrentUser } from "../user/userActions";
+import { getCurrentUser, isUserAdmin } from "../user/userActions";
 import moment from "moment";
-import { isUserAdmin } from "@/app/utils/helperFunctions/isUserAdmin";
 
-export async function getOrders() {
+export async function fetchOrdersWithUsers() {
   try {
     if (!isUserAdmin()) throw new Error("Access denied, admin only");
     return await prisma.order.findMany({

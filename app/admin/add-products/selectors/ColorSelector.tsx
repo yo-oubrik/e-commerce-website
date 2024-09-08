@@ -1,6 +1,6 @@
 import { SetColor } from "@/app/components/input/SelectColor";
 import { colors } from "@/app/utils/colors";
-import { ImageType } from "./AddProductForm";
+import { ImageType } from "../AddProductForm";
 
 interface IColorSelector {
   addImageToState: (image: ImageType) => void;
