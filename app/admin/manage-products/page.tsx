@@ -9,7 +9,7 @@ export const ManageProducts = async () => {
       <RedirectionPage
         heading={"No products found"}
         description="add products"
-        href="/add-products"
+        href="/admin/add-products"
       />
     );
   return <ManageProductsClient products={products} />;
