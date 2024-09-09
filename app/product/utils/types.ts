@@ -21,7 +21,7 @@ export type ProductWithReviews = Product & {
 export type UserWithReviewsAndOrders = User & { reviews: Review[] } & {
   orders: Order[];
 };
-
+export type OrderWithUser = Order & { user: User };
 export type UserWithSafeTimestamps = Omit<
   UserWithReviewsAndOrders,
   "createdAt" | "updatedAt"

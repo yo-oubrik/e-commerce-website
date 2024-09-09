@@ -11,11 +11,11 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import moment from "moment";
 import { Heading } from "@/app/components/Heading";
-type ExtendedOrder = Order & {
-  user: User;
-};
+import clsx from "clsx";
+import { OrderWithUser } from "@/app/product/utils/types";
+
 interface IManageOrdersClient {
-  orders: ExtendedOrder[];
+  orders: OrderWithUser[];
 }
 interface IRows {
   id: string;
@@ -30,152 +30,108 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
   orders,
 }) => {
   const router = useRouter();
-  const handleDeliver = useCallback(async (id: string) => {
+
+  const updateDeliveryStatus = async (
+    id: string,
+    status: DeliveryStatus,
+    successMessage: string
+  ) => {
     try {
-      await axios.put("/api/order", {
-        id,
-        deliveryStatus: DeliveryStatus.delivered,
-      });
-      toast.success("Order Delivered", { id });
+      await axios.put("/api/order", { id, deliveryStatus: status });
+      toast.success(successMessage, { id });
       router.refresh();
     } catch (error) {
       toast.error("Oops! Something went wrong", { id });
     }
-  }, []);
-  const handleDispatch = useCallback(async (id: string) => {
-    await axios
-      .put("/api/order", {
-        id,
-        deliveryStatus: DeliveryStatus.dispatched,
-      })
-      .then((res) => {
-        toast.success("Order Dispatched");
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error("Ooops! something went wrong");
-        console.error(
-          "Error trying to update delivery status to dispatched :",
-          error
-        );
-      });
-  }, []);
-  let rows: IRows[] = useMemo(
-    () =>
-      orders.map((order) => {
-        return {
-          id: order.id,
-          userName: order.user.name || "",
-          amount: formatPrice(order.amount),
-          status: order.status,
-          deliveryStatus: order.deliveryStatus,
-          createDate: moment(order.createdAt).fromNow(),
-        };
-      }),
-    [orders]
+  };
+  const handleDeliver = useCallback(
+    (id: string) => {
+      updateDeliveryStatus(id, DeliveryStatus.delivered, "Order Delivered");
+    },
+    [router]
   );
-  let columns: GridColDef[] = useMemo(
+
+  const handleDispatch = useCallback(
+    (id: string) => {
+      updateDeliveryStatus(id, DeliveryStatus.dispatched, "Order Dispatched");
+    },
+    [router]
+  );
+
+  const rows: IRows[] = useMemo(() => {
+    return orders.map((order) => ({
+      id: order.id,
+      userName: order.user.name || "",
+      amount: formatPrice(order.amount),
+      status: order.status,
+      deliveryStatus: order.deliveryStatus,
+      createDate: moment(order.createdAt).fromNow(),
+    }));
+  }, [orders]);
+
+  const columns: GridColDef[] = useMemo(
     () => [
-      {
-        field: "id",
-        headerName: "Product ID",
-        width: 170,
-      },
-      {
-        field: "userName",
-        headerName: "User Name",
-        width: 170,
-      },
-      {
-        field: "amount",
-        headerName: "Amount (USD)",
-        width: 170,
-      },
+      { field: "id", headerName: "Product ID", width: 170 },
+      { field: "userName", headerName: "User Name", width: 170 },
+      { field: "amount", headerName: "Amount (USD)", width: 170 },
       {
         field: "status",
         headerName: "Payment Status",
         width: 170,
-        renderCell: (params) => {
-          return (
-            <span
-              className={`${
-                params.value === "complete"
-                  ? "text-teal-400"
-                  : "pending"
-                  ? "text-rose-400"
-                  : ""
-              }
-  `}
-            >
-              {params.value}
-            </span>
-          );
-        },
+        renderCell: (params) => (
+          <span
+            className={clsx({
+              "text-teal-400": params.value === PaymentStatus.complete,
+              "text-rose-400": params.value === PaymentStatus.pending,
+            })}
+          >
+            {params.value}
+          </span>
+        ),
       },
       {
         field: "deliveryStatus",
         headerName: "Delivery Status",
         width: 170,
-        renderCell: (params) => {
-          return (
-            <span
-              className={`${
-                params.value === DeliveryStatus.delivered
-                  ? "text-teal-400"
-                  : DeliveryStatus.pending
-                  ? "text-rose-400"
-                  : DeliveryStatus.dispatched
-                  ? "text-orange-400"
-                  : ""
-              }
-  `}
-            >
-              {params.value}
-            </span>
-          );
-        },
+        renderCell: (params) => (
+          <span
+            className={clsx({
+              "text-teal-400": params.value === DeliveryStatus.delivered,
+              "text-rose-400": params.value === DeliveryStatus.pending,
+              "text-orange-400": params.value === DeliveryStatus.dispatched,
+            })}
+          >
+            {params.value}
+          </span>
+        ),
       },
-      {
-        field: "createDate",
-        headerName: "Create Date",
-        width: 170,
-      },
+      { field: "createDate", headerName: "Create Date", width: 170 },
       {
         field: "actions",
         headerName: "Actions",
         width: 170,
-        renderCell: (params) => {
-          return (
-            <div className="flex items-center gap-4 justify-center  h-full">
-              <ActionBtn
-                onClick={() => {
-                  const id = params.row.id;
-                  handleDispatch(id);
-                }}
-                icon={MdDeliveryDining}
-                title="Mark as dispatched"
-              />
-              <ActionBtn
-                onClick={() => {
-                  const id = params.row.id;
-                  handleDeliver(id);
-                }}
-                icon={MdDone}
-                title="mark as delivered"
-              />
-              <ActionBtn
-                onClick={() => {
-                  router.push(`/order/${params.row.id}`);
-                }}
-                icon={MdRemoveRedEye}
-                title="View order"
-              />
-            </div>
-          );
-        },
+        renderCell: (params) => (
+          <div className="flex items-center gap-4 justify-center h-full">
+            <ActionBtn
+              onClick={() => handleDispatch(params.row.id)}
+              icon={MdDeliveryDining}
+              title="Mark as dispatched"
+            />
+            <ActionBtn
+              onClick={() => handleDeliver(params.row.id)}
+              icon={MdDone}
+              title="Mark as delivered"
+            />
+            <ActionBtn
+              onClick={() => router.push(`/order/${params.row.id}`)}
+              icon={MdRemoveRedEye}
+              title="View order"
+            />
+          </div>
+        ),
       },
     ],
-    [orders, handleDeliver, handleDispatch]
+    [orders, handleDeliver, handleDispatch, router]
   );
 
   return (
