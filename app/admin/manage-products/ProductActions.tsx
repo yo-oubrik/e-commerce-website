@@ -1,6 +1,6 @@
 import { ActionBtn } from "@/app/components/ActionBtn";
 import { MdDelete, MdRemoveRedEye } from "react-icons/md";
-import { handleProductDelete } from "./utils/productApiCalls";
+import { handleProductDelete } from "./utils/productsApiCalls";
 import { useRouter } from "next/navigation";
 interface IProductActions {
   id: string;
