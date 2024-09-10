@@ -104,14 +104,12 @@ export const AddProductForm = () => {
         selectedCategory={selectedCategory}
       />
 
-      {images.length === 0 && (
-        <ColorSelector
-          addImageToState={addImageToState}
-          hasError={hasError && images.length === 0}
-          isProductCreated={isProductCreated}
-          removeImageFromState={removeImageFromState}
-        />
-      )}
+      <ColorSelector
+        addImageToState={addImageToState}
+        hasError={hasError && images.length === 0}
+        isProductCreated={isProductCreated}
+        removeImageFromState={removeImageFromState}
+      />
       <Button
         label={isLoading ? `Loading... ${loadingProgress}% ` : "Add Product"}
         onClick={handleSubmit(onSubmit)}
