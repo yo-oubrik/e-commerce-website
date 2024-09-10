@@ -22,9 +22,7 @@ const AdminPage = async () => {
     <Container>
       <Heading title={"Summary"} />
       <Summary orders={orders} products={products} users={safeUsers} />
-      <div>
-        <BarGraph data={graphData} />
-      </div>
+      <BarGraph data={graphData} />
     </Container>
   );
 };

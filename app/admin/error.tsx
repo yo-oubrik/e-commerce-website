@@ -1,19 +1,12 @@
 "use client";
 
-import Container from "../components/Container";
-import { RedirectionPage } from "../components/RedirectionPage";
-
-const ErrorPage = () => {
+const AdminErrorPage = () => {
   return (
-    <Container>
-      <div className="py-8">
-        <RedirectionPage
-          heading="Ooops! something went wrong"
-          description="contact support"
-          href="/"
-        />
-      </div>
-    </Container>
+    <div className="text-center">
+      <h2 className="text-center text-2xl mb-2">
+        Ooops! something went wrong.
+      </h2>
+    </div>
   );
 };
-export default ErrorPage;
+export default AdminErrorPage;

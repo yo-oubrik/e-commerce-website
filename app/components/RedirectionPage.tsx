@@ -1,6 +1,4 @@
-import Link from "next/link";
 import React from "react";
-import { MdArrowBack } from "react-icons/md";
 import { RedirectionLink } from "./RedirectionLink";
 interface IRedirectionLinks {
   description: string;
