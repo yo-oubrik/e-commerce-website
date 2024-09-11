@@ -20,7 +20,7 @@ const Checkout = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!cartProducts || cartProducts.length === 0) return;
+    if (cartProducts.length === 0) return;
 
     const fetchPaymentIntent = async () => {
       setIsLoading(true);
@@ -61,7 +61,7 @@ const Checkout = () => {
   return (
     <div className="py-8">
       <Container>
-        {!cartProducts || cartProducts.length === 0 ? (
+        {cartProducts.length === 0 ? (
           <RedirectionPage
             heading="Your cart is empty"
             redirectionLinks={[

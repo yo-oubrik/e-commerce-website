@@ -14,7 +14,7 @@ const CartClient: React.FC<ICartClient> = ({ isLoggedIn }) => {
   return (
     <Container>
       <div className="py-8">
-        {cartProducts && cartProducts.length != 0 ? (
+        {cartProducts.length != 0 ? (
           <>
             <Heading title={"Shopping Cart"} />
             <ProductCartTable cartProducts={cartProducts} />

@@ -29,9 +29,9 @@ export const useProductDetails = (product: ProductWithReviews) => {
 
   useEffect(() => {
     setIsProductInCart(
-      cartProducts?.some(
+      cartProducts.some(
         (prod: CartProduct) => prod.productId === cartProduct.productId
-      ) ?? false
+      )
     );
   }, [cartProducts]);
 

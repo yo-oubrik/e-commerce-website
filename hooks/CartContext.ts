@@ -3,7 +3,7 @@ import { createContext } from "react";
 
 type CartContextType = {
   cartItemsCount: number;
-  cartProducts: CartProduct[] | null | undefined;
+  cartProducts: CartProduct[];
   addProductToCart: (product: CartProduct) => void;
   removeProductFromCart: (product: CartProduct) => void;
   clearCart: () => void;
