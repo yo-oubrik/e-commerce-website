@@ -1,17 +1,28 @@
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
 import { isUserAdmin } from "@/actions/user/userActions";
+import { DeliveryStatus } from "@prisma/client";
+
 export async function PUT(request: Request) {
   try {
     if (!(await isUserAdmin())) {
-      console.error("Error updating order: Unauthorized");
+      console.error("Error updating order: Unauthorized access");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id, deliveryStatus } = await request.json();
-    if (!id || !deliveryStatus) {
+
+    if (!id || typeof id !== "string") {
       return NextResponse.json(
-        { error: "Missing required fields: 'id' or 'deliveryStatus'" },
+        { error: "Invalid or missing 'id'" },
+        { status: 400 }
+      );
+    }
+    const allDeliveryStatus = Object.values(DeliveryStatus);
+
+    if (!deliveryStatus || !allDeliveryStatus.includes(deliveryStatus)) {
+      return NextResponse.json(
+        { error: "Invalid or missing 'deliveryStatus'" },
         { status: 400 }
       );
     }
