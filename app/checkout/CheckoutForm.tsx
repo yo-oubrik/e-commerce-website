@@ -15,7 +15,7 @@ interface ICheckoutForm {
 }
 
 export const CheckoutForm: React.FC<ICheckoutForm> = ({ clientSecret }) => {
-  const { totalPrice, clearCart, handleSetPaymentIntent } = useCart();
+  const { totalPrice, clearCart, handleSetPaymentIntentId } = useCart();
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +41,7 @@ export const CheckoutForm: React.FC<ICheckoutForm> = ({ clientSecret }) => {
       }
       toast.success("Checkout success");
       clearCart();
-      handleSetPaymentIntent("");
+      handleSetPaymentIntentId("");
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again.");
       console.error("Error tring to checkout order", error);

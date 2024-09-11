@@ -14,7 +14,7 @@ const stripePromise = loadStripe(
 );
 
 const Checkout = () => {
-  const { paymentIntent, cartProducts, handleSetPaymentIntent } = useCart();
+  const { paymentIntentId, cartProducts, handleSetPaymentIntentId } = useCart();
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const router = useRouter();
@@ -30,7 +30,7 @@ const Checkout = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           cartProducts,
-          paymentIntentId: paymentIntent,
+          paymentIntentId,
         }),
       });
 
@@ -44,7 +44,7 @@ const Checkout = () => {
       const data = await response.json();
 
       setClientSecret(data.paymentIntent.client_secret);
-      handleSetPaymentIntent(data.paymentIntent.id);
+      handleSetPaymentIntentId(data.paymentIntent.id);
     };
 
     fetchPaymentIntent();
