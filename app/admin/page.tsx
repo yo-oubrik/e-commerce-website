@@ -19,11 +19,11 @@ const AdminPage = async () => {
   ]);
   const safeUsers = convertToSafeUsers(...users);
   return (
-    <Container>
+    <>
       <Heading title={"Summary"} />
       <Summary orders={orders} products={products} users={safeUsers} />
       <BarGraph data={graphData} />
-    </Container>
+    </>
   );
 };
 export default AdminPage;
