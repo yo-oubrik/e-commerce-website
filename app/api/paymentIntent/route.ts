@@ -1,84 +1,76 @@
-import Stripe from "stripe";
-import prisma from "@/libs/prismadb";
-import { NextResponse } from "next/server";
-import { getCurrentUser } from "@/actions/user/userActions";
+import {
+  getOrderByPaymentIntentId,
+  saveOrder,
+  updateOrderByPaymentIntentId,
+} from "@/actions/orders/ordersActions";
 import { calculateCartTotalAmount } from "@/app/utils/helperFunctions/helperFunctions";
-import { CartProduct, DeliveryStatus, PaymentStatus } from "@prisma/client";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+import { CartProduct } from "@prisma/client";
+import { NextResponse } from "next/server";
+import {
+  createPaymentIntent,
+  getPaymentIntentById,
+  updatePaymentIntentAmount,
+} from "./utils/paymentIntentUtils";
 
 export async function POST(request: Request) {
   try {
-    const currentUser = await getCurrentUser();
-
     const body = await request.json();
     const {
       cartProducts,
       paymentIntentId,
     }: { cartProducts: CartProduct[]; paymentIntentId: string } = body;
 
-    if (!cartProducts || cartProducts.length === 0) {
+    if (cartProducts.length === 0) {
       return NextResponse.json(
         { error: "No products in cart" },
         { status: 400 }
       );
     }
 
-    const total = calculateCartTotalAmount(cartProducts);
+    const amount = calculateCartTotalAmount(cartProducts);
 
-    const orderData = {
-      user: { connect: { id: currentUser.id } },
-      amount: total,
-      currency: "usd",
-      status: PaymentStatus.pending,
-      deliveryStatus: DeliveryStatus.pending,
-      paymentIntentId,
-      cart_products: cartProducts,
-    };
     if (!paymentIntentId) {
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: total,
-        currency: "usd",
-        automatic_payment_methods: { enabled: true },
-      });
-
-      orderData.paymentIntentId = paymentIntent.id;
-      await prisma.order.create({ data: orderData });
-
-      return NextResponse.json({ paymentIntent });
+      try {
+        const paymentIntent = await createPaymentIntent(amount);
+        await saveOrder(amount, paymentIntent.id, cartProducts);
+        return NextResponse.json({ paymentIntent }, { status: 201 });
+      } catch (createError) {
+        console.error("Error creating payment intent:", createError);
+        return NextResponse.json(
+          { error: "Failed to create payment intent" },
+          { status: 500 }
+        );
+      }
     }
 
-    const existingIntent = await stripe.paymentIntents.retrieve(
-      paymentIntentId
-    );
-    const existingOrder = await prisma.order.findFirst({
-      where: { paymentIntentId },
-    });
+    const existingIntent = await getPaymentIntentById(paymentIntentId);
+    const existingOrder = await getOrderByPaymentIntentId(paymentIntentId);
 
     if (!existingOrder || !existingIntent) {
       return NextResponse.json(
-        { error: "Invalid payment intent" },
+        { error: "Invalid payment intent ID" },
         { status: 400 }
       );
     }
 
-    const updatedPaymentIntent = await stripe.paymentIntents.update(
-      paymentIntentId,
-      { amount: total }
-    );
+    try {
+      const updatedPaymentIntent = await updatePaymentIntentAmount(
+        paymentIntentId,
+        amount
+      );
 
-    await prisma.order.update({
-      where: { paymentIntentId },
-      data: {
-        amount: total,
-        cart_products: cartProducts,
-      },
-    });
-
-    return NextResponse.json({ paymentIntent: updatedPaymentIntent });
+      await updateOrderByPaymentIntentId(paymentIntentId, amount, cartProducts);
+      return NextResponse.json({ paymentIntent: updatedPaymentIntent });
+    } catch (updateError) {
+      console.error("Error updating payment intent:", updateError);
+      return NextResponse.json(
+        { error: "Failed to update payment intent" },
+        { status: 500 }
+      );
+    }
   } catch (error) {
     console.error(
-      "Error trying to process post request at /api/paymentIntent",
+      "Error processing POST request at /api/paymentIntent:",
       error
     );
     return NextResponse.json(

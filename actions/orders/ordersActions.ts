@@ -1,6 +1,7 @@
 import prisma from "@/libs/prismadb";
 import { getCurrentUser, isUserAdmin } from "../user/userActions";
 import moment from "moment";
+import { CartProduct, DeliveryStatus, PaymentStatus } from "@prisma/client";
 
 export async function fetchOrdersWithUsers() {
   try {
@@ -82,4 +83,40 @@ export async function getGraphData(): Promise<GraphData> {
     console.error("Error trying to getGraphData", error);
     throw new Error("Error trying to get  graph data");
   }
+}
+export async function saveOrder(
+  amount: number,
+  paymentIntentId: string,
+  cart_products: CartProduct[]
+) {
+  const currentUser = await getCurrentUser();
+  const orderData = {
+    user: { connect: { id: currentUser.id } },
+    amount,
+    currency: "usd",
+    status: PaymentStatus.pending,
+    deliveryStatus: DeliveryStatus.pending,
+    paymentIntentId,
+    cart_products,
+  };
+  orderData.paymentIntentId = paymentIntentId;
+  await prisma.order.create({ data: orderData });
+}
+export async function getOrderByPaymentIntentId(paymentIntentId: string) {
+  return await prisma.order.findFirst({
+    where: { paymentIntentId },
+  });
+}
+export async function updateOrderByPaymentIntentId(
+  paymentIntentId: string,
+  amount: number,
+  cart_products: CartProduct[]
+) {
+  return await prisma.order.update({
+    where: { paymentIntentId },
+    data: {
+      amount: amount,
+      cart_products,
+    },
+  });
 }
