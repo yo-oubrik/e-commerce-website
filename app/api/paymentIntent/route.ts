@@ -3,7 +3,10 @@ import {
   saveOrder,
   updateOrderByPaymentIntentId,
 } from "@/actions/orders/ordersActions";
-import { calculateCartTotalAmount } from "@/app/utils/helperFunctions/helperFunctions";
+import {
+  calculateCartTotalAmount,
+  isArrayEmpty,
+} from "@/app/utils/helperFunctions/helperFunctions";
 import { CartProduct } from "@prisma/client";
 import { NextResponse } from "next/server";
 import {
@@ -20,7 +23,7 @@ export async function POST(request: Request) {
       paymentIntentId,
     }: { cartProducts: CartProduct[]; paymentIntentId: string } = body;
 
-    if (cartProducts.length === 0) {
+    if (isArrayEmpty(cartProducts)) {
       return NextResponse.json(
         { error: "No products in cart" },
         { status: 400 }

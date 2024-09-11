@@ -6,7 +6,7 @@ import {
 import { CartProduct, Review, User } from "@prisma/client";
 
 export const calculateAverageRating = (reviews: Review[]) => {
-  if (reviews.length === 0) {
+  if (isArrayEmpty(reviews)) {
     return 0;
   }
 
@@ -72,3 +72,6 @@ export const generateUrl = (
     }
   );
 };
+export function isArrayEmpty(arr: Array<any>) {
+  return arr.length === 0;
+}

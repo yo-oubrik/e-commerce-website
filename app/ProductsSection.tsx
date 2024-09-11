@@ -1,6 +1,7 @@
 "use client";
 import ProductCard from "./components/home/ProductCard";
 import { ProductWithReviews } from "./product/utils/types";
+import { isArrayEmpty } from "./utils/helperFunctions/helperFunctions";
 
 interface ProductSectionProps {
   products: ProductWithReviews[];
@@ -8,7 +9,7 @@ interface ProductSectionProps {
 export const ProductsSection: React.FC<ProductSectionProps> = ({
   products,
 }) => {
-  if (products.length === 0) {
+  if (isArrayEmpty(products)) {
     return (
       <h2 className="text-center text-xl">
         Oops!, No products found click all to clear filter

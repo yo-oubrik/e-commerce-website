@@ -13,6 +13,7 @@ import {
   ImageType,
   UploadedImageType,
 } from "@/app/admin/add-products/AddProductForm";
+import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
 
 export const useProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -83,7 +84,7 @@ export const useProductForm = () => {
   }, []);
   const [selectedCategory, setSelectedCategory] = useState("");
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    if (!data.category || !data.images || data.images.length === 0) {
+    if (!data.category || !data.images || isArrayEmpty(data.images)) {
       setHasError(true);
       return;
     }

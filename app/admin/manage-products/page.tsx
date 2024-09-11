@@ -1,10 +1,11 @@
 import { getAllProducts } from "@/actions/products/productActions";
 import { ManageProductsClient } from "./ManageProductsClient";
 import { RedirectionPage } from "@/app/components/RedirectionPage";
+import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
 export const ManageProducts = async () => {
   const products = await getAllProducts();
 
-  if (products.length === 0)
+  if (isArrayEmpty(products))
     return (
       <RedirectionPage
         heading={"No products found"}

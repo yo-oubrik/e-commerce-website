@@ -6,6 +6,7 @@ import { Heading } from "../components/Heading";
 import { RedirectionPage } from "../components/RedirectionPage";
 import CartSummary from "./CartSummary";
 import ProductCartTable from "./ProductCartTable";
+import { isArrayEmpty } from "../utils/helperFunctions/helperFunctions";
 interface ICartClient {
   isLoggedIn: boolean;
 }
@@ -14,7 +15,7 @@ const CartClient: React.FC<ICartClient> = ({ isLoggedIn }) => {
   return (
     <Container>
       <div className="py-8">
-        {cartProducts.length != 0 ? (
+        {!isArrayEmpty(cartProducts) ? (
           <>
             <Heading title={"Shopping Cart"} />
             <ProductCartTable cartProducts={cartProducts} />

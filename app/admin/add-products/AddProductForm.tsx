@@ -9,6 +9,7 @@ import { MaxQuantityInput } from "./inputs/MaxQuantityInput";
 import { MinQuantityInput } from "./inputs/MinQuantityInput";
 import { CategorySelector } from "./selectors/CategorySelector";
 import { ColorSelector } from "./selectors/ColorSelector";
+import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
 
 export type ImageType = {
   color: string;
@@ -106,7 +107,7 @@ export const AddProductForm = () => {
 
       <ColorSelector
         addImageToState={addImageToState}
-        hasError={hasError && images.length === 0}
+        hasError={hasError && isArrayEmpty(images)}
         isProductCreated={isProductCreated}
         removeImageFromState={removeImageFromState}
       />

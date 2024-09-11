@@ -4,6 +4,7 @@ import { Separator } from "@/app/components/Separator";
 import moment from "moment";
 import Avatar from "@/app/components/Avatar";
 import { Product, Review } from "@prisma/client";
+import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
 
 interface IProductReviews {
   product: Product & {
@@ -13,7 +14,7 @@ interface IProductReviews {
 const ProductReviews: React.FC<IProductReviews> = ({ product }) => {
   return (
     <>
-      {product.reviews.length > 0 ? (
+      {!isArrayEmpty(product.reviews) ? (
         <>
           <h2 className="mt-5 mb-2 text-xl font-semibold">Product Reviews</h2>
           {product.reviews.map((review: any) => (
