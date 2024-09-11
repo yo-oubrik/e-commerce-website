@@ -18,12 +18,19 @@ export const calculateAverageRating = (reviews: Review[]) => {
 };
 export const calculateCartTotalAmount = (cart: CartProduct[]) => {
   const total = cart.reduce(
-    (oldProduct, currentProduct) =>
-      oldProduct + currentProduct.price * currentProduct.selectedQuantity,
+    (runningTotal, currentProduct) =>
+      runningTotal + currentProduct.price * currentProduct.selectedQuantity,
     0
   );
   return Math.ceil(total);
 };
+export function countCartItems(cart: CartProduct[]) {
+  return cart.reduce(
+    (runningCount, currentProduct) =>
+      runningCount + currentProduct.selectedQuantity,
+    0
+  );
+}
 export function getErrorMessage(error: any) {
   return (
     error.response?.data?.error || error.message || "Unknown error occurred"

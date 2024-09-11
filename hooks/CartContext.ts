@@ -2,7 +2,7 @@ import { CartProduct } from "@prisma/client";
 import { createContext } from "react";
 
 type CartContextType = {
-  cartNumberOfProducts: number;
+  cartItemsCount: number;
   cartProducts: CartProduct[] | null | undefined;
   addProductToCart: (product: CartProduct) => void;
   removeProductFromCart: (product: CartProduct) => void;
@@ -11,6 +11,6 @@ type CartContextType = {
   handleQuantityDecrease: (product: CartProduct) => void;
   handleSetPaymentIntentId: (value: String) => void;
   paymentIntentId: String;
-  totalPrice: number;
+  cartTotalAmount: number;
 };
 export const CartContext = createContext<CartContextType | null>(null);

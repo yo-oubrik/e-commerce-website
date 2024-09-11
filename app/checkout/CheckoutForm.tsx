@@ -15,11 +15,11 @@ interface ICheckoutForm {
 }
 
 export const CheckoutForm: React.FC<ICheckoutForm> = ({ clientSecret }) => {
-  const { totalPrice, clearCart, handleSetPaymentIntentId } = useCart();
+  const { cartTotalAmount, clearCart, handleSetPaymentIntentId } = useCart();
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
-  const formattedPrice = formatPrice(totalPrice);
+  const formattedPrice = formatPrice(cartTotalAmount);
   useEffect(() => {
     if (!stripe || !clientSecret) return;
   }, [stripe, clientSecret]);

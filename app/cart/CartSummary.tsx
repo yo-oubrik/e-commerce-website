@@ -11,14 +11,14 @@ interface ICartSummary {
 }
 
 const CartSummary: React.FC<ICartSummary> = ({ isLoggedIn }) => {
-  const { totalPrice } = useCart();
+  const { cartTotalAmount } = useCart();
   const router = useRouter();
 
   return (
     <div className="max-sm:mt-4">
       <div className="flex justify-between items-center font-bold mb-1">
         <span>Total</span>
-        <span>{formatPrice(totalPrice)}</span>
+        <span>{formatPrice(cartTotalAmount)}</span>
       </div>
       <p className="text-slate-500 text-sm">
         Taxes and shipping calculated at checkout

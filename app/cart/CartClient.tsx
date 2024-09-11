@@ -1,14 +1,11 @@
 "use client";
 import { useCart } from "@/hooks/useCart";
+import Button from "../components/Button";
 import Container from "../components/Container";
 import { Heading } from "../components/Heading";
-import ProductCartTable from "./ProductCartTable";
-import Button from "../components/Button";
-import CartSummary from "./CartSummary";
 import { RedirectionPage } from "../components/RedirectionPage";
-import { isLoggedIn } from "@/actions/user/userActions";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import CartSummary from "./CartSummary";
+import ProductCartTable from "./ProductCartTable";
 interface ICartClient {
   isLoggedIn: boolean;
 }
