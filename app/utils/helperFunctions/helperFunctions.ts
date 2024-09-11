@@ -16,7 +16,7 @@ export const calculateAverageRating = (reviews: Review[]) => {
   );
   return totalRating / reviews.length;
 };
-export const calculateCartTotal = (cart: CartProduct[]) => {
+export const calculateCartTotalAmount = (cart: CartProduct[]) => {
   const total = cart.reduce(
     (oldProduct, currentProduct) =>
       oldProduct + currentProduct.price * currentProduct.selectedQuantity,
