@@ -7,7 +7,6 @@ interface ICartContextProvider {
   [propName: string]: any;
 }
 
-//Provide the context
 export const CartContextProvider = (props: ICartContextProvider) => {
   const [cartNumberOfProducts, setCartNumberOfProducts] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -16,7 +15,6 @@ export const CartContextProvider = (props: ICartContextProvider) => {
   >(null);
   const [paymentIntentId, setPaymentIntentId] = useState<String>("");
 
-  //Setting the cart products from local storage
   useEffect(() => {
     const cProducts = localStorage.getItem("cartProducts");
     if (cProducts) {

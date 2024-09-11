@@ -48,7 +48,7 @@ const Checkout = () => {
     };
 
     fetchPaymentIntent();
-  }, []);
+  }, [cartProducts, paymentIntentId]);
 
   const options: StripeElementsOptions = {
     clientSecret,
