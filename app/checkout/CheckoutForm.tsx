@@ -41,7 +41,7 @@ export const CheckoutForm: React.FC<ICheckoutForm> = ({ clientSecret }) => {
       }
       toast.success("Checkout success");
       clearCart();
-      handleSetPaymentIntent(null);
+      handleSetPaymentIntent("");
     } catch (error) {
       toast.error("Oops! Something went wrong. Please try again.");
       console.error("Error tring to checkout order", error);

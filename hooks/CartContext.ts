@@ -9,8 +9,8 @@ type CartContextType = {
   clearCart: () => void;
   handleQuantityIncrease: (product: CartProduct) => void;
   handleQuantityDecrease: (product: CartProduct) => void;
-  handleSetPaymentIntent: (value: String | null) => void;
-  paymentIntent: String | null;
+  handleSetPaymentIntent: (value: String) => void;
+  paymentIntent: String;
   totalPrice: number;
 };
 export const CartContext = createContext<CartContextType | null>(null);
