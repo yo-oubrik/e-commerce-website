@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Category } from "../../admin/add-products/components/Category";
+import { Category } from "./Category";
 import { categories } from "@/app/utils/categories";
 import { useRouter } from "next/navigation";
 import { generateUrl } from "@/app/utils/helperFunctions/helperFunctions";
