@@ -7,8 +7,8 @@ import { PriceInput } from "./inputs/PriceInput";
 import { QuantityInput } from "./inputs/QuantityInput";
 import { MaxQuantityInput } from "./inputs/MaxQuantityInput";
 import { MinQuantityInput } from "./inputs/MinQuantityInput";
-import { CategorySelector } from "./selectors/CategorySelector";
-import { ColorSelector } from "./selectors/ColorSelector";
+import { CategorySelector } from "./formSelectors/CategorySelector";
+import { ColorSelector } from "./formSelectors/ColorSelector";
 import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
 
 export type ImageType = {
