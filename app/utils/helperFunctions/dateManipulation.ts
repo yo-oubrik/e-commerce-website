@@ -3,12 +3,14 @@ import moment from "moment";
 export function getDateRange(
   startOffset: number,
   unit: moment.unitOfTime.DurationConstructor = "days",
-  referenceDate: moment.Moment = moment()
-) {
-  const startDate = moment(referenceDate)
+  referenceDate: Date = new Date()
+): [Date, Date] {
+  const referenceMoment = moment(referenceDate);
+  const startDate = referenceMoment
     .subtract(startOffset, unit)
-    .startOf("day");
-  const endDate = moment(referenceDate).endOf("day");
+    .startOf("day")
+    .toDate();
+  const endDate = referenceMoment.endOf("day").toDate();
   return [startDate, endDate];
 }
 
