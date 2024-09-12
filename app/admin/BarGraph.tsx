@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 import { useMemo } from "react";
 import { Bar } from "react-chartjs-2";
-import { chartOptions, createChartData } from "./config/graphConfig";
+import { chartOptions, createChartData } from "./graphConfig";
 ChartJS.register(
   ArcElement,
   Tooltip,
