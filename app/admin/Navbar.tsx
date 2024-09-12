@@ -11,8 +11,8 @@ import { usePathname } from "next/navigation";
 export const Navbar = () => {
   const pathname = usePathname();
   return (
-    <div className="grid  sm:grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-14 border-b-[1px] px-2 md:px-3">
-      <Link href={"/admin"}>
+    <div className="grid xs:grid-cols-2 md:grid-cols-4 max-md:gap-x-3 border-b-[1px] px-2 md:px-3">
+      <Link className="flex items-center md:justify-center" href={"/admin"}>
         <NavbarItem
           label={"Summary"}
           Icon={MdDashboard}
