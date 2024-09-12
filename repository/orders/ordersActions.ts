@@ -56,7 +56,25 @@ export async function getClientOrders() {
 export type GraphData = {
   [date: string]: number;
 };
-
+export async function getDateRangeOrders(
+  dateRangeStart: Date,
+  dateRangeEnd: Date
+) {
+  try {
+    return await prisma.order.findMany({
+      where: {
+        createdAt: {
+          gte: dateRangeStart,
+          lte: dateRangeEnd,
+        },
+        status: "complete",
+      },
+    });
+  } catch (error) {
+    console.error("Error trying to getDateRangeOrders", error);
+    throw new Error("Error trying to get date range orders");
+  }
+}
 export async function getGraphData(): Promise<GraphData> {
   try {
     const [startDate, endDate] = getLastWeekDateRange();
