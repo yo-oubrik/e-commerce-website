@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/actions/user/userActions";
+import { getCurrentUser } from "@/repository/user/userActions";
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
 import { DeliveryStatus } from "@prisma/client";

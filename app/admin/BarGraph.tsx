@@ -1,5 +1,5 @@
 "use client";
-import { GraphData } from "@/actions/orders/ordersActions";
+import { GraphData } from "@/repository/orders/ordersActions";
 import {
   Chart as ChartJS,
   ArcElement,

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 import { ProductImage } from "@prisma/client";
 import firebaseApp from "@/libs/firebase";
-import { isUserAdmin } from "@/actions/user/userActions";
+import { isUserAdmin } from "@/repository/user/userActions";
 
 export async function POST(request: Request) {
   try {

@@ -1,4 +1,4 @@
-import { isLoggedIn } from "@/actions/user/userActions";
+import { isLoggedIn } from "@/repository/user/userActions";
 import CartClient from "./CartClient";
 
 const CartPage = async () => {

@@ -1,6 +1,6 @@
 import HomeBanner from "./components/home/HomeBanner";
 import Container from "./components/Container";
-import { getProducts } from "@/actions/products/productActions";
+import { getProducts } from "@/repository/products/productActions";
 import { ProductsSection } from "./ProductsSection";
 import { SearchBar } from "./components/nav/SearchBar";
 import { SearchParams } from "./product/utils/types";

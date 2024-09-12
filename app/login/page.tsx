@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/actions/user/userActions";
+import { getCurrentUser } from "@/repository/user/userActions";
 import { LoginClient } from "./LoginClient";
 import Container from "../components/Container";
 

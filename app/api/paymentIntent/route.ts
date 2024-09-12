@@ -2,7 +2,7 @@ import {
   getOrderByPaymentIntentId,
   saveOrder,
   updateOrderPaymentInfo,
-} from "@/actions/orders/ordersActions";
+} from "@/repository/orders/ordersActions";
 import {
   calculateCartTotalAmount,
   isArrayEmpty,

@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/actions/user/userActions";
+import { getCurrentUser } from "@/repository/user/userActions";
 import Container from "../components/Container";
 import FormWrapper from "../components/FormWrapper";
 import RegisterForm from "./RegisterForm";

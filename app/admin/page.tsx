@@ -1,10 +1,10 @@
 import {
   getGraphData,
   fetchOrdersWithUsers,
-} from "@/actions/orders/ordersActions";
+} from "@/repository/orders/ordersActions";
 import { Summary } from "./Summary";
-import { getAllProducts } from "@/actions/products/productActions";
-import { getAllUsers } from "@/actions/user/userActions";
+import { getAllProducts } from "@/repository/products/productActions";
+import { getAllUsers } from "@/repository/user/userActions";
 import Container from "../components/Container";
 import { Heading } from "../components/Heading";
 import { convertToSafeUsers } from "../utils/helperFunctions/helperFunctions";
