@@ -1,7 +1,8 @@
+import { getLastWeekDateRange } from "@/app/utils/helperFunctions/dateManipulation";
 import prisma from "@/libs/prismadb";
-import { getCurrentUser, isUserAdmin } from "../user/userActions";
-import moment from "moment";
 import { CartProduct, DeliveryStatus, PaymentStatus } from "@prisma/client";
+import moment from "moment";
+import { getCurrentUser, isUserAdmin } from "../user/userActions";
 
 export async function fetchOrdersWithUsers() {
   try {
@@ -58,8 +59,7 @@ export type GraphData = {
 
 export async function getGraphData(): Promise<GraphData> {
   try {
-    const startDate = moment().subtract(6, "days").startOf("day");
-    const endDate = moment().endOf("day");
+    const [startDate, endDate] = getLastWeekDateRange();
 
     const dateTimeData = await prisma.order.findMany({
       where: {
