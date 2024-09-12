@@ -120,3 +120,11 @@ export async function updateOrderPaymentInfo(
     },
   });
 }
+export async function updateOrderPaymentStatus(paymentIntentId: string) {
+  return await prisma.order.update({
+    where: { paymentIntentId },
+    data: {
+      status: PaymentStatus.complete,
+    },
+  });
+}
