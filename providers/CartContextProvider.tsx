@@ -6,6 +6,7 @@ import { CartProduct } from "@prisma/client";
 import {
   calculateCartTotalAmount,
   countCartItems,
+  isArrayEmpty,
 } from "@/app/utils/helperFunctions/helperFunctions";
 interface ICartContextProvider {
   [propName: string]: any;
@@ -15,8 +16,11 @@ export const CartContextProvider = (props: ICartContextProvider) => {
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [cartTotalAmount, setCartTotalAmount] = useState(0);
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
-  const [paymentIntentId, setPaymentIntentId] = useState<String>("");
-
+  const [paymentIntentId, setPaymentIntentId] = useState<string>("");
+  const [isCartEmpty, setIsCartEmpty] = useState<boolean>(true);
+  useEffect(() => {
+    setIsCartEmpty(isArrayEmpty(cartProducts));
+  }, [cartProducts]);
   useEffect(() => {
     const serializedCartProducts = localStorage.getItem("cartProducts");
     if (!serializedCartProducts) return;
@@ -118,7 +122,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
     [cartProducts]
   );
 
-  const handleSetPaymentIntentId = useCallback((value: String) => {
+  const handleSetPaymentIntentId = useCallback((value: string) => {
     setPaymentIntentId(value);
     localStorage.setItem("paymentIntentId", JSON.stringify(value));
   }, []);
@@ -133,6 +137,7 @@ export const CartContextProvider = (props: ICartContextProvider) => {
     paymentIntentId,
     handleSetPaymentIntentId,
     cartTotalAmount,
+    isCartEmpty,
   };
   return <CartContext.Provider value={value} {...props} />;
 };

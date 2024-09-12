@@ -6,16 +6,15 @@ import { Heading } from "../components/Heading";
 import { RedirectionPage } from "../components/RedirectionPage";
 import CartSummary from "./CartSummary";
 import ProductCartTable from "./ProductCartTable";
-import { isArrayEmpty } from "../utils/helperFunctions/helperFunctions";
 interface ICartClient {
   isLoggedIn: boolean;
 }
 const CartClient: React.FC<ICartClient> = ({ isLoggedIn }) => {
-  const { cartProducts, clearCart } = useCart();
+  const { cartProducts, clearCart, isCartEmpty } = useCart();
   return (
     <Container>
       <div className="py-8">
-        {!isArrayEmpty(cartProducts) ? (
+        {!isCartEmpty ? (
           <>
             <Heading title={"Shopping Cart"} />
             <ProductCartTable cartProducts={cartProducts} />

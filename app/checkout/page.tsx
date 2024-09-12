@@ -2,16 +2,15 @@
 import { useCart } from "@/hooks/useCart";
 import Container from "../components/Container";
 import { RedirectionPage } from "../components/RedirectionPage";
-import { CheckoutClient } from "./CheckoutClient";
-import { isArrayEmpty } from "../utils/helperFunctions/helperFunctions";
+import { CheckoutPage } from "./CheckoutPage";
 
 const Checkout = () => {
-  const { cartProducts } = useCart();
+  const { isCartEmpty } = useCart();
 
   return (
     <div className="py-8">
       <Container>
-        {isArrayEmpty(cartProducts) ? (
+        {isCartEmpty ? (
           <RedirectionPage
             heading="Your cart is empty"
             redirectionLinks={[
@@ -20,7 +19,7 @@ const Checkout = () => {
             ]}
           />
         ) : (
-          <CheckoutClient />
+          <CheckoutPage />
         )}
       </Container>
     </div>
