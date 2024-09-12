@@ -107,7 +107,7 @@ export async function getOrderByPaymentIntentId(paymentIntentId: string) {
     where: { paymentIntentId },
   });
 }
-export async function updateOrderByPaymentIntentId(
+export async function updateOrderPaymentInfo(
   paymentIntentId: string,
   amount: number,
   cart_products: CartProduct[]

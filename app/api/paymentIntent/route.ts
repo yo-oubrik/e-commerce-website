@@ -1,7 +1,7 @@
 import {
   getOrderByPaymentIntentId,
   saveOrder,
-  updateOrderByPaymentIntentId,
+  updateOrderPaymentInfo,
 } from "@/actions/orders/ordersActions";
 import {
   calculateCartTotalAmount,
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
         amount
       );
 
-      await updateOrderByPaymentIntentId(paymentIntentId, amount, cartProducts);
+      await updateOrderPaymentInfo(paymentIntentId, amount, cartProducts);
       return NextResponse.json({ paymentIntent: updatedPaymentIntent });
     } catch (updateError) {
       console.error("Error updating payment intent:", updateError);
