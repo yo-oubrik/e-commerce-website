@@ -9,7 +9,7 @@ import TextArea from "@/app/components/input/TextArea";
 import Button from "@/app/components/Button";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { getErrorMessage } from "@/app/utils/helperFunctions/helperFunctions";
+import { getApiResponseErrorMessage } from "@/app/utils/helperFunctions/helperFunctions";
 interface IAddProductReview {
   user: UserWithSafeTimestamps;
   product: Product;
@@ -70,7 +70,10 @@ export const AddProductReview: React.FC<IAddProductReview> = ({
         router.refresh();
       })
       .catch((error) => {
-        console.error("Failed to rate product :", getErrorMessage(error));
+        console.error(
+          "Failed to rate product :",
+          getApiResponseErrorMessage(error)
+        );
         toast.error("Oops! Something went wrong");
       })
       .finally(() => {

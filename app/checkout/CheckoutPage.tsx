@@ -2,7 +2,7 @@
 import { useCart } from "@/hooks/useCart";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FormWrapper from "../components/FormWrapper";
 import { Elements } from "@stripe/react-stripe-js";
 import { CheckoutForm } from "./CheckoutForm";
@@ -10,14 +10,17 @@ import { CheckoutForm } from "./CheckoutForm";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
-export const CheckoutClient = () => {
+export const CheckoutPage = () => {
   const { paymentIntentId, cartProducts, handleSetPaymentIntentId } = useCart();
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const router = useRouter();
+  const hasAlreadyRan = useRef(false);
 
   useEffect(() => {
     const fetchPaymentIntent = async () => {
+      if (hasAlreadyRan.current) return;
+      hasAlreadyRan.current = true;
       setIsLoading(true);
 
       const response = await fetch("/api/paymentIntent", {
@@ -43,7 +46,7 @@ export const CheckoutClient = () => {
     };
 
     fetchPaymentIntent();
-  }, [cartProducts, paymentIntentId]);
+  }, []);
 
   const options: StripeElementsOptions = {
     clientSecret,
@@ -64,7 +67,7 @@ export const CheckoutClient = () => {
           <FormWrapper>
             <div className="w-full">
               <Elements stripe={stripePromise} options={options}>
-                <CheckoutForm clientSecret={clientSecret} />
+                <CheckoutForm />
               </Elements>
             </div>
           </FormWrapper>

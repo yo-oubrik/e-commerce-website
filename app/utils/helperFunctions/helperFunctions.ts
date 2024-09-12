@@ -31,10 +31,8 @@ export function countCartItems(cart: CartProduct[]) {
     0
   );
 }
-export function getErrorMessage(error: any) {
-  return (
-    error.response?.data?.error || error.message || "Unknown error occurred"
-  );
+export function getApiResponseErrorMessage(error: any) {
+  return error.response?.data?.error || error.message;
 }
 export function convertToSafeUser(
   user: UserWithReviewsAndOrders

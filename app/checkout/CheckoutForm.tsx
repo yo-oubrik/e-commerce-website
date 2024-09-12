@@ -1,3 +1,4 @@
+"use client";
 import { useCart } from "@/hooks/useCart";
 import {
   AddressElement,
@@ -5,49 +6,57 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
-import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
+import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
 
-interface ICheckoutForm {
-  clientSecret: string;
-}
-
-export const CheckoutForm: React.FC<ICheckoutForm> = ({ clientSecret }) => {
-  const { cartTotalAmount, clearCart, handleSetPaymentIntentId } = useCart();
+export const CheckoutForm = () => {
+  const {
+    cartTotalAmount,
+    clearCart,
+    handleSetPaymentIntentId,
+    paymentIntentId,
+  } = useCart();
   const stripe = useStripe();
   const elements = useElements();
+  if (!stripe || !elements) return;
+
   const [isLoading, setIsLoading] = useState(false);
   const formattedPrice = formatPrice(cartTotalAmount);
-  useEffect(() => {
-    if (!stripe || !clientSecret) return;
-  }, [stripe, clientSecret]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!stripe || !elements) return;
-
     setIsLoading(true);
+    const result = await stripe.confirmPayment({
+      elements,
+      redirect: "if_required",
+    });
+    if (result.error)
+      throw new CheckoutError("Error while trying to confirm payment");
 
     try {
-      const result = await stripe.confirmPayment({
-        elements,
-        redirect: "if_required",
+      const response = await fetch("/api/order/paymentStatus", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentIntentId }),
       });
-
-      if (result.error) {
-        throw new Error(result.error.message);
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new CheckoutError(
+          errorResponse.error || "Unknown error occurred",
+          errorResponse.status
+        );
       }
-      toast.success("Checkout success");
-      clearCart();
-      handleSetPaymentIntentId("");
     } catch (error) {
-      toast.error("Oops! Something went wrong. Please try again.");
-      console.error("Error tring to checkout order", error);
-    } finally {
-      setIsLoading(false);
+      //promise not resolved (CORS/network/type error)
+      console.error("An unexpected error occurred", error);
+      throw new Error("An unexpected error occurred");
     }
+    toast.success("Checkout success");
+    clearCart();
+    handleSetPaymentIntentId("");
+    setIsLoading(false);
   };
 
   return (
@@ -55,14 +64,14 @@ export const CheckoutForm: React.FC<ICheckoutForm> = ({ clientSecret }) => {
       <h2 className="text-center mb-2">
         Enter payment details to complete checkout
       </h2>
-      <p className="mb-1">Address information</p>
+      <p className="mb-1">Address informations</p>
       <AddressElement
         id="address-element"
         options={{
           mode: "shipping",
         }}
       />
-      <p className="my-1">Payment information</p>
+      <p className="my-1">Payment informations</p>
       <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
       <Button
         label={isLoading ? "Processing..." : `Pay ${formattedPrice}`}
