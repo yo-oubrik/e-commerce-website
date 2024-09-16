@@ -1,14 +1,13 @@
 import {
-  getGraphData,
   fetchOrdersWithUsers,
+  getGraphData,
 } from "@/repository/orders/ordersActions";
-import { Summary } from "./Summary";
 import { getAllProducts } from "@/repository/products/productActions";
 import { getAllUsers } from "@/repository/user/userActions";
-import Container from "../components/Container";
 import { Heading } from "../components/Heading";
 import { convertToSafeUsers } from "../utils/helperFunctions/helperFunctions";
 import { BarGraph } from "./BarGraph";
+import { Summary } from "./Summary";
 
 const AdminPage = async () => {
   const [orders, products, users, graphData] = await Promise.all([
@@ -22,7 +21,7 @@ const AdminPage = async () => {
     <>
       <Heading title={"Summary"} />
       <Summary orders={orders} products={products} users={safeUsers} />
-      <BarGraph data={graphData} />
+      <BarGraph data={graphData} title="Last Week Gain" />
     </>
   );
 };

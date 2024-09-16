@@ -22,11 +22,11 @@ ChartJS.register(
 );
 interface IBarGraph {
   data: GraphData;
+  title: string;
 }
-export const BarGraph: React.FC<IBarGraph> = ({ data }) => {
+export const BarGraph: React.FC<IBarGraph> = ({ data, title }) => {
   const labels = Object.keys(data);
   const amounts = Object.values(data);
-  const title = "Total amount";
   const chartData = useMemo(
     () => createChartData(title, labels, amounts),
     [data]
