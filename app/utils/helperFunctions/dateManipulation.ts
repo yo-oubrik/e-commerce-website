@@ -1,19 +1,18 @@
 import moment from "moment";
 
 export function getDateRange(
+  referenceDate: Date,
   startOffset: number,
-  unit: moment.unitOfTime.DurationConstructor = "days",
-  referenceDate: Date = new Date()
+  unit: moment.unitOfTime.DurationConstructor
 ): [Date, Date] {
-  const referenceMoment = moment(referenceDate);
-  const startDate = referenceMoment
+  const startDate = moment(referenceDate)
     .subtract(startOffset, unit)
     .startOf("day")
     .toDate();
-  const endDate = referenceMoment.endOf("day").toDate();
+  const endDate = moment(referenceDate).endOf("day").toDate();
   return [startDate, endDate];
 }
 
 export function getLastWeekDateRange() {
-  return getDateRange(7);
+  return getDateRange(new Date(), 6, "days");
 }
