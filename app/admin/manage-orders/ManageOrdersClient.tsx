@@ -8,7 +8,7 @@ import { DeliveryStatus, PaymentStatus } from "@prisma/client";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
-import { orderTableColumns } from "./ordersTableColumns";
+import { orderTableColumnsDef } from "./ordersTableColumnsDef";
 
 interface IManageOrdersClient {
   orders: OrderWithUser[];
@@ -40,7 +40,7 @@ export const ManageOrdersClient: React.FC<IManageOrdersClient> = ({
     <div>
       <Heading title="Manage orders" />
       <DataGrid
-        columns={orderTableColumns}
+        columns={orderTableColumnsDef}
         rows={rows}
         paginationModel={{ pageSize: 10, page: 0 }}
         pageSizeOptions={[10, 15, 20]}

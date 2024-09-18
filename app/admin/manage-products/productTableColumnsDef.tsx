@@ -1,7 +1,7 @@
 import { GridColDef } from "@mui/x-data-grid";
-import { ProductActions } from "../ProductActions";
+import { ProductActions } from "./ProductActions";
 
-export const productTableColumns: GridColDef[] = [
+export const productTableColumnsDef: GridColDef[] = [
   { field: "id", headerName: "ID", width: 110 },
   { field: "name", headerName: "Name", width: 160 },
   {

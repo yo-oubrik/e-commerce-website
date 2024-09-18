@@ -4,7 +4,7 @@ import { Heading } from "@/app/components/Heading";
 import { DataGrid } from "@mui/x-data-grid";
 import { Product } from "@prisma/client";
 import { useMemo } from "react";
-import { productTableColumns } from "./config/productTableColumns";
+import { productTableColumnsDef } from "./productTableColumnsDef";
 import { getProductRows } from "./utils/productRows";
 
 interface IManageProductsClient {
@@ -19,7 +19,7 @@ export const ManageProductsClient: React.FC<IManageProductsClient> = ({
   return (
     <div>
       <Heading title="Manage Products" />
-      <DataGrid columns={productTableColumns} rows={rows} />
+      <DataGrid columns={productTableColumnsDef} rows={rows} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { OrderActions } from "./OrderActions";
 import { DeliveryStatus, PaymentStatus } from "@prisma/client";
 
-export const orderTableColumns: GridColDef[] = [
+export const orderTableColumnsDef: GridColDef[] = [
   { field: "id", headerName: "Product ID", width: 170 },
   { field: "userName", headerName: "User Name", width: 170 },
   { field: "amount", headerName: "Amount (USD)", width: 170 },
