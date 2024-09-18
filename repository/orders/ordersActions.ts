@@ -1,6 +1,11 @@
 import { getLastWeekDateRange } from "@/app/utils/helperFunctions/dateManipulation";
 import prisma from "@/libs/prismadb";
-import { CartProduct, DeliveryStatus, PaymentStatus } from "@prisma/client";
+import {
+  CartProduct,
+  DeliveryStatus,
+  Order,
+  PaymentStatus,
+} from "@prisma/client";
 import moment from "moment";
 import { getCurrentUser, isUserAdmin } from "../user/userActions";
 
@@ -89,20 +94,23 @@ export async function getDateRangeCompleteOrders(
     },
   });
 }
+export function getTotalOrderAmountsPerDate(orders: Order[]) {
+  let result: { [date: string]: number } = {};
+  orders.forEach((order) => {
+    const date = moment(order.createdAt).format("YYYY-MM-DD");
+    if (!result[date]) {
+      result[date] = 0;
+    }
+    result[date] += order.amount / 10;
+  });
+  return result;
+}
 export async function getGraphData(): Promise<GraphData> {
   try {
     const [startDate, endDate] = getLastWeekDateRange();
 
     const dateTimeData = await getDateRangeOrders(startDate, endDate);
-    let result: { [date: string]: number } = {};
-    dateTimeData.forEach((entry) => {
-      const date = moment(entry.createdAt).format("YYYY-MM-DD");
-      if (!result[date]) {
-        result[date] = 0;
-      }
-      result[date] += entry.amount / 10; //convert to dollars;
-    });
-    return result;
+    return getTotalOrderAmountsPerDate(dateTimeData);
   } catch (error) {
     console.error("Error trying to getGraphData", error);
     throw new Error("Error trying to get  graph data");
