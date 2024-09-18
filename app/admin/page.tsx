@@ -1,6 +1,6 @@
 import {
   fetchOrdersWithUsers,
-  getGraphData,
+  getLastWeekDailyOrderTotals,
 } from "@/repository/orders/ordersActions";
 import { getAllProducts } from "@/repository/products/productActions";
 import { getAllUsers } from "@/repository/user/userActions";
@@ -14,7 +14,7 @@ const AdminPage = async () => {
     fetchOrdersWithUsers(),
     getAllProducts(),
     getAllUsers(),
-    getGraphData(),
+    getLastWeekDailyOrderTotals(),
   ]);
   const safeUsers = convertToSafeUsers(...users);
   return (

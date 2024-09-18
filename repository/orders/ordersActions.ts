@@ -105,11 +105,14 @@ export function getTotalOrderAmountsPerDate(orders: Order[]) {
   });
   return result;
 }
-export async function getGraphData(): Promise<GraphData> {
+export async function getLastWeekDailyOrderTotals(): Promise<GraphData> {
   try {
-    const [startDate, endDate] = getLastWeekDateRange();
+    const [lastWeekStartDate, lastWeekEndDate] = getLastWeekDateRange();
 
-    const dateTimeData = await getDateRangeOrders(startDate, endDate);
+    const dateTimeData = await getDateRangeOrders(
+      lastWeekStartDate,
+      lastWeekEndDate
+    );
     return getTotalOrderAmountsPerDate(dateTimeData);
   } catch (error) {
     console.error("Error trying to getGraphData", error);
