@@ -1,7 +1,7 @@
 import Container from "@/app/components/Container";
 import { RedirectionPage } from "@/app/components/RedirectionPage";
 import { OrderDetailsClient } from "./OrderDetailsClient";
-import { getOrderById } from "@/repository/orders/ordersActions";
+import { getOrderById } from "@/repository/order/order";
 interface IProductParams {
   params: { orderId: string };
 }

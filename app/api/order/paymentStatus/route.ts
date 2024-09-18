@@ -1,4 +1,4 @@
-import { updateOrderPaymentStatus } from "@/repository/orders/ordersActions";
+import { updateOrderPaymentStatus } from "@/repository/order/order";
 import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request) {

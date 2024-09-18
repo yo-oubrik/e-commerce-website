@@ -7,7 +7,7 @@ import {
   PaymentStatus,
 } from "@prisma/client";
 import moment from "moment";
-import { getCurrentUser, isUserAdmin } from "../user/userActions";
+import { getCurrentUser, isUserAdmin } from "../user/user";
 
 export async function fetchOrdersWithUsers() {
   try {

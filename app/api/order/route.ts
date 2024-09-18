@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
-import { isUserAdmin } from "@/repository/user/userActions";
+import { isUserAdmin } from "@/repository/user/user";
 import { DeliveryStatus } from "@prisma/client";
 
 export async function PUT(request: Request) {

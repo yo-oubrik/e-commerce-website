@@ -1,4 +1,4 @@
-import { isUserAdmin } from "@/repository/user/userActions";
+import { isUserAdmin } from "@/repository/user/user";
 import { ReactNode } from "react";
 import Container from "../components/Container";
 import { RedirectionPage } from "../components/RedirectionPage";

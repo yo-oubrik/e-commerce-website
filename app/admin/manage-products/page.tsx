@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/repository/products/productActions";
+import { getAllProducts } from "@/repository/product/product";
 import { ManageProductsClient } from "./ManageProductsClient";
 import { RedirectionPage } from "@/app/components/RedirectionPage";
 import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";

@@ -1,6 +1,6 @@
 import { RedirectionPage } from "@/app/components/RedirectionPage";
 import { OrdersClient } from "./OrdersClient";
-import { getClientOrders } from "@/repository/orders/ordersActions";
+import { getClientOrders } from "@/repository/order/order";
 import Container from "../components/Container";
 import { isArrayEmpty } from "../utils/helperFunctions/helperFunctions";
 export const ManageOrders = async () => {

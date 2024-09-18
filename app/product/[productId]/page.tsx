@@ -2,9 +2,9 @@ import Container from "@/app/components/Container";
 import ProductDetails from "./ProductDetails";
 import ProductReviews from "./ProductReviews";
 import { RedirectionPage } from "@/app/components/RedirectionPage";
-import { getProductById } from "@/repository/products/productActions";
+import { getProductById } from "@/repository/product/product";
 import { AddProductReview } from "./AddProductReview";
-import { getCurrentUser } from "@/repository/user/userActions";
+import { getCurrentUser } from "@/repository/user/user";
 interface IProductParams {
   params: { productId: string };
 }

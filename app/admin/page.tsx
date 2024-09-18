@@ -1,9 +1,9 @@
 import {
   fetchOrdersWithUsers,
   getLastWeekDailyOrderTotals,
-} from "@/repository/orders/ordersActions";
-import { getAllProducts } from "@/repository/products/productActions";
-import { getAllUsers } from "@/repository/user/userActions";
+} from "@/repository/order/order";
+import { getAllProducts } from "@/repository/product/product";
+import { getAllUsers } from "@/repository/user/user";
 import { Heading } from "../components/Heading";
 import { convertToSafeUsers } from "../utils/helperFunctions/helperFunctions";
 import { BarGraph } from "./BarGraph";
