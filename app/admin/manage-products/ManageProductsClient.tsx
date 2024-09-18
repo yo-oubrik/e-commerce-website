@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Product } from "@prisma/client";
 import { useMemo } from "react";
 import { productTableColumnsDef } from "./productTableColumnsDef";
-import { getProductRows } from "./utils/productRows";
+import { formatProductsForDisplay } from "./utils/productRows";
 
 interface IManageProductsClient {
   products: Product[];
@@ -14,7 +14,7 @@ interface IManageProductsClient {
 export const ManageProductsClient: React.FC<IManageProductsClient> = ({
   products,
 }) => {
-  const rows = useMemo(() => getProductRows(products), [products]);
+  const rows = useMemo(() => formatProductsForDisplay(products), [products]);
 
   return (
     <div>
