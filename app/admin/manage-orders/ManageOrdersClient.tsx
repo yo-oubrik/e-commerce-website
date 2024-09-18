@@ -8,7 +8,7 @@ import { DeliveryStatus, PaymentStatus } from "@prisma/client";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
-import { orderTableColumns } from "./config/ordersTableColumns";
+import { orderTableColumns } from "./ordersTableColumns";
 
 interface IManageOrdersClient {
   orders: OrderWithUser[];

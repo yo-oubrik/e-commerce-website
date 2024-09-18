@@ -1,6 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 import clsx from "clsx";
-import { OrderActions } from "../OrderActions";
+import { OrderActions } from "./OrderActions";
 import { DeliveryStatus, PaymentStatus } from "@prisma/client";
 
 export const orderTableColumns: GridColDef[] = [
