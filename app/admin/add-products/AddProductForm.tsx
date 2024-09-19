@@ -9,7 +9,7 @@ import { MaxQuantityInput } from "./formInputs/MaxQuantityInput";
 import { MinQuantityInput } from "./formInputs/MinQuantityInput";
 import { CategorySelector } from "./formSelectors/CategorySelector";
 import { ColorSelector } from "./formSelectors/ColorSelector";
-import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
+import { isArrayEmpty } from "@/app/utils/functions/arrays";
 
 export type ImageType = {
   color: string;

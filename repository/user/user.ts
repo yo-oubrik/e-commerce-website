@@ -1,7 +1,7 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import prisma from "@/libs/prismadb";
-import { convertToSafeUser } from "@/app/utils/helperFunctions/helperFunctions";
+import { convertToSafeUser } from "@/app/utils/functions/users";
 import { Role } from "@prisma/client";
 
 export async function getCurrentUser() {

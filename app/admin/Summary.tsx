@@ -3,7 +3,7 @@
 import { Order, Product } from "@prisma/client";
 import { useMemo } from "react";
 import { safeUser } from "../product/utils/types";
-import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
+import { formatPrice } from "../utils/functions/numbers";
 import { SummarySections } from "./types/SummaryDataType";
 import { calculateSummary } from "./utils/summaryCalculations";
 

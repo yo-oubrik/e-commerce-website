@@ -13,7 +13,7 @@ import {
   ImageType,
   UploadedImageType,
 } from "@/app/admin/add-products/AddProductForm";
-import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
+import { isArrayEmpty } from "@/app/utils/functions/arrays";
 
 export const useProductForm = () => {
   const [isLoading, setIsLoading] = useState(false);

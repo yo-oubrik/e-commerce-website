@@ -2,7 +2,7 @@
 
 import { DeliveryStatus, Order, PaymentStatus, User } from "@prisma/client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
+import { formatPrice } from "../utils/functions/numbers";
 import { ActionBtn } from "@/app/components/ActionBtn";
 import { MdRemoveRedEye } from "react-icons/md";
 import { useRouter } from "next/navigation";

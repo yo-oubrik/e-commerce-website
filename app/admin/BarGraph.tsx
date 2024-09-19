@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { useMemo } from "react";
 import { Bar } from "react-chartjs-2";
-import { haveEqualLength } from "../utils/helperFunctions/arrays";
+import { haveEqualLength } from "../utils/functions/arrays";
 ChartJS.register(
   ArcElement,
   Tooltip,

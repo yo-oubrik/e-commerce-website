@@ -3,7 +3,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Category } from "./Category";
 import { categories } from "@/app/utils/categories";
 import { useRouter } from "next/navigation";
-import { generateUrl } from "@/app/utils/helperFunctions/helperFunctions";
+import { generateUrl } from "@/app/utils/functions/strings";
 
 export const CategoriesNav = () => {
   const params = useSearchParams();

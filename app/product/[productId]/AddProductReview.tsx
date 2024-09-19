@@ -1,15 +1,14 @@
 "use client";
-import { DeliveryStatus, Product } from "@prisma/client";
-import { UserWithSafeTimestamps } from "../utils/types";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Rating } from "@mui/material";
-import TextArea from "@/app/components/input/TextArea";
 import Button from "@/app/components/Button";
-import toast from "react-hot-toast";
+import TextArea from "@/app/components/input/TextArea";
+import { Rating } from "@mui/material";
+import { DeliveryStatus, Product } from "@prisma/client";
 import axios from "axios";
-import { getApiResponseErrorMessage } from "@/app/utils/helperFunctions/helperFunctions";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { UserWithSafeTimestamps } from "../utils/types";
 interface IAddProductReview {
   user: UserWithSafeTimestamps;
   product: Product;
@@ -70,10 +69,7 @@ export const AddProductReview: React.FC<IAddProductReview> = ({
         router.refresh();
       })
       .catch((error) => {
-        console.error(
-          "Failed to rate product :",
-          getApiResponseErrorMessage(error)
-        );
+        console.error("Failed to rate product ");
         toast.error("Oops! Something went wrong");
       })
       .finally(() => {

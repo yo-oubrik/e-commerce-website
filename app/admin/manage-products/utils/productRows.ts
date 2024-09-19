@@ -1,6 +1,6 @@
 import { Product } from "@prisma/client";
-import { formatPrice } from "@/app/utils/helperFunctions/numbersManipulation";
-import { isProductInStock } from "@/app/utils/helperFunctions/products";
+import { formatPrice } from "@/app/utils/functions/numbers";
+import { isProductInStock } from "@/app/utils/functions/products";
 
 export const formatProductsForDisplay = (products: Product[]) => {
   return products.map((product) => ({

@@ -1,4 +1,3 @@
-import { getLastWeekDateRange } from "@/app/utils/helperFunctions/dateManipulation";
 import prisma from "@/libs/prismadb";
 import {
   CartProduct,
@@ -8,6 +7,7 @@ import {
 } from "@prisma/client";
 import moment from "moment";
 import { getCurrentUser, isUserAdmin } from "../user/user";
+import { getLastWeekDateRange } from "@/app/utils/functions/dates";
 
 export async function fetchOrdersWithUsers() {
   try {

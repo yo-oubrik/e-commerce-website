@@ -4,7 +4,7 @@ import { Separator } from "@/app/components/Separator";
 import moment from "moment";
 import Avatar from "@/app/components/Avatar";
 import { Product, Review } from "@prisma/client";
-import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
+import { isArrayEmpty } from "@/app/utils/functions/arrays";
 
 interface IProductReviews {
   product: Product & {

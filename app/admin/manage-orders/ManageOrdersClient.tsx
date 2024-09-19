@@ -2,7 +2,7 @@
 
 import { Heading } from "@/app/components/Heading";
 import { OrderWithUser } from "@/app/product/utils/types";
-import { formatPrice } from "@/app/utils/helperFunctions/numbersManipulation";
+import { formatPrice } from "@/app/utils/functions/numbers";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeliveryStatus, PaymentStatus } from "@prisma/client";
 import moment from "moment";

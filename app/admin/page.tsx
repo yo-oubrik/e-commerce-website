@@ -5,7 +5,7 @@ import {
 import { getAllProducts } from "@/repository/product/product";
 import { getAllUsers } from "@/repository/user/user";
 import { Heading } from "../components/Heading";
-import { convertToSafeUsers } from "../utils/helperFunctions/helperFunctions";
+import { convertToSafeUsers } from "../utils/functions/users";
 import { BarGraph } from "./BarGraph";
 import { Summary } from "./Summary";
 

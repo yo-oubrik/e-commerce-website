@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { truncTitle } from "@/app/utils/helperFunctions/textManipulation";
-import { formatPrice } from "@/app/utils/helperFunctions/numbersManipulation";
+import { truncTitle } from "@/app/utils/functions/strings";
+import { formatPrice } from "@/app/utils/functions/numbers";
 import { CartProduct } from "@prisma/client";
 interface IProductOrderRow {
   cartProduct: CartProduct;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Button from "../components/Button";
 import { MdArrowBack } from "react-icons/md";
 import { useCart } from "@/hooks/useCart";
-import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
+import { formatPrice } from "../utils/functions/numbers";
 import { useRouter } from "next/navigation";
 
 interface ICartSummary {

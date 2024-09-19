@@ -1,5 +1,5 @@
 import NumberInput from "@/app/components/input/NumberInput";
-import { countDecimals } from "@/app/utils/helperFunctions/numbersManipulation";
+import { countDecimals } from "@/app/utils/functions/numbers";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 interface IPriceInput {

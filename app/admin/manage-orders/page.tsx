@@ -1,7 +1,7 @@
 import { RedirectionPage } from "@/app/components/RedirectionPage";
 import { ManageOrdersClient } from "./ManageOrdersClient";
 import { fetchOrdersWithUsers } from "@/repository/order/order";
-import { isArrayEmpty } from "@/app/utils/helperFunctions/helperFunctions";
+import { isArrayEmpty } from "@/app/utils/functions/arrays";
 export const ManageOrders = async () => {
   const orders = await fetchOrdersWithUsers();
 

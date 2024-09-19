@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
-import { formatPrice } from "../utils/helperFunctions/numbersManipulation";
+import { formatPrice } from "../utils/functions/numbers";
 
 export const CheckoutForm = () => {
   const {

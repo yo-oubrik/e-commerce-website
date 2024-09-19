@@ -1,7 +1,7 @@
 "use client";
 import ProductCard from "./components/home/ProductCard";
 import { ProductWithReviews } from "./product/utils/types";
-import { isArrayEmpty } from "./utils/helperFunctions/helperFunctions";
+import { isArrayEmpty } from "./utils/functions/arrays";
 
 interface ProductSectionProps {
   products: ProductWithReviews[];

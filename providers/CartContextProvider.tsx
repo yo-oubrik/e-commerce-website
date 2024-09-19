@@ -3,11 +3,9 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CartContext } from "../hooks/CartContext";
 import { CartProduct } from "@prisma/client";
-import {
-  calculateCartTotalAmount,
-  countCartItems,
-  isArrayEmpty,
-} from "@/app/utils/helperFunctions/helperFunctions";
+import { isArrayEmpty } from "@/app/utils/functions/arrays";
+import { countCartItems } from "@/app/utils/functions/cartProducts";
+import { calculateCartTotalAmount } from "@/app/utils/functions/cartProducts";
 interface ICartContextProvider {
   [propName: string]: any;
 }

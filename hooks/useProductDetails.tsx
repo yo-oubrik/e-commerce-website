@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ProductImage, ProductWithReviews } from "@/app/product/utils/types";
-import { calculateAverageRating } from "@/app/utils/helperFunctions/helperFunctions";
+import { calculateAverageRating } from "@/app/utils/functions/reviews";
 import { useCart } from "@/hooks/useCart";
 import { CartProduct } from "@prisma/client";
 

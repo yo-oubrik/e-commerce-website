@@ -3,10 +3,8 @@ import {
   saveOrder,
   updateOrderPaymentInfo,
 } from "@/repository/order/order";
-import {
-  calculateCartTotalAmount,
-  isArrayEmpty,
-} from "@/app/utils/helperFunctions/helperFunctions";
+import { isArrayEmpty } from "@/app/utils/functions/arrays";
+import { calculateCartTotalAmount } from "@/app/utils/functions/cartProducts";
 import { CartProduct } from "@prisma/client";
 import { NextResponse } from "next/server";
 import {
