@@ -58,9 +58,6 @@ export async function getClientOrders() {
     throw new Error("Error trying to get client orders");
   }
 }
-export type GraphData = {
-  [date: string]: number;
-};
 export async function getDateRangeOrders(
   dateRangeStart: Date,
   dateRangeEnd: Date
@@ -105,7 +102,7 @@ export function getTotalOrderAmountsPerDate(orders: Order[]) {
   });
   return result;
 }
-export async function getLastWeekDailyOrderTotals(): Promise<GraphData> {
+export async function getLastWeekDailyOrderTotals() {
   try {
     const [lastWeekStartDate, lastWeekEndDate] = getLastWeekDateRange();
 
