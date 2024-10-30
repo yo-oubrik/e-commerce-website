@@ -1,7 +1,9 @@
+"use client";
 import FormWrapper from "@/app/components/FormWrapper";
 import { AddProductForm } from "./AddProductForm";
 import { Heading } from "@/app/components/Heading";
-export const addProduct = () => {
+
+const AddProductPage = () => {
   return (
     <div className="flex flex-col items-center">
       <Heading title="Add Product" />
@@ -11,4 +13,5 @@ export const addProduct = () => {
     </div>
   );
 };
-export default addProduct;
+
+export default AddProductPage;

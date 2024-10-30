@@ -14,7 +14,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    const isProductDelivered = currentUser.orders.some(
+    const isProductDelivered = currentUser?.orders.some(
       (order) =>
         order.deliveryStatus === DeliveryStatus.delivered &&
         order.cart_products.some((prod) => prod.productId === productId)
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    const hasAlreadyRated = currentUser.reviews.some(
+    const hasAlreadyRated = currentUser?.reviews.some(
       (review) => review.productId === productId
     );
     if (hasAlreadyRated) {

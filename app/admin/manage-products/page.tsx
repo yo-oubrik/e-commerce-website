@@ -2,7 +2,7 @@ import { getAllProducts } from "@/repository/product/product";
 import { ManageProductsClient } from "./ManageProductsClient";
 import { RedirectionPage } from "@/app/components/RedirectionPage";
 import { isArrayEmpty } from "@/app/utils/functions/arrays";
-export const ManageProducts = async () => {
+const ManageProducts = async () => {
   const products = await getAllProducts();
 
   if (isArrayEmpty(products))

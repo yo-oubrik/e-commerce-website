@@ -3,7 +3,7 @@ import { OrdersClient } from "./OrdersClient";
 import { getClientOrders } from "@/repository/order/order";
 import Container from "../components/Container";
 import { isArrayEmpty } from "../utils/functions/arrays";
-export const ManageOrders = async () => {
+const ManageOrders = async () => {
   const orders = await getClientOrders();
 
   return (

@@ -25,7 +25,7 @@ const ProductPage: React.FC<IProductParams> = async ({
         <>
           <ProductDetails product={product} />
           <ProductReviews product={product} />
-          <AddProductReview product={product} user={user} />
+          {user && <AddProductReview product={product} user={user} />}
         </>
       )}
     </Container>

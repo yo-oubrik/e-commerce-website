@@ -8,12 +8,17 @@ export const metadata = {
   title: "Admin dashboard",
   description: "Admin dashboard",
 };
-export const AdminPageLayout = async ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
-  if (!(await isUserAdmin()))
+const AdminPageLayout = async ({ children }: { children: ReactNode }) => {
+  try {
+    if (await isUserAdmin())
+      return (
+        <>
+          <Navbar />
+          <div className="py-8">
+            <Container>{children}</Container>
+          </div>
+        </>
+      );
     return (
       <div className="py-8">
         <RedirectionPage
@@ -23,13 +28,16 @@ export const AdminPageLayout = async ({
         />
       </div>
     );
-  return (
-    <>
-      <Navbar />
+  } catch (error) {
+    return (
       <div className="py-8">
-        <Container>{children}</Container>
+        <RedirectionPage
+          heading={"Ooops! access denied"}
+          description="go back home"
+          href="/"
+        />
       </div>
-    </>
-  );
+    );
+  }
 };
 export default AdminPageLayout;

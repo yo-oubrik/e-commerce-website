@@ -50,7 +50,7 @@ export async function getClientOrders() {
         createdAt: "desc",
       },
       where: {
-        userId: currentUser.id,
+        userId: currentUser?.id,
       },
     });
   } catch (error) {
@@ -123,7 +123,7 @@ export async function saveOrder(
 ) {
   const currentUser = await getCurrentUser();
   const orderData = {
-    user: { connect: { id: currentUser.id } },
+    user: { connect: { id: currentUser?.id } },
     amount,
     currency: "usd",
     status: PaymentStatus.pending,

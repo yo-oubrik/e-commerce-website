@@ -17,20 +17,6 @@ export const AddProductReview: React.FC<IAddProductReview> = ({
   product,
   user,
 }) => {
-  if (!product || !user) return null;
-
-  const isProductDelivered = user.orders.some(
-    (order) =>
-      order.deliveryStatus === DeliveryStatus.delivered &&
-      order.cart_products.some((prod) => prod.productId === product.id)
-  );
-  if (!isProductDelivered) return null;
-  const hasAlreadyRated = user.reviews.some(
-    (review) => review.productId === product.id
-  );
-  if (hasAlreadyRated) return null;
-
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -44,6 +30,20 @@ export const AddProductReview: React.FC<IAddProductReview> = ({
       rating: 0,
     },
   });
+  const [isLoading, setIsLoading] = useState(false);
+  if (!product || !user) return null;
+
+  const isProductDelivered = user.orders.some(
+    (order) =>
+      order.deliveryStatus === DeliveryStatus.delivered &&
+      order.cart_products.some((prod) => prod.productId === product.id)
+  );
+  if (!isProductDelivered) return null;
+  const hasAlreadyRated = user.reviews.some(
+    (review) => review.productId === product.id
+  );
+  if (hasAlreadyRated) return null;
+
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldDirty: true,

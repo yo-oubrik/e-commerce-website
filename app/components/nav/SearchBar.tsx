@@ -8,15 +8,15 @@ interface ISearchBar {
 }
 
 export const SearchBar: React.FC<ISearchBar> = ({ hasBorder }) => {
-  const pathname = usePathname();
-  if (pathname !== "/") return;
   const category = useSearchParams()?.get("category");
+  const pathname = usePathname();
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
       searchTerm: "",
     },
   });
+  if (pathname !== "/") return;
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const defaultUrl = generateUrl("/", { category });
     if (!data.searchTerm) return router.push(defaultUrl);

@@ -1,3 +1,4 @@
+export const revalidate = 0;
 import HomeBanner from "./components/home/HomeBanner";
 import Container from "./components/Container";
 import { getProducts } from "@/repository/product/product";

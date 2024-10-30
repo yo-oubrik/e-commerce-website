@@ -9,7 +9,8 @@ export async function getCurrentUser() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      throw new Error("No user session found");
+      console.info("No user session found");
+      return null;
     }
     const currentUser = await prisma.user.findUnique({
       where: {
@@ -22,13 +23,14 @@ export async function getCurrentUser() {
     });
 
     if (!currentUser) {
-      throw new Error("User not found");
+      console.info("User not found");
+      return null;
     }
 
     return convertToSafeUser(currentUser);
   } catch (err) {
     console.error("Error trying to getCurrentUser", err);
-    throw new Error("Error trying to get current user");
+    return null;
   }
 }
 
@@ -52,5 +54,6 @@ export async function isLoggedIn() {
 }
 
 export async function isUserAdmin() {
-  return (await getCurrentUser()).role === Role.ADMIN ? true : false;
+  const currentUser = await getCurrentUser();
+  return currentUser?.role === Role.ADMIN;
 }
