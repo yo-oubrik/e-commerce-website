@@ -1,34 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# E-commerce Platform Project
+
+This is a [Next.js](https://nextjs.org/) e-commerce platform project.
+
+## Description
+This project is a fully-featured e-commerce platform that includes user login, product pages, cart, checkout, and an admin dashboard for managing products and orders.
+
+## Technologies Used
+- **Frontend:** Next.js, React
+- **Backend:** Next js
+- **Database:** Mongodb
+- **Others:** Firebase for storing images.
 
 ## Getting Started
 
-First, run the development server:
+To get the project up and running locally, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. **Install dependencies:**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Run the development server:**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
 
-## Learn More
+3. **Access the application:**
 
-To learn more about Next.js, take a look at the following resources:
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Screenshots
+- **Home Page:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ![Home](https://github.com/user-attachments/assets/3c0ecdb4-1cc2-42c5-8e4c-fd72c710b9d4)
 
-## Deploy on Vercel
+- **Login Page:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ![Login](https://github.com/user-attachments/assets/03f37003-2dbe-49f8-8f6a-47b098628811)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Product Page:**
+
+   ![Product](https://github.com/user-attachments/assets/8f8e1fc4-96a4-429c-a84f-ec979134f3a5)
+
+- **Cart Page:**
+
+   ![Cart](https://github.com/user-attachments/assets/6b4ebae3-7a45-4eeb-b2bc-ed26af413986)
+
+- **Checkout Page:**
+
+   ![Checkout](https://github.com/user-attachments/assets/cbe15144-5405-4ff2-9ce5-9a0a184a5532)
+
+- **Orders Page:**
+
+   ![Orders](https://github.com/user-attachments/assets/5e982646-4e84-4461-86be-25a20a6b2775)
+
+- **Admin Dashboard (General):**
+
+   ![Admin Dashboard 1](https://github.com/user-attachments/assets/7f490ab1-5fcf-497e-b6ec-d2502492b169)
+
+- **Admin Dashboard (Additional View):**
+
+   ![Admin Dashboard 2](https://github.com/user-attachments/assets/f53c5614-a561-405f-b812-aa649823f4db)
+
+- **Add Product Page:**
+
+   ![Add Product](https://github.com/user-attachments/assets/4b7e7647-2f18-4ed8-b739-05dcd5e5756e)
+
+- **Manage Products Page:**
+
+   ![Manage Products](https://github.com/user-attachments/assets/44f444e8-aa49-4df2-b446-426923f4d5c9)
+
+- **Manage Orders Page:**
+
+   ![Manage Orders](https://github.com/user-attachments/assets/6a6e7844-d109-4f29-bc3b-4d8fb9186090)
+
+## Contributing
+Feel free to fork this repository and submit pull requests. For larger changes, please open an issue to discuss it first.
+
