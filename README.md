@@ -64,11 +64,11 @@ To get the project up and running locally, follow these steps:
 
    ![Orders](https://github.com/user-attachments/assets/5e982646-4e84-4461-86be-25a20a6b2775)
 
-- **Admin Dashboard (General):**
+- **Admin Dashboard**
 
    ![Admin Dashboard 1](https://github.com/user-attachments/assets/7f490ab1-5fcf-497e-b6ec-d2502492b169)
 
-- **Admin Dashboard (Additional View):**
+- **Admin Dashboard:**
 
    ![Admin Dashboard 2](https://github.com/user-attachments/assets/f53c5614-a561-405f-b812-aa649823f4db)
 
